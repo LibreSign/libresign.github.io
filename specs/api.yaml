@@ -138,7 +138,6 @@ paths:
                         type: string
                         format: uuid
                         description: 'File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.'
-                        example: 46d30465-ae11-484b-aad5-327249a1e8ef
         422:
           description: Request failed
           content:
@@ -167,7 +166,6 @@ paths:
                   type: string
                   format: uuid
                   description: Received from sign request
-                  example: 46d30465-ae11-484b-aad5-327249a1e8ef
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -213,7 +211,6 @@ paths:
                         type: string
                         format: uuid
                         description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
-                        example: 46d30465-ae11-484b-aad5-327249a1e8ef
         422:
           description: Request failed
           content:
@@ -243,7 +240,6 @@ paths:
                   type: string
                   format: uuid
                   description: Received from sign request
-                  example: 46d30465-ae11-484b-aad5-327249a1e8ef
                 users:
                   type: array
                   description: Collection of persons
@@ -353,7 +349,6 @@ paths:
             type: string
             format: uuid
             description: UUID user file identifier. The user UUID is what the person receives via email when asked to sign. This is not the file UUID.
-            example: 46d30465-ae11-484b-aad5-327249a1e8ef
       requestBody:
         content:
           application/json:
@@ -500,6 +495,185 @@ paths:
                   - errors
       security:
         - basicAuth: []
+  /file/list:
+    get:
+      tags:
+        - sign
+      summary: List all LibreSign files
+      description: List all LibreSign files returning all informations about files
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+          description: The number of page to return
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            default: 15
+          description: The number of page to return
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    minItems: 0
+                    items:
+                      type: object
+                      properties:
+                        uuid:
+                          type: string
+                          format: uuid
+                          description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
+                        name:
+                          type: string
+                          example: filename
+                          description: The name of file to sign
+                        callback:
+                          type: string
+                          description: URL that will receive a POST after the document is signed
+                          nullable: true
+                          example: http://app.test.coop/callback_webhook
+                        status:
+                          type: string
+                          enum:
+                            - signed
+                            - pending
+                            - disabled
+                            - no signers
+                        status_date:
+                          type: string
+                          format: date-time
+                          pattern: \d{4}-\d{2}-\d{2} \d{2}:\d{2}\d{2}
+                          nullable: true
+                          description: Last status date
+                        request_date:
+                          type: string
+                          format: date-time
+                          pattern: \d{4}-\d{2}-\d{2} \d{2}:\d{2}\d{2}
+                          nullable: true
+                          description: Date the file was requested to be signed
+                        requested_by:
+                          type: object
+                          properties:
+                            display_name:
+                              type: string
+                              nullable: true
+                              description: Who requested that the file be signed?
+                              example: John Doe
+                            uid:
+                              type: string
+                              nullable: true
+                              description: Nextcloud user id of who requested the file to be signed.
+                              example: johndoe
+                        file:
+                          type: object
+                          nullable: true
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - pdf
+                              description: Type of file
+                              example: pdf
+                            url:
+                              type: string
+                              description: URL to view PDF
+                              example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
+                            nodeId:
+                              type: integer
+                              description: Node id of a Nextcloud file
+                              example: 2312
+                          required:
+                            - type
+                        signers:
+                          type: array
+                          description: Collection of users who must sign the document
+                          items:
+                            type: object
+                            description: Person who will sign
+                            properties:
+                              email:
+                                type: string
+                                format: email
+                                description: Unique email to identify user
+                                example: user@test.coop
+                              display_name:
+                                type: string
+                                nullable: true
+                                description: Persons name
+                                example: John Doe
+                              uid:
+                                type: string
+                                nullable: true
+                                description: Nextcloud user id of who requested the file to be signed when the person created account.
+                                example: johndoe
+                              description:
+                                type: string
+                                nullable: true
+                                description: Description that will be displayed to the person
+                                example: As the company's CEO, you must sign this contract
+                              sign-date:
+                                type: string
+                                format: date-time
+                                pattern: \d{4}-\d{2}-\d{2} \d{2}:\d{2}\d{2}
+                                nullable: true
+                                description: Date the file was signed
+                              request-sign-date:
+                                type: string
+                                format: date-time
+                                pattern: \d{4}-\d{2}-\d{2} \d{2}:\d{2}\d{2}
+                                description: Date the signature was requested
+                            required:
+                              - email
+                              - request-sign-date
+                      required:
+                        - uuid
+                        - name
+                        - date
+                        - status
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                        description: Total number of records
+                        example: 300
+                      current:
+                        type: string
+                        description: URL of current page
+                        example: /file/list?page=2&length=15
+                      next:
+                        type: string
+                        description: URL of next page
+                        example: /file/list?page=3
+                      prev:
+                        type: string
+                        description: URL of previous page
+                        example: /file/list?page=1
+                      last:
+                        type: string
+                        description: URL of last page
+                        example: /file/list?page=20
+                      first:
+                        type: string
+                        description: URL of first page
+                        example: /file/list?page=0
+                    required:
+                      - total
+                      - current
+                      - next
+                      - prev
+                      - last
+                      - first
   /file/validate/uuid/{uuid}:
     get:
       tags:
@@ -515,7 +689,6 @@ paths:
             type: string
             format: uuid
             description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
-            example: 46d30465-ae11-484b-aad5-327249a1e8ef
       responses:
         200:
           description: Success!
@@ -769,7 +942,6 @@ paths:
             type: string
             format: uuid
             description: The user UUID is what the person receives via email when asked to sign. This is not the file UUID.
-            example: 46d30465-ae11-484b-aad5-327249a1e8ef
       requestBody:
         content:
           application/json:
