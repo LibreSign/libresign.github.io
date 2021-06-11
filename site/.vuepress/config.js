@@ -1,6 +1,6 @@
 module.exports = {
   title: 'LibreSign',
-  base: '/site/',
+  base: '/',
   description: 'Libre digital signature app for Nextcloud.',
   theme: 'openapi',
   themeConfig: {
