@@ -1,10 +1,11 @@
 all: yarn-init build-js
 
 yarn-init:
-	yarn
-
-build-js:
-	yarn dev
+	yarn --cwd site
 
 watch-js:
-	yarn watch
+	yarn --cwd site dev
+
+build-js:
+	cd site \
+	yarn --cwd site docs:build
