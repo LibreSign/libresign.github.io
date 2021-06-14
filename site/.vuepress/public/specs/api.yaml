@@ -134,6 +134,10 @@ paths:
                   data:
                     type: object
                     properties:
+                      nodeId:
+                        type: integer
+                        description: Node id of a Nextcloud file
+                        example: 2312
                       uuid:
                         type: string
                         format: uuid
@@ -207,6 +211,10 @@ paths:
                   data:
                     type: object
                     properties:
+                      nodeId:
+                        type: integer
+                        description: Node id of a Nextcloud file
+                        example: 2312
                       uuid:
                         type: string
                         format: uuid
