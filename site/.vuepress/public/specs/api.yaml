@@ -560,15 +560,17 @@ paths:
                         status_date:
                           type: string
                           format: date-time
-                          pattern: \d{4}-\d{2}-\d{2} \d{2}:\d{2}\d{2}
+                          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
                           nullable: true
                           description: Last status date
+                          example: "2021-12-31 22:45:50"
                         request_date:
                           type: string
                           format: date-time
-                          pattern: \d{4}-\d{2}-\d{2} \d{2}:\d{2}\d{2}
+                          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
                           nullable: true
                           description: Date the file was requested to be signed
+                          example: "2021-12-31 22:45:50"
                         requested_by:
                           type: object
                           properties:
@@ -629,24 +631,25 @@ paths:
                                 nullable: true
                                 description: Description that will be displayed to the person
                                 example: As the company's CEO, you must sign this contract
-                              sign-date:
+                              sign_date:
                                 type: string
                                 format: date-time
-                                pattern: \d{4}-\d{2}-\d{2} \d{2}:\d{2}\d{2}
+                                pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
                                 nullable: true
                                 description: Date the file was signed
-                              request-sign-date:
+                                example: "2021-12-31 22:45:50"
+                              request_sign_date:
                                 type: string
                                 format: date-time
-                                pattern: \d{4}-\d{2}-\d{2} \d{2}:\d{2}\d{2}
+                                pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
                                 description: Date the signature was requested
+                                example: "2021-12-31 22:45:50"
                             required:
                               - email
-                              - request-sign-date
+                              - request_sign_date
                       required:
                         - uuid
                         - name
-                        - date
                         - status
                   pagination:
                     type: object
@@ -724,7 +727,7 @@ paths:
                       properties:
                         signed:
                           type: string
-                          pattern: \d{4}-\d{2}-\d{2} \d{2}:\d{2}\d{2}
+                          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
                           nullable: true
                           description: Signing date, when signed
                         displayName:
@@ -841,7 +844,7 @@ paths:
                       properties:
                         signed:
                           type: string
-                          pattern: \d{4}-\d{2}-\d{2} \d{2}:\d{2}\d{2}
+                          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
                           nullable: true
                           description: Signing date, when signed
                         displayName:
