@@ -660,6 +660,7 @@ paths:
                     properties:
                       total:
                         type: integer
+                        minimum: 0
                         description: Total number of records
                         example: 300
                       current:
