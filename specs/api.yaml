@@ -10,8 +10,8 @@ info:
     url: "https://www.gnu.org/licenses/agpl-3.0.en.html"
   version: 2.2.2
 tags:
-- name: webhook
-  description: Everything about webhook
+- name: account
+  description: Account
 - name: sign
   description: Sign and validate files
 - name: admin
@@ -21,7 +21,7 @@ paths:
   /webhook/me:
     get:
       tags:
-        - webhook
+        - account
       summary: Who am I
       description: Validates API access data and returns the authenticated user's data.
       responses:
@@ -53,10 +53,169 @@ paths:
                   - message
       security:
         - basicAuth: []
+  /account/create/{uuid}:
+    post:
+      tags:
+        - account
+      summary: Create person account to sign a document
+      description: Accounts can only be created to sign documents.
+      parameters:
+        - name: uuid
+          in: path
+          description: File UUID
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: The user UUID is what the person receives via email when asked to sign. This is not the file UUID.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: Email of the person who owns the account
+                  example: user@test.coop
+                password:
+                  type: string
+                  format: password
+                  description: Password used to authenticate to Nextcloud
+                  example: Ultr4S3cretP3ssword!
+                signPassword:
+                  type: string
+                  format: password
+                  description: Password used to sign a document
+                  example: Ultr4S3cretP3ssword!
+              required:
+                - email
+                - password
+                - signPassword
+      responses:
+        200:
+          description: Success! When you create a person, they are automatically authenticated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                  message:
+                    type: string
+                    description: Success message
+                    example: Success
+                  action:
+                    type: integer
+                    description: Numeric code representing what action should be taken with the response
+                    example: 250
+                  pdf:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                        description: URL to view PDF
+                        example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
+                  filename:
+                    type: string
+                    example: filename
+                    description: The name of file to sign
+                  description:
+                    type: string
+                    nullable: true
+                    description: Description for the person who will sign the document
+                    example: As the company's CEO, you must sign this contract
+                required:
+                  - success
+                  - message
+                  - action
+        422:
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - false
+                    description: Beep! Failure!
+                  action:
+                    type: integer
+                    description: Numeric code representing what action should be taken with the response
+                    example: 200
+                  message:
+                    type: string
+                    description: Description of the failure that occurred
+                    example: User 0 needs an email address
+                required:
+                  - success
+                  - action
+                  - message
+  /account/signature:
+    post:
+      tags:
+        - account
+      summary: Generates signature key
+      description: Generates the personal signature key
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signPassword:
+                  type: string
+                  format: password
+                  description: Password to pfx file
+                  example: MySecretP4ssword!
+      responses:
+        200:
+          description: Folder where the pfx file was saved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                  signature:
+                    type: string
+                    description: Folder where the pfx file was saved
+                    example: /LibreSign
+                required:
+                  - success
+        401:
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Password to sign is mandatory
+                    example: Password to sign is mandatory
+                  success:
+                    type: boolean
+                    description: Beep! Failure on generate certificate.
+                required:
+                  - success
   /webhook/register:
     post:
       tags:
-        - webhook
+        - sign
       summary: Request signature
       description: Request that a file be signed by a group of people
       requestBody:
@@ -157,7 +316,7 @@ paths:
         - basicAuth: []
     patch:
       tags:
-        - webhook
+        - sign
       summary: Updates signatures data
       description: Is necessary to inform the UUID of the file and a list of people
       requestBody:
@@ -235,7 +394,7 @@ paths:
   /webhook/register/signature:
     delete:
       tags:
-        - webhook
+        - sign
       summary: Delete sign request
       description: You can only request exclusion as any sign
       requestBody:
@@ -690,6 +849,8 @@ paths:
                       - prev
                       - last
                       - first
+      security:
+        - basicAuth: []
   /file/validate/uuid/{uuid}:
     get:
       tags:
@@ -927,7 +1088,7 @@ paths:
   /signature/has-root-cert:
     get:
       tags:
-        - sign
+        - admin
       summary: Has root certificate
       description: Checks whether the root certificate has been configured by checking the Nextcloud configuration table to see if the root certificate settings have been saved.
       responses:
@@ -943,165 +1104,6 @@ paths:
                     example: true
       security:
         - basicAuth: []
-  /account/create/{uuid}:
-    post:
-      tags:
-        - sign
-      summary: Create person account to sign a document
-      description: Accounts can only be created to sign documents.
-      parameters:
-        - name: uuid
-          in: path
-          description: File UUID
-          required: true
-          schema:
-            type: string
-            format: uuid
-            description: The user UUID is what the person receives via email when asked to sign. This is not the file UUID.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                  description: Email of the person who owns the account
-                  example: user@test.coop
-                password:
-                  type: string
-                  format: password
-                  description: Password used to authenticate to Nextcloud
-                  example: Ultr4S3cretP3ssword!
-                signPassword:
-                  type: string
-                  format: password
-                  description: Password used to sign a document
-                  example: Ultr4S3cretP3ssword!
-              required:
-                - email
-                - password
-                - signPassword
-      responses:
-        200:
-          description: Success! When you create a person, they are automatically authenticated.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
-                  message:
-                    type: string
-                    description: Success message
-                    example: Success
-                  action:
-                    type: integer
-                    description: Numeric code representing what action should be taken with the response
-                    example: 250
-                  pdf:
-                    type: object
-                    properties:
-                      url:
-                        type: string
-                        description: URL to view PDF
-                        example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
-                  filename:
-                    type: string
-                    example: filename
-                    description: The name of file to sign
-                  description:
-                    type: string
-                    nullable: true
-                    description: Description for the person who will sign the document
-                    example: As the company's CEO, you must sign this contract
-                required:
-                  - success
-                  - message
-                  - action
-        422:
-          description: Request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure!
-                  action:
-                    type: integer
-                    description: Numeric code representing what action should be taken with the response
-                    example: 200
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: User 0 needs an email address
-                required:
-                  - success
-                  - action
-                  - message
-  /account/signature:
-    post:
-      tags:
-        - sign
-      summary: Generates signature key
-      description: Generates the personal signature key
-      security:
-        - basicAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signPassword:
-                  type: string
-                  format: password
-                  description: Password to pfx file
-                  example: MySecretP4ssword!
-      responses:
-        200:
-          description: Folder where the pfx file was saved
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
-                  signature:
-                    type: string
-                    description: Folder where the pfx file was saved
-                    example: /LibreSign
-                required:
-                  - success
-        401:
-          description: Request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Password to sign is mandatory
-                    example: Password to sign is mandatory
-                  success:
-                    type: boolean
-                    description: Beep! Failure on generate certificate.
-                required:
-                  - success
   /admin/certificate:
     post:
       tags:
