@@ -158,7 +158,7 @@ paths:
                   - success
                   - action
                   - message
-  /account/profile/documents:
+  /account/profile/files:
     post:
       tags:
         - account
