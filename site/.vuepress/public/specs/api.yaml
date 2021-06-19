@@ -849,6 +849,8 @@ paths:
                       - prev
                       - last
                       - first
+      security:
+        - basicAuth: []
   /file/validate/uuid/{uuid}:
     get:
       tags:
