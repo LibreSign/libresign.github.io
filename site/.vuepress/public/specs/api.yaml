@@ -216,7 +216,7 @@ paths:
                     description: Uhuuu! Need true vale.
                 required:
                   - success
-        422:
+        401:
           description: Request failed
           content:
             application/json:
