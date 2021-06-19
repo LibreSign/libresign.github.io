@@ -10,8 +10,8 @@ info:
     url: "https://www.gnu.org/licenses/agpl-3.0.en.html"
   version: 2.2.2
 tags:
-- name: webhook
-  description: Everything about webhook
+- name: account
+  description: Account
 - name: sign
   description: Sign and validate files
 - name: admin
