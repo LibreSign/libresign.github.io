@@ -21,7 +21,7 @@ paths:
   /webhook/me:
     get:
       tags:
-        - webhook
+        - account
       summary: Who am I
       description: Validates API access data and returns the authenticated user's data.
       responses:
@@ -56,7 +56,7 @@ paths:
   /webhook/register:
     post:
       tags:
-        - webhook
+        - sign
       summary: Request signature
       description: Request that a file be signed by a group of people
       requestBody:
@@ -157,7 +157,7 @@ paths:
         - basicAuth: []
     patch:
       tags:
-        - webhook
+        - sign
       summary: Updates signatures data
       description: Is necessary to inform the UUID of the file and a list of people
       requestBody:
@@ -235,7 +235,7 @@ paths:
   /webhook/register/signature:
     delete:
       tags:
-        - webhook
+        - sign
       summary: Delete sign request
       description: You can only request exclusion as any sign
       requestBody:
@@ -927,7 +927,7 @@ paths:
   /signature/has-root-cert:
     get:
       tags:
-        - sign
+        - admin
       summary: Has root certificate
       description: Checks whether the root certificate has been configured by checking the Nextcloud configuration table to see if the root certificate settings have been saved.
       responses:
