@@ -158,6 +158,96 @@ paths:
                   - success
                   - action
                   - message
+  /account/profile/documents:
+    post:
+      tags:
+        - account
+      summary: Save iddentification documents
+      description: Save identification documents to profile
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        pattern: /[A-Z0-9_]+/
+                        example: PASSPORT
+                        description: The type code of this file to be attached to the profile
+                      file:
+                        type: object
+                        description: File to be atteched to the profile. Use one of these types
+                        properties:
+                          url:
+                            type: string
+                            description: URL of file
+                            example: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
+                          fileId:
+                            type: integer
+                            description: Node id of a Nextcloud file
+                            example: 2312
+                          base64:
+                            type: string
+                            format: base64
+                            description: Base54 of PDF file content
+                            example: dGVzdA==
+                        example:
+                          url: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
+      responses:
+        200:
+          description: Documents have been attached to the profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                required:
+                  - success
+        422:
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - false
+                    description: Oh no!
+                  messages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        file:
+                          type: integer
+                          description: Sequential identifier of the file that failed, starting from file zero
+                        type:
+                          type: string
+                          enum:
+                            - success
+                            - info
+                            - warning
+                            - danger
+                          description: Type of message
+                        message:
+                          type: string
+                          description: Text of message
+                          example: Invalid type
   /account/signature:
     post:
       tags:
