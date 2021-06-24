@@ -162,6 +162,7 @@ paths:
         - sign
       summary: Updates signatures data
       description: Is necessary to inform the UUID of the file and a list of people
+      deprecated: true
       requestBody:
         content:
           application/json:
@@ -299,7 +300,7 @@ paths:
       tags:
         - admin
       summary: Has root certificate
-      description: Replaced by /settings/has-hoot-cert
+      description: Replaced by /setting/has-root-cert
       deprecated: true
       responses:
         200:
@@ -454,12 +455,12 @@ paths:
                   - success
                   - action
                   - message
-  /account/profile/files:
+  /account/files:
     post:
       tags:
         - account
       summary: Save iddentification documents
-      description: Save identification documents to profile
+      description: Save identification documents to account
       security:
         - basicAuth: []
       requestBody:
@@ -477,10 +478,10 @@ paths:
                         type: string
                         pattern: /[A-Z0-9_]+/
                         example: PASSPORT
-                        description: The type code of this file to be attached to the profile
+                        description: The type code of this file to be attached to the account
                       file:
                         type: object
-                        description: File to be atteched to the profile. Use one of these types
+                        description: File to be atteched to the account. Use one of these types
                         properties:
                           url:
                             type: string
@@ -499,7 +500,7 @@ paths:
                           url: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
       responses:
         200:
-          description: Documents have been attached to the profile
+          description: Documents have been attached to the account
           content:
             application/json:
               schema:
@@ -842,7 +843,6 @@ paths:
         - sign
       summary: Sign a file
       description: Request sign a file.
-      deprecated: true
       requestBody:
         content:
           application/json:
@@ -1503,7 +1503,7 @@ paths:
                   - settings
                   - errors
                   - action
-  /settings/has-root-cert:
+  /setting/has-root-cert:
     get:
       tags:
         - admin
