@@ -512,6 +512,51 @@ paths:
                           type: string
                           description: Text of message
                           example: Invalid type
+  /account/files/approval/list:
+    get:
+      tags:
+        - sign
+      summary: List all account files
+      description: List all account files
+      parameters:
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/limitParam'
+        - name: approved
+          in: query
+          schema:
+            type: string
+            enum: [
+              yes,
+              no,
+              all
+            ]
+            default: no
+          description: Approved files
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    minItems: 0
+                    items:
+                      type: object
+                      properties:
+                        account:
+                          $ref: '#/components/schemas/basicAccount'
+                        files:
+                          type: array
+                          description: Files associated with account
+                          items:
+                            $ref: '#/components/schemas/libresignFile'
+                  pagination:
+                    $ref: '#/components/schemas/pagination'
+      security:
+        - basicAuth: []
   /account/signature:
     post:
       tags:
@@ -1005,19 +1050,8 @@ paths:
       summary: List all LibreSign files
       description: List all LibreSign files returning all informations about files
       parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            minimum: 0
-          description: The number of page to return
-        - name: limit
-          in: query
-          schema:
-            type: integer
-            minimum: 1
-            default: 15
-          description: The number of page to return
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/limitParam'
       responses:
         200:
           description: Success!
@@ -1032,40 +1066,7 @@ paths:
                     items:
                       $ref: '#/components/schemas/libresignFile'
                   pagination:
-                    type: object
-                    properties:
-                      total:
-                        type: integer
-                        minimum: 0
-                        description: Total number of records
-                        example: 300
-                      current:
-                        type: string
-                        description: URL of current page
-                        example: /file/list?page=2&length=15
-                      next:
-                        type: string
-                        description: URL of next page
-                        example: /file/list?page=3
-                      prev:
-                        type: string
-                        description: URL of previous page
-                        example: /file/list?page=1
-                      last:
-                        type: string
-                        description: URL of last page
-                        example: /file/list?page=20
-                      first:
-                        type: string
-                        description: URL of first page
-                        example: /file/list?page=0
-                    required:
-                      - total
-                      - current
-                      - next
-                      - prev
-                      - last
-                      - first
+                    $ref: '#/components/schemas/pagination'
       security:
         - basicAuth: []
   /file/validate/uuid/{uuid}:
@@ -1480,7 +1481,36 @@ components:
     basicAuth:
       type: http
       scheme: basic
+  parameters:
+    pageParam:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 0
+      description: The number of page to return
+    limitParam:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 15
+      description: The number of page to return
   schemas:
+    basicAccount:
+      type: object
+      properties:
+        display_name:
+          type: string
+          nullable: true
+          description: Who requested that the file be signed?
+          example: John Doe
+        uid:
+          type: string
+          nullable: true
+          description: Nextcloud user id of who requested the file to be signed.
+          example: johndoe
     libresignFile:
       type: object
       properties:
@@ -1519,18 +1549,7 @@ components:
           description: Date the file was requested to be signed
           example: "2021-12-31 22:45:50"
         requested_by:
-          type: object
-          properties:
-            display_name:
-              type: string
-              nullable: true
-              description: Who requested that the file be signed?
-              example: John Doe
-            uid:
-              type: string
-              nullable: true
-              description: Nextcloud user id of who requested the file to be signed.
-              example: johndoe
+          $ref: '#/components/schemas/basicAccount'
         file:
           type: object
           nullable: true
@@ -1621,3 +1640,38 @@ components:
           example: dGVzdA==
       example:
         url: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
+    pagination:
+      type: object
+      properties:
+        total:
+          type: integer
+          minimum: 0
+          description: Total number of records
+          example: 300
+        current:
+          type: string
+          description: URL of current page
+          example: /file/list?page=2&length=15
+        next:
+          type: string
+          description: URL of next page
+          example: /file/list?page=3
+        prev:
+          type: string
+          description: URL of previous page
+          example: /file/list?page=1
+        last:
+          type: string
+          description: URL of last page
+          example: /file/list?page=20
+        first:
+          type: string
+          description: URL of first page
+          example: /file/list?page=0
+      required:
+        - total
+        - current
+        - next
+        - prev
+        - last
+        - first
