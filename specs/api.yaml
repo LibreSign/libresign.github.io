@@ -72,24 +72,7 @@ paths:
                   example: filename
                   description: The name of file to sign
                 file:
-                  type: object
-                  description: File to sign. Use one of these types
-                  properties:
-                    url:
-                      type: string
-                      description: URL of file
-                      example: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
-                    fileId:
-                      type: integer
-                      description: Node id of a Nextcloud file
-                      example: 2312
-                    base64:
-                      type: string
-                      format: base64
-                      description: base64 of PDF file content
-                      example: dGVzdA==
-                  example:
-                    url: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
+                  $ref: '#/components/schemas/file'
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -459,7 +442,7 @@ paths:
     post:
       tags:
         - account
-      summary: Save iddentification documents
+      summary: Save identification documents
       description: Save identification documents to account
       security:
         - basicAuth: []
@@ -478,26 +461,10 @@ paths:
                         type: string
                         pattern: /[A-Z0-9_]+/
                         example: PASSPORT
+                        default: IDENTIFICATION
                         description: The type code of this file to be attached to the account
                       file:
-                        type: object
-                        description: File to be atteched to the account. Use one of these types
-                        properties:
-                          url:
-                            type: string
-                            description: URL of file
-                            example: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
-                          fileId:
-                            type: integer
-                            description: Node id of a Nextcloud file
-                            example: 2312
-                          base64:
-                            type: string
-                            format: base64
-                            description: base64 of PDF file content
-                            example: dGVzdA==
-                        example:
-                          url: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
+                        $ref: '#/components/schemas/file'
       responses:
         200:
           description: Documents have been attached to the account
@@ -616,24 +583,7 @@ paths:
                   example: filename
                   description: The name of file to sign
                 file:
-                  type: object
-                  description: File to sign. Use one of these types
-                  properties:
-                    url:
-                      type: string
-                      description: URL of file
-                      example: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
-                    fileId:
-                      type: integer
-                      description: Node id of a Nextcloud file
-                      example: 2312
-                    base64:
-                      type: string
-                      format: base64
-                      description: base64 of PDF file content
-                      example: dGVzdA==
-                  example:
-                    url: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
+                  $ref: '#/components/schemas/file'
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -1080,126 +1030,7 @@ paths:
                     type: array
                     minItems: 0
                     items:
-                      type: object
-                      properties:
-                        uuid:
-                          type: string
-                          format: uuid
-                          description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
-                        name:
-                          type: string
-                          example: filename
-                          description: The name of file to sign
-                        callback:
-                          type: string
-                          description: URL that will receive a POST after the document is signed
-                          nullable: true
-                          example: http://app.test.coop/callback_webhook
-                        status:
-                          type: string
-                          enum:
-                            - signed
-                            - pending
-                            - disabled
-                            - no signers
-                        status_date:
-                          type: string
-                          format: date-time
-                          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
-                          nullable: true
-                          description: Last status date
-                          example: "2021-12-31 22:45:50"
-                        request_date:
-                          type: string
-                          format: date-time
-                          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
-                          nullable: true
-                          description: Date the file was requested to be signed
-                          example: "2021-12-31 22:45:50"
-                        requested_by:
-                          type: object
-                          properties:
-                            display_name:
-                              type: string
-                              nullable: true
-                              description: Who requested that the file be signed?
-                              example: John Doe
-                            uid:
-                              type: string
-                              nullable: true
-                              description: Nextcloud user id of who requested the file to be signed.
-                              example: johndoe
-                        file:
-                          type: object
-                          nullable: true
-                          properties:
-                            type:
-                              type: string
-                              enum:
-                                - pdf
-                              description: Type of file
-                              example: pdf
-                            url:
-                              type: string
-                              description: URL to view PDF
-                              example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
-                            nodeId:
-                              type: integer
-                              description: Node id of a Nextcloud file
-                              example: 2312
-                          required:
-                            - type
-                        signers:
-                          type: array
-                          description: Collection of users who must sign the document
-                          items:
-                            type: object
-                            description: Person who will sign
-                            properties:
-                              email:
-                                type: string
-                                format: email
-                                description: Unique email to identify user
-                                example: user@test.coop
-                              me:
-                                type: boolean
-                                description: It's me?
-                                example: true
-                              display_name:
-                                type: string
-                                nullable: true
-                                description: Persons name
-                                example: John Doe
-                              uid:
-                                type: string
-                                nullable: true
-                                description: Nextcloud user id of who requested the file to be signed when the person created account.
-                                example: johndoe
-                              description:
-                                type: string
-                                nullable: true
-                                description: Description that will be displayed to the person
-                                example: As the company's CEO, you must sign this contract
-                              sign_date:
-                                type: string
-                                format: date-time
-                                pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
-                                nullable: true
-                                description: Date the file was signed
-                                example: "2021-12-31 22:45:50"
-                              request_sign_date:
-                                type: string
-                                format: date-time
-                                pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
-                                description: Date the signature was requested
-                                example: "2021-12-31 22:45:50"
-                            required:
-                              - email
-                              - request_sign_date
-                      required:
-                        - uuid
-                        - name
-                        - status
+                      $ref: '#/components/schemas/libresignFile'
                   pagination:
                     type: object
                     properties:
@@ -1649,3 +1480,144 @@ components:
     basicAuth:
       type: http
       scheme: basic
+  schemas:
+    libresignFile:
+      type: object
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
+        name:
+          type: string
+          example: filename
+          description: The name of file to sign
+        callback:
+          type: string
+          description: URL that will receive a POST after the document is signed
+          nullable: true
+          example: http://app.test.coop/callback_webhook
+        status:
+          type: string
+          enum:
+            - signed
+            - pending
+            - disabled
+            - no signers
+        status_date:
+          type: string
+          format: date-time
+          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+          nullable: true
+          description: Last status date
+          example: "2021-12-31 22:45:50"
+        request_date:
+          type: string
+          format: date-time
+          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+          nullable: true
+          description: Date the file was requested to be signed
+          example: "2021-12-31 22:45:50"
+        requested_by:
+          type: object
+          properties:
+            display_name:
+              type: string
+              nullable: true
+              description: Who requested that the file be signed?
+              example: John Doe
+            uid:
+              type: string
+              nullable: true
+              description: Nextcloud user id of who requested the file to be signed.
+              example: johndoe
+        file:
+          type: object
+          nullable: true
+          properties:
+            type:
+              type: string
+              enum:
+                - pdf
+              description: Type of file
+              example: pdf
+            url:
+              type: string
+              description: URL to view PDF
+              example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
+            nodeId:
+              type: integer
+              description: Node id of a Nextcloud file
+              example: 2312
+          required:
+            - type
+        signers:
+          type: array
+          description: Collection of users who must sign the document
+          items:
+            type: object
+            description: Person who will sign
+            properties:
+              email:
+                type: string
+                format: email
+                description: Unique email to identify user
+                example: user@test.coop
+              me:
+                type: boolean
+                description: It's me?
+                example: true
+              display_name:
+                type: string
+                nullable: true
+                description: Persons name
+                example: John Doe
+              uid:
+                type: string
+                nullable: true
+                description: Nextcloud user id of who requested the file to be signed when the person created account.
+                example: johndoe
+              description:
+                type: string
+                nullable: true
+                description: Description that will be displayed to the person
+                example: As the company's CEO, you must sign this contract
+              sign_date:
+                type: string
+                format: date-time
+                pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+                nullable: true
+                description: Date the file was signed
+                example: "2021-12-31 22:45:50"
+              request_sign_date:
+                type: string
+                format: date-time
+                pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+                description: Date the signature was requested
+                example: "2021-12-31 22:45:50"
+            required:
+              - email
+              - request_sign_date
+      required:
+        - uuid
+        - name
+        - status
+    file:
+      type: object
+      description: File to send. Use one of these types
+      properties:
+        url:
+          type: string
+          description: URL of file
+          example: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
+        fileId:
+          type: integer
+          description: Node id of a Nextcloud file
+          example: 2312
+        base64:
+          type: string
+          format: base64
+          description: base64 of PDF file content
+          example: dGVzdA==
+      example:
+        url: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
