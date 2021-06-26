@@ -459,7 +459,7 @@ paths:
     post:
       tags:
         - account
-      summary: Save iddentification documents
+      summary: Save identification documents
       description: Save identification documents to account
       security:
         - basicAuth: []
@@ -478,6 +478,7 @@ paths:
                         type: string
                         pattern: /[A-Z0-9_]+/
                         example: PASSPORT
+                        default: IDENTIFICATION
                         description: The type code of this file to be attached to the account
                       file:
                         type: object
