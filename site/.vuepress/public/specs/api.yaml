@@ -33,11 +33,13 @@ paths:
               schema:
                 type: object
                 properties:
-                  uid:
-                    type: string
-                    example: username
-                required:
-                  - uid
+                  account:
+                    $ref: '#/components/schemas/basicAccount'
+                  files:
+                    type: array
+                    description: Files associated with account
+                    items:
+                      $ref: '#/components/schemas/libresignFile'
         404:
           description: Invalid user or password
           content:
@@ -310,13 +312,8 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  uid:
-                    type: string
-                    example: username
-                required:
-                  - uid
+                allOf:
+                  - $ref: '#/components/schemas/basicAccount'
         404:
           description: Invalid user or password
           content:
