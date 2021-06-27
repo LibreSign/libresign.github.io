@@ -525,11 +525,10 @@ paths:
           in: query
           schema:
             type: string
-            enum: [
-              yes,
-              no,
-              all
-            ]
+            enum:
+              - yes
+              - no
+              - all
             default: no
           description: Approved files
       responses:
