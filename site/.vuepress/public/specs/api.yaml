@@ -1079,16 +1079,7 @@ paths:
                         - fullName
                         - me
                   settings:
-                    type: object
-                    properties:
-                      canRequestSign:
-                        type: boolean
-                        description: Person can request sign a new file. To authorize, the person must belong to a group defined in the LibreSign settings.
-                        example: true
-                      canSign:
-                        type: boolean
-                        description: Can request sign this file
-                        example: true
+                    $ref: '#/components/schemas/settings'
                   messages:
                     type: array
                     items:
@@ -1123,18 +1114,7 @@ paths:
                       - false
                     description: Beep! Failure!
                   settings:
-                    type: object
-                    properties:
-                      canRequestSign:
-                        type: boolean
-                        description: Person can request sign a new file. To authorize, the person must belong to a group defined in the LibreSign settings.
-                        example: true
-                      canSign:
-                        type: boolean
-                        enum:
-                          - false
-                        description: Can request sign this file
-                        example: false
+                    $ref: '#/components/schemas/settings'
                   action:
                     type: integer
                     description: Numeric code representing what action should be taken with the response
@@ -1212,16 +1192,7 @@ paths:
                         - fullName
                         - me
                   settings:
-                    type: object
-                    properties:
-                      canRequestSign:
-                        type: boolean
-                        description: Person can request sign a new file. To authorize, the person must belong to a group defined in the LibreSign settings.
-                        example: true
-                      canSign:
-                        type: boolean
-                        description: Can request sign this file
-                        example: true
+                    $ref: '#/components/schemas/settings'
                   messages:
                     type: array
                     items:
@@ -1256,18 +1227,7 @@ paths:
                       - false
                     description: Beep! Failure!
                   settings:
-                    type: object
-                    properties:
-                      canRequestSign:
-                        type: boolean
-                        description: Person can request sign a new file. To authorize, the person must belong to a group defined in the LibreSign settings.
-                        example: true
-                      canSign:
-                        type: boolean
-                        enum:
-                          - false
-                        description: Can request sign this file
-                        example: false
+                    $ref: '#/components/schemas/settings'
                   action:
                     type: integer
                     description: Numeric code representing what action should be taken with the response
@@ -1457,6 +1417,21 @@ components:
           nullable: true
           description: Nextcloud user id of who requested the file to be signed.
           example: johndoe
+    settings:
+      type: object
+      properties:
+        canRequestSign:
+          type: boolean
+          description: Person can request sign a new file. To authorize, the person must belong to a group defined in the LibreSign settings.
+          example: true
+        canSign:
+          type: boolean
+          description: Can request sign this file
+          example: true
+        hasSignatureFile:
+          type: boolean
+          description: Has signature file.
+          example: true
     libresignFile:
       type: object
       properties:
