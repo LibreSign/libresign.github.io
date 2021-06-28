@@ -828,56 +828,6 @@ paths:
                     example: UUID not found
       security:
         - basicAuth: []
-  /sign:
-    post:
-      tags:
-        - sign
-      summary: Sign a file
-      description: Request sign a file.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                inputFilePath:
-                  type: string
-                outputFolderPath:
-                  type: string
-                certificatePath:
-                  type: string
-                password:
-                  type: string
-                  format: password
-              required:
-                - inputFilePath
-                - outputFolderPath
-                - certificatePath
-                - password
-      responses:
-        200:
-          description: Success!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  fileSigned:
-                    type: string
-        422:
-          description: Request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  action:
-                    description: Numeric code representing what action should be taken with the response
-                    type: string
-                  errors:
-                    type: string
-      security:
-        - basicAuth: []
   /sign/uuid/{uuid}:
     post:
       tags:
