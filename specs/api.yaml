@@ -521,7 +521,7 @@ paths:
       tags:
         - sign
       summary: List all account files
-      description: List all account files
+      description: Identification document files can be associated with each account profile. Here you can list all these files and your status.
       parameters:
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/limitParam'
@@ -1057,7 +1057,7 @@ paths:
                     type: string
                     description: URL to download signed file
                     example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
-                  signatures:
+                  signers:
                     type: array
                     items:
                       type: object
@@ -1170,7 +1170,7 @@ paths:
                     type: string
                     description: URL to download signed file
                     example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
-                  signatures:
+                  signers:
                     type: array
                     items:
                       type: object
