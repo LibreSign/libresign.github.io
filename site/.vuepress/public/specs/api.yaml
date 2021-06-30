@@ -1057,7 +1057,7 @@ paths:
                     type: string
                     description: URL to download signed file
                     example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
-                  signatures:
+                  signers:
                     type: array
                     items:
                       type: object
@@ -1170,7 +1170,7 @@ paths:
                     type: string
                     description: URL to download signed file
                     example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
-                  signatures:
+                  signers:
                     type: array
                     items:
                       type: object
