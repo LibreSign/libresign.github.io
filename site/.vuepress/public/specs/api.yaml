@@ -35,11 +35,11 @@ paths:
                 properties:
                   account:
                     $ref: '#/components/schemas/basicAccount'
-                  files:
-                    type: array
-                    description: Files associated with account
-                    items:
-                      $ref: '#/components/schemas/libresignFile'
+                  settings:
+                    $ref: '#/components/schemas/accountSettings'
+                required:
+                  - account
+                  - settings
         404:
           description: Invalid user or password
           content:
@@ -87,7 +87,7 @@ paths:
                         format: email
                         description: Unique email to identify user
                         example: user@test.coop
-                      display_name:
+                      displayName:
                         type: string
                         description: Persons name
                         example: John Doe
@@ -170,7 +170,7 @@ paths:
                         format: email
                         description: Unique email to identify user
                         example: user@test.coop
-                      display_name:
+                      displayName:
                         type: string
                         description: Persons name
                         example: John Doe
@@ -312,8 +312,15 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - $ref: '#/components/schemas/basicAccount'
+                type: object
+                properties:
+                  account:
+                    $ref: '#/components/schemas/basicAccount'
+                  settings:
+                    $ref: '#/components/schemas/accountSettings'
+                required:
+                  - account
+                  - settings
         404:
           description: Invalid user or password
           content:
@@ -637,7 +644,7 @@ paths:
                         format: email
                         description: Unique email to identify user
                         example: user@test.coop
-                      display_name:
+                      displayName:
                         type: string
                         description: Persons name
                         example: John Doe
@@ -719,7 +726,7 @@ paths:
                         format: email
                         description: Unique email to identify user
                         example: user@test.coop
-                      display_name:
+                      displayName:
                         type: string
                         description: Persons name
                         example: John Doe
@@ -1079,7 +1086,7 @@ paths:
                         - fullName
                         - me
                   settings:
-                    $ref: '#/components/schemas/settings'
+                    $ref: '#/components/schemas/signSettings'
                   messages:
                     type: array
                     items:
@@ -1114,7 +1121,7 @@ paths:
                       - false
                     description: Beep! Failure!
                   settings:
-                    $ref: '#/components/schemas/settings'
+                    $ref: '#/components/schemas/signSettings'
                   action:
                     type: integer
                     description: Numeric code representing what action should be taken with the response
@@ -1192,7 +1199,7 @@ paths:
                         - fullName
                         - me
                   settings:
-                    $ref: '#/components/schemas/settings'
+                    $ref: '#/components/schemas/signSettings'
                   messages:
                     type: array
                     items:
@@ -1227,7 +1234,7 @@ paths:
                       - false
                     description: Beep! Failure!
                   settings:
-                    $ref: '#/components/schemas/settings'
+                    $ref: '#/components/schemas/signSettings'
                   action:
                     type: integer
                     description: Numeric code representing what action should be taken with the response
@@ -1407,7 +1414,7 @@ components:
     basicAccount:
       type: object
       properties:
-        display_name:
+        displayName:
           type: string
           nullable: true
           description: Who requested that the file be signed?
@@ -1417,20 +1424,31 @@ components:
           nullable: true
           description: Nextcloud user id of who requested the file to be signed.
           example: johndoe
-    settings:
+    accountSettings:
       type: object
       properties:
         canRequestSign:
           type: boolean
           description: Person can request sign a new file. To authorize, the person must belong to a group defined in the LibreSign settings.
           example: true
-        canSign:
+        hasSignatureFile:
           type: boolean
-          description: Can request sign this file
+          description: Has signature file.
+          example: true
+    signSettings:
+      type: object
+      properties:
+        canRequestSign:
+          type: boolean
+          description: Person can request sign a new file. To authorize, the person must belong to a group defined in the LibreSign settings.
           example: true
         hasSignatureFile:
           type: boolean
           description: Has signature file.
+          example: true
+        canSign:
+          type: boolean
+          description: Can request sign this file
           example: true
     libresignFile:
       type: object
@@ -1507,7 +1525,7 @@ components:
                 type: boolean
                 description: It's me?
                 example: true
-              display_name:
+              displayName:
                 type: string
                 nullable: true
                 description: Persons name
