@@ -1248,6 +1248,85 @@ paths:
                   - settings
                   - errors
                   - action
+  /notify/signers:
+    post:
+      tags:
+        - sign
+      summary: Notify signers of a file
+      description: Notify signers of a file
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fileId:
+                  type: integer
+                  description: Node id of a Nextcloud file
+                  example: 2312
+                signers:
+                  type: array
+                  description: Collection of signers
+                  items:
+                    type: object
+                    description: Signer who will notify
+                    properties:
+                      email:
+                        type: string
+                        format: email
+                        description: Unique email to identify signer
+                        example: user@test.coop
+                    required:
+                      - email
+              required:
+                - fileId
+                - signers
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                  message:
+                    type: string
+                    description: Success messagen
+                    example: Success
+        401:
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - false
+                    description: Oh no!
+                  messages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                            - success
+                            - info
+                            - warning
+                            - danger
+                          description: Type of message
+                        message:
+                          type: string
+                          description: Text of message
+                          example: Invalid type
   /setting/has-root-cert:
     get:
       tags:
