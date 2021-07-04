@@ -1067,6 +1067,7 @@ paths:
                           pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
                           nullable: true
                           description: Signing date, when signed
+                          example: "2021-12-31 22:45:50"
                         displayName:
                           type: string
                           description: The person display name
@@ -1180,6 +1181,7 @@ paths:
                           pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
                           nullable: true
                           description: Signing date, when signed
+                          example: "2021-12-31 22:45:50"
                         displayName:
                           type: string
                           description: The person display name
