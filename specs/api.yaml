@@ -1668,24 +1668,30 @@ components:
           example: 300
         current:
           type: string
+          minimum: 1
+          nullable: true
           description: URL of current page
           example: /file/list?page=2&length=15
         next:
           type: string
+          nullable: true
           description: URL of next page
           example: /file/list?page=3
         prev:
           type: string
+          nullable: true
           description: URL of previous page
           example: /file/list?page=1
         last:
           type: string
+          nullable: true
           description: URL of last page
           example: /file/list?page=20
         first:
           type: string
+          nullable: true
           description: URL of first page
-          example: /file/list?page=0
+          example: /file/list?page=1
       required:
         - total
         - current
