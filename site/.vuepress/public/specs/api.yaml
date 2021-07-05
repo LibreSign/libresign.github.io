@@ -945,7 +945,6 @@ paths:
           required: true
           schema:
             type: string
-            format: uuid
             description: Node id of a Nextcloud file.
             example: 564
       requestBody:
@@ -1010,6 +1009,99 @@ paths:
                   - success
                   - action
                   - errors
+      security:
+        - basicAuth: []
+    delete:
+      tags:
+        - sign
+      summary: Delete sign request
+      description: You can only request exclusion as any sign
+      parameters:
+        - name: fileId
+          in: path
+          description: Node id of a Nextcloud file
+          required: true
+          schema:
+            type: string
+            description: Node id of a Nextcloud file.
+            example: 564
+        - name: signatureId
+          in: path
+          description: ID of signature
+          required: true
+          schema:
+            type: integer
+            description: Each signature has an ID that is returned on validation endpoints.
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success messagen
+                    example: Success
+        422:
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Description of the failure that occurred
+                    example: UUID not found
+      security:
+        - basicAuth: []
+  /sign/file_id/{fileId}/{signatureId}:
+    delete:
+      tags:
+        - sign
+      summary: Delete sign request
+      description: You can only request exclusion as any sign
+      parameters:
+        - name: fileId
+          in: path
+          description: Node id of a Nextcloud file
+          required: true
+          schema:
+            type: string
+            description: Node id of a Nextcloud file.
+            example: 564
+        - name: signatureId
+          in: path
+          description: ID of signature
+          required: true
+          schema:
+            type: integer
+            description: Each signature has an ID that is returned on validation endpoints.
+      responses:
+        200:
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Success messagen
+                    example: Success
+        422:
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Description of the failure that occurred
+                    example: UUID not found
       security:
         - basicAuth: []
   /file/list:
@@ -1217,12 +1309,6 @@ paths:
                           type: boolean
                           description: It's me?
                           example: true
-                        email:
-                          type: string
-                          format: email
-                          description: Unique email to identify signer.
-                            This property will only exist when it is a request made by the person who requested the document to be signed.
-                          example: user@test.coop
                       required:
                         - signed
                         - displayName
