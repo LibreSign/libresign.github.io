@@ -714,6 +714,14 @@ paths:
                   type: string
                   format: uuid
                   description: Received from sign request
+                file:
+                  type: object
+                  description: File object.
+                  properties:
+                    fileId:
+                      type: integer
+                      description: Node id of a Nextcloud file
+                      example: 2312
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -792,6 +800,14 @@ paths:
                   type: string
                   format: uuid
                   description: Received from sign request
+                file:
+                  type: object
+                  description: File object.
+                  properties:
+                    fileId:
+                      type: integer
+                      description: Node id of a Nextcloud file
+                      example: 2312
                 users:
                   type: array
                   description: Collection of persons
@@ -1081,6 +1097,12 @@ paths:
                           type: boolean
                           description: It's me?
                           example: true
+                        email:
+                          type: string
+                          format: email
+                          description: Unique email to identify signer.
+                            This property will only exist when it is a request made by the person who requested the document to be signed.
+                          example: user@test.coop
                       required:
                         - signed
                         - displayName
@@ -1195,6 +1217,12 @@ paths:
                           type: boolean
                           description: It's me?
                           example: true
+                        email:
+                          type: string
+                          format: email
+                          description: Unique email to identify signer.
+                            This property will only exist when it is a request made by the person who requested the document to be signed.
+                          example: user@test.coop
                       required:
                         - signed
                         - displayName
@@ -1643,7 +1671,7 @@ components:
         - status
     file:
       type: object
-      description: File to send. Use one of these types
+      description: File object. Use one of these types
       properties:
         url:
           type: string
