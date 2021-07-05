@@ -1025,13 +1025,6 @@ paths:
             type: string
             description: Node id of a Nextcloud file.
             example: 564
-        - name: signatureId
-          in: path
-          description: ID of signature
-          required: true
-          schema:
-            type: integer
-            description: Each signature has an ID that is returned on validation endpoints.
       responses:
         200:
           description: Success!
@@ -1040,6 +1033,11 @@ paths:
               schema:
                 type: object
                 properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success messagen
