@@ -1087,6 +1087,11 @@ paths:
               schema:
                 type: object
                 properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success messagen
@@ -1101,7 +1106,7 @@ paths:
                   message:
                     type: string
                     description: Description of the failure that occurred
-                    example: UUID not found
+                    example: Signer not associated to this file
       security:
         - basicAuth: []
   /file/list:
@@ -1195,11 +1200,16 @@ paths:
                           description: Unique email to identify signer.
                             This property will only exist when it is a request made by the person who requested the document to be signed.
                           example: user@test.coop
+                        signatureId:
+                          type: integer
+                          description: ID of signature. Each signature has an ID that is returned on validation endpoints.
+                          example: 1
                       required:
                         - signed
                         - displayName
                         - fullName
                         - me
+                        - signatureId
                   settings:
                     $ref: '#/components/schemas/signSettings'
                   messages:
@@ -1309,11 +1319,22 @@ paths:
                           type: boolean
                           description: It's me?
                           example: true
+                        email:
+                          type: string
+                          format: email
+                          description: Unique email to identify signer.
+                            This property will only exist when it is a request made by the person who requested the document to be signed.
+                          example: user@test.coop
+                        signatureId:
+                          type: integer
+                          description: ID of signature. Each signature has an ID that is returned on validation endpoints.
+                          example: 1
                       required:
                         - signed
                         - displayName
                         - fullName
                         - me
+                        - signatureId
                   settings:
                     $ref: '#/components/schemas/signSettings'
                   messages:
@@ -1748,6 +1769,10 @@ components:
                 pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
                 description: Date the signature was requested
                 example: "2021-12-31 22:45:50"
+              signatureId:
+                type: integer
+                description: ID of signature. Each signature has an ID that is returned on validation endpoints.
+                example: 1
             required:
               - email
               - request_sign_date
