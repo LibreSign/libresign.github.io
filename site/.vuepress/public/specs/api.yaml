@@ -714,6 +714,14 @@ paths:
                   type: string
                   format: uuid
                   description: Received from sign request
+                file:
+                  type: object
+                  description: File object.
+                  properties:
+                    fileId:
+                      type: integer
+                      description: Node id of a Nextcloud file
+                      example: 2312
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -792,6 +800,14 @@ paths:
                   type: string
                   format: uuid
                   description: Received from sign request
+                file:
+                  type: object
+                  description: File object.
+                  properties:
+                    fileId:
+                      type: integer
+                      description: Node id of a Nextcloud file
+                      example: 2312
                 users:
                   type: array
                   description: Collection of persons
@@ -1655,7 +1671,7 @@ components:
         - status
     file:
       type: object
-      description: File to send. Use one of these types
+      description: File object. Use one of these types
       properties:
         url:
           type: string
