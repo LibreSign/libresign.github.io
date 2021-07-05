@@ -1769,6 +1769,10 @@ components:
                 pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
                 description: Date the signature was requested
                 example: "2021-12-31 22:45:50"
+              signatureId:
+                type: integer
+                description: ID of signature. Each signature has an ID that is returned on validation endpoints.
+                example: 1
             required:
               - email
               - request_sign_date
