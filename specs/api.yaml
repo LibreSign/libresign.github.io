@@ -1042,7 +1042,7 @@ paths:
                     type: string
                     description: Success messagen
                     example: Success
-        422:
+        401:
           description: Request failed
           content:
             application/json:
@@ -1094,7 +1094,7 @@ paths:
                     type: string
                     description: Success messagen
                     example: Success
-        422:
+        401:
           description: Request failed
           content:
             application/json:
