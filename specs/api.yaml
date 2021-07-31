@@ -891,6 +891,14 @@ paths:
                     enum:
                       - true
                     description: Uhuuu! Need true vale.
+                  file:
+                    type: object
+                    description: "LibreSign file"
+                    properties:
+                      uuid:
+                        type: string
+                        format: uuid
+                        description: LibreSign UUID
                   action:
                     type: integer
                     enum: [350]
@@ -972,6 +980,14 @@ paths:
                     enum:
                       - true
                     description: Uhuuu! Need true vale.
+                  file:
+                    type: object
+                    description: "LibreSign file"
+                    properties:
+                      uuid:
+                        type: string
+                        format: uuid
+                        description: LibreSign UUID
                   action:
                     type: integer
                     description: Numeric code representing what action should be taken with the response
