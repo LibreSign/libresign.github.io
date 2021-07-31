@@ -376,7 +376,6 @@ paths:
               required:
                 - email
                 - password
-                - signPassword
       responses:
         200:
           description: Success! When you create a person, they are automatically authenticated.
