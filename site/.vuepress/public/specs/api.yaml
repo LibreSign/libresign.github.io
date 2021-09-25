@@ -1895,3 +1895,36 @@ components:
         - prev
         - last
         - first
+    signatureElement:
+      description: Visible elements to associate with the document
+      type: object
+      x-examples:
+        example-1:
+          type: signature
+          file:
+            url: 'http://cloud.test.coop/s/ry384r6t384/download/signature.png'
+      properties:
+        type:
+          type: string
+          minLength: 1
+          enum:
+            - signature
+            - initial
+            - date
+            - datetime
+            - text
+          example: signature
+        file:
+          $ref: '#/components/schemas/file'
+        metadata:
+          type: object
+          properties:
+            text:
+              type: string
+              minLength: 1
+            dateFormat:
+              type: string
+              minLength: 1
+      required:
+        - type
+        - file
