@@ -1,22 +1,24 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: LibreSign API
-  description: "Libre digital signature app for Nextcloud."
+  description: Libre digital signature app for Nextcloud.
   contact:
-    name: "Support"
-    url: "https://github.com/LibreSign/libresign/issues"
+    name: Support
+    url: 'https://github.com/LibreSign/libresign/issues'
   license:
-    name: "AGPLv3"
-    url: "https://www.gnu.org/licenses/agpl-3.0.en.html"
+    name: AGPLv3
+    url: 'https://www.gnu.org/licenses/agpl-3.0.en.html'
   version: 2.2.2
+servers:
+  - description: local
+    url: 'http://localhost/apps/libresign/api/0.1'
 tags:
-- name: account
-  description: Account
-- name: sign
-  description: Sign and validate files
-- name: admin
-  description: Admin settings
-
+  - name: account
+    description: Account
+  - name: sign
+    description: Sign and validate files
+  - name: admin
+    description: Admin settings
 paths:
   /webhook/me:
     get:
@@ -24,9 +26,10 @@ paths:
         - account
       summary: Who am I
       description: replaced by /account/me
+      operationId: accountDeprecated#me
       deprecated: true
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -40,7 +43,7 @@ paths:
                 required:
                   - account
                   - settings
-        404:
+        '404':
           description: Invalid user or password
           content:
             application/json:
@@ -62,6 +65,7 @@ paths:
         - sign
       summary: Request signature
       description: replaced by /account/register
+      operationId: signFileDeprecated#requestSign
       deprecated: true
       requestBody:
         content:
@@ -94,20 +98,20 @@ paths:
                       description:
                         type: string
                         description: Description that will be displayed to the person
-                        example: As the company's CEO, you must sign this contract
+                        example: 'As the company''s CEO, you must sign this contract'
                     required:
                       - email
                 callback:
                   type: string
                   description: URL that will receive a POST after the document is signed
-                  example: http://app.test.coop/callback_webhook
+                  example: 'http://app.test.coop/callback_webhook'
               required:
                 - name
                 - file
                 - users
         required: true
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -128,8 +132,8 @@ paths:
                       uuid:
                         type: string
                         format: uuid
-                        description: 'File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.'
-        422:
+                        description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
+        '422':
           description: Request failed
           content:
             application/json:
@@ -147,6 +151,7 @@ paths:
         - sign
       summary: Updates signatures data
       description: Is necessary to inform the UUID of the file and a list of people
+      operationId: signFileDeprecated#updateSign
       deprecated: true
       requestBody:
         content:
@@ -177,7 +182,7 @@ paths:
                       description:
                         type: string
                         description: Description that will be displayed to the person
-                        example: As the company's CEO, you must sign this contract
+                        example: 'As the company''s CEO, you must sign this contract'
                     required:
                       - email
               required:
@@ -185,7 +190,7 @@ paths:
                 - users
         required: true
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -207,7 +212,7 @@ paths:
                         type: string
                         format: uuid
                         description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
-        422:
+        '422':
           description: Request failed
           content:
             application/json:
@@ -226,6 +231,7 @@ paths:
         - sign
       summary: Delete sign request
       description: replaced by /sign/register/signature
+      operationId: signFileDeprecated#removeSign
       deprecated: true
       requestBody:
         content:
@@ -256,7 +262,7 @@ paths:
                 - users
         required: true
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -267,7 +273,7 @@ paths:
                     type: string
                     description: Success messagen
                     example: Success
-        422:
+        '422':
           description: Request failed
           content:
             application/json:
@@ -286,9 +292,10 @@ paths:
         - admin
       summary: Has root certificate
       description: Replaced by /setting/has-root-cert
+      operationId: settingDeprecated#hasRootCert
       deprecated: true
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -306,8 +313,9 @@ paths:
         - account
       summary: Who am I
       description: Validates API access data and returns the authenticated user's data.
+      operationId: account#me
       responses:
-        200:
+        '200':
           description: successful operation
           content:
             application/json:
@@ -321,7 +329,7 @@ paths:
                 required:
                   - account
                   - settings
-        404:
+        '404':
           description: Invalid user or password
           content:
             application/json:
@@ -337,12 +345,13 @@ paths:
                   - message
       security:
         - basicAuth: []
-  /account/create/{uuid}:
+  '/account/create/{uuid}':
     post:
       tags:
         - account
       summary: Create person account to sign a document
       description: Accounts can only be created to sign documents.
+      operationId: account#createToSign
       parameters:
         - name: uuid
           in: path
@@ -377,8 +386,8 @@ paths:
                 - email
                 - password
       responses:
-        200:
-          description: Success! When you create a person, they are automatically authenticated.
+        '200':
+          description: 'Success! When you create a person, they are automatically authenticated.'
           content:
             application/json:
               schema:
@@ -403,7 +412,7 @@ paths:
                       url:
                         type: string
                         description: URL to view PDF
-                        example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
                   filename:
                     type: string
                     example: filename
@@ -412,12 +421,12 @@ paths:
                     type: string
                     nullable: true
                     description: Description for the person who will sign the document
-                    example: As the company's CEO, you must sign this contract
+                    example: 'As the company''s CEO, you must sign this contract'
                 required:
                   - success
                   - message
                   - action
-        422:
+        '422':
           description: Request failed
           content:
             application/json:
@@ -447,6 +456,7 @@ paths:
         - account
       summary: Save identification documents
       description: Save identification documents to account
+      operationId: account#addFiles
       security:
         - basicAuth: []
       requestBody:
@@ -462,14 +472,14 @@ paths:
                     properties:
                       type:
                         type: string
-                        pattern: /[A-Z0-9_]+/
+                        pattern: '[A-Z0-9_]+'
                         example: PASSPORT
                         default: IDENTIFICATION
                         description: The type code of this file to be attached to the account
                       file:
                         $ref: '#/components/schemas/file'
       responses:
-        200:
+        '200':
           description: Documents have been attached to the account
           content:
             application/json:
@@ -483,7 +493,7 @@ paths:
                     description: Uhuuu! Need true vale.
                 required:
                   - success
-        401:
+        '401':
           description: Request failed
           content:
             application/json:
@@ -502,7 +512,7 @@ paths:
                       properties:
                         file:
                           type: integer
-                          description: Sequential identifier of the file that failed, starting from file zero
+                          description: 'Sequential identifier of the file that failed, starting from file zero'
                         type:
                           type: string
                           enum:
@@ -529,13 +539,13 @@ paths:
           schema:
             type: string
             enum:
-              - yes
-              - no
+              - 'yes'
+              - 'no'
               - all
-            default: no
+            default: 'no'
           description: Approved files
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -565,6 +575,7 @@ paths:
         - account
       summary: Generates signature key
       description: Generates the personal signature key
+      operationId: account#signatureGenerate
       security:
         - basicAuth: []
       requestBody:
@@ -579,7 +590,7 @@ paths:
                   description: Password to pfx file
                   example: MySecretP4ssword!
       responses:
-        200:
+        '200':
           description: Folder where the pfx file was saved
           content:
             application/json:
@@ -597,7 +608,7 @@ paths:
                     example: /LibreSign
                 required:
                   - success
-        401:
+        '401':
           description: Request failed
           content:
             application/json:
@@ -619,6 +630,7 @@ paths:
         - sign
       summary: Request signature
       description: Request that a file be signed by a group of people
+      operationId: signFile#requestSign
       requestBody:
         content:
           application/json:
@@ -650,20 +662,20 @@ paths:
                       description:
                         type: string
                         description: Description that will be displayed to the person
-                        example: As the company's CEO, you must sign this contract
+                        example: 'As the company''s CEO, you must sign this contract'
                     required:
                       - email
                 callback:
                   type: string
                   description: URL that will receive a POST after the document is signed
-                  example: http://app.test.coop/callback_webhook
+                  example: 'http://app.test.coop/callback_webhook'
               required:
                 - name
                 - file
                 - users
         required: true
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -684,8 +696,8 @@ paths:
                       uuid:
                         type: string
                         format: uuid
-                        description: 'File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.'
-        422:
+                        description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
+        '422':
           description: Request failed
           content:
             application/json:
@@ -703,6 +715,7 @@ paths:
         - sign
       summary: Updates signatures data
       description: Is necessary to inform the UUID of the file and a list of people
+      operationId: signFile#updateSign
       requestBody:
         content:
           application/json:
@@ -740,7 +753,7 @@ paths:
                       description:
                         type: string
                         description: Description that will be displayed to the person
-                        example: As the company's CEO, you must sign this contract
+                        example: 'As the company''s CEO, you must sign this contract'
                     required:
                       - email
               required:
@@ -748,7 +761,7 @@ paths:
                 - users
         required: true
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -770,7 +783,7 @@ paths:
                         type: string
                         format: uuid
                         description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
-        422:
+        '422':
           description: Request failed
           content:
             application/json:
@@ -826,7 +839,7 @@ paths:
                 - users
         required: true
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -837,7 +850,7 @@ paths:
                     type: string
                     description: Success messagen
                     example: Success
-        422:
+        '422':
           description: Request failed
           content:
             application/json:
@@ -850,12 +863,13 @@ paths:
                     example: UUID not found
       security:
         - basicAuth: []
-  /sign/uuid/{uuid}:
+  '/sign/uuid/{uuid}':
     post:
       tags:
         - sign
       summary: Sign a file using user file UUUID
       description: The user UUID is what the person receives via email when asked to sign. This is not the file UUID.
+      operationId: signFile#signUsingUuid
       parameters:
         - name: uuid
           in: path
@@ -875,10 +889,12 @@ paths:
                   type: string
                   format: password
                   example: Ultr4S3cretP3ssword!
+                '':
+                  type: string
               required:
                 - password
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -892,7 +908,7 @@ paths:
                     description: Uhuuu! Need true vale.
                   file:
                     type: object
-                    description: "LibreSign file"
+                    description: LibreSign file
                     properties:
                       uuid:
                         type: string
@@ -900,18 +916,35 @@ paths:
                         description: LibreSign UUID
                   action:
                     type: integer
-                    enum: [350]
-                    description: Numeric code representing what action should be taken with the response
+                    enum:
+                      - 100
+                      - 150
+                      - 200
+                      - 250
+                      - 300
+                      - 350
+                      - 400
+                    description: |-
+                      Numeric code representing what action should be taken with the response
+
+                      ACTION_REDIRECT = 100
+                      ACTION_CREATE_USER = 150
+                      ACTION_DO_NOTHING = 200
+                      ACTION_SIGN = 250
+                      ACTION_SHOW_ERROR = 300
+                      ACTION_SIGNED = 350
+                      ACTION_CREATE_SIGNATURE_PASSWORD = 400
                     example: 200
                   message:
                     type: string
-                    enum: [File signed]
+                    enum:
+                      - File signed
                     example: File signed
                 required:
                   - success
                   - action
                   - message
-        422:
+        '422':
           description: Request failed
           content:
             application/json:
@@ -930,21 +963,22 @@ paths:
                   errors:
                     type: array
                     items:
-                        type: string
+                      type: string
                     example:
-                      - "File already signed by you"
+                      - File already signed by you
                 required:
                   - success
                   - action
                   - errors
       security:
         - basicAuth: []
-  /sign/file_id/{fileId}:
+  '/sign/file_id/{fileId}':
     post:
       tags:
         - sign
       summary: Sign a file using Nextcloud node id
       description: Sign a file using Nextcloud node id.
+      operationId: signFile#signUsingFileid
       parameters:
         - name: fileId
           in: path
@@ -953,7 +987,7 @@ paths:
           schema:
             type: string
             description: Node id of a Nextcloud file.
-            example: 564
+            example: '564'
       requestBody:
         content:
           application/json:
@@ -967,7 +1001,7 @@ paths:
               required:
                 - password
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -981,7 +1015,7 @@ paths:
                     description: Uhuuu! Need true vale.
                   file:
                     type: object
-                    description: "LibreSign file"
+                    description: LibreSign file
                     properties:
                       uuid:
                         type: string
@@ -998,7 +1032,7 @@ paths:
                   - success
                   - action
                   - message
-        422:
+        '422':
           description: Request failed
           content:
             application/json:
@@ -1017,9 +1051,9 @@ paths:
                   errors:
                     type: array
                     items:
-                        type: string
+                      type: string
                     example:
-                      - "File already signed by you"
+                      - File already signed by you
                 required:
                   - success
                   - action
@@ -1031,6 +1065,7 @@ paths:
         - sign
       summary: Delete sign request
       description: You can only request exclusion as any sign
+      operationId: signFile#deleteAllSignRequestUsingFileId
       parameters:
         - name: fileId
           in: path
@@ -1039,9 +1074,9 @@ paths:
           schema:
             type: string
             description: Node id of a Nextcloud file.
-            example: 564
+            example: '564'
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -1057,7 +1092,7 @@ paths:
                     type: string
                     description: Success messagen
                     example: Success
-        401:
+        '401':
           description: Request failed
           content:
             application/json:
@@ -1070,12 +1105,13 @@ paths:
                     example: UUID not found
       security:
         - basicAuth: []
-  /sign/file_id/{fileId}/{signatureId}:
+  '/sign/file_id/{fileId}/{signatureId}':
     delete:
       tags:
         - sign
       summary: Delete sign request
       description: You can only request exclusion as any sign
+      operationId: signFile#deleteOneSignRequestUsingFileId
       parameters:
         - name: fileId
           in: path
@@ -1084,7 +1120,7 @@ paths:
           schema:
             type: string
             description: Node id of a Nextcloud file.
-            example: 564
+            example: '564'
         - name: signatureId
           in: path
           description: ID of signature
@@ -1093,7 +1129,7 @@ paths:
             type: integer
             description: Each signature has an ID that is returned on validation endpoints.
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -1109,7 +1145,7 @@ paths:
                     type: string
                     description: Success messagen
                     example: Success
-        401:
+        '401':
           description: Request failed
           content:
             application/json:
@@ -1128,11 +1164,12 @@ paths:
         - sign
       summary: List all LibreSign files
       description: List all LibreSign files returning all informations about files
+      operationId: libreSignFile#list
       parameters:
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/limitParam'
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -1148,12 +1185,13 @@ paths:
                     $ref: '#/components/schemas/pagination'
       security:
         - basicAuth: []
-  /file/validate/uuid/{uuid}:
+  '/file/validate/uuid/{uuid}':
     get:
       tags:
         - sign
       summary: Validate a file using UUID
       description: Validate a file using file UUID returning file data.
+      operationId: libreSignFile#validateUuid
       parameters:
         - name: uuid
           in: path
@@ -1164,7 +1202,7 @@ paths:
             format: uuid
             description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -1182,7 +1220,7 @@ paths:
                   file:
                     type: string
                     description: URL to download signed file
-                    example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
+                    example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
                   signers:
                     type: array
                     items:
@@ -1190,10 +1228,10 @@ paths:
                       properties:
                         signed:
                           type: string
-                          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+                          pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                           nullable: true
-                          description: Signing date, when signed
-                          example: "2021-12-31 22:45:50"
+                          description: 'Signing date, when signed'
+                          example: '2021-12-31 22:45:50'
                         displayName:
                           type: string
                           description: The person display name
@@ -1210,8 +1248,7 @@ paths:
                         email:
                           type: string
                           format: email
-                          description: Unique email to identify signer.
-                            This property will only exist when it is a request made by the person who requested the document to be signed.
+                          description: Unique email to identify signer. This property will only exist when it is a request made by the person who requested the document to be signed.
                           example: user@test.coop
                         signatureId:
                           type: integer
@@ -1246,7 +1283,7 @@ paths:
                   - name
                   - file
                   - settings
-        404:
+        '404':
           description: Request failed
           content:
             application/json:
@@ -1273,12 +1310,13 @@ paths:
                   - settings
                   - errors
                   - action
-  /file/validate/file_id/{fileId}:
+  '/file/validate/file_id/{fileId}':
     get:
       tags:
         - sign
       summary: Validate a file using Nextcloud node id
       description: Validate a file using Nextcloud node id.
+      operationId: libreSignFile#validateFileId
       parameters:
         - name: fileId
           in: path
@@ -1289,7 +1327,7 @@ paths:
             description: Nextcloud node id.
             example: 564
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -1307,7 +1345,7 @@ paths:
                   file:
                     type: string
                     description: URL to download signed file
-                    example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
+                    example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
                   signers:
                     type: array
                     items:
@@ -1315,10 +1353,10 @@ paths:
                       properties:
                         signed:
                           type: string
-                          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+                          pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                           nullable: true
-                          description: Signing date, when signed
-                          example: "2021-12-31 22:45:50"
+                          description: 'Signing date, when signed'
+                          example: '2021-12-31 22:45:50'
                         displayName:
                           type: string
                           description: The person display name
@@ -1335,8 +1373,7 @@ paths:
                         email:
                           type: string
                           format: email
-                          description: Unique email to identify signer.
-                            This property will only exist when it is a request made by the person who requested the document to be signed.
+                          description: Unique email to identify signer. This property will only exist when it is a request made by the person who requested the document to be signed.
                           example: user@test.coop
                         signatureId:
                           type: integer
@@ -1371,7 +1408,7 @@ paths:
                   - name
                   - file
                   - settings
-        404:
+        '404':
           description: Request failed
           content:
             application/json:
@@ -1404,6 +1441,7 @@ paths:
         - sign
       summary: Notify signers of a file
       description: Notify signers of a file
+      operationId: notify#signers
       requestBody:
         content:
           application/json:
@@ -1432,7 +1470,7 @@ paths:
                 - fileId
                 - signers
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -1448,7 +1486,7 @@ paths:
                     type: string
                     description: Success messagen
                     example: Success
-        401:
+        '401':
           description: Request failed
           content:
             application/json:
@@ -1483,8 +1521,9 @@ paths:
         - admin
       summary: Has root certificate
       description: Checks whether the root certificate has been configured by checking the Nextcloud configuration table to see if the root certificate settings have been saved.
+      operationId: setting#hasRootCert
       responses:
-        200:
+        '200':
           description: Success!
           content:
             application/json:
@@ -1502,6 +1541,7 @@ paths:
         - admin
       summary: Create root certificate
       description: Create root certificate and enable execution of CFSSL
+      operationId: admin#generateCertificate
       security:
         - basicAuth: []
       requestBody:
@@ -1529,7 +1569,7 @@ paths:
                 cfsslUri:
                   type: string
                   description: CFSSL service URL
-                  example: http://cfssl:8888/api/v1/cfssl/
+                  example: 'http://cfssl:8888/api/v1/cfssl/'
                 configPath:
                   type: string
                   description: The path that Nextcloud should save the CFSSL configuration files for and that the CFSSL service needs to read to generate the root certificate.
@@ -1542,8 +1582,8 @@ paths:
                 - cfsslUri
                 - configPath
       responses:
-        200:
-          description: If the response is successful, it is because the settings have been saved and the root certificate has been generated.
+        '200':
+          description: 'If the response is successful, it is because the settings have been saved and the root certificate has been generated.'
           content:
             application/json:
               schema:
@@ -1558,7 +1598,7 @@ paths:
                   - success
                 example:
                   success: true
-        401:
+        '401':
           description: Request failed
           content:
             application/json:
@@ -1578,16 +1618,18 @@ paths:
                   - message
                 example:
                   success: false
-                  message: parameter 'cfsslUri' is required!
+                  message:
+                    - parameter 'cfsslUri' is required!
     get:
       tags:
         - admin
       summary: Get root certificate
       description: Get root certificate settings
+      operationId: admin#loadCertificate
       security:
         - basicAuth: []
       responses:
-        200:
+        '200':
           description: The certificate settings
           content:
             application/json:
@@ -1613,7 +1655,7 @@ paths:
                   cfsslUri:
                     type: string
                     description: CFSSL service URL
-                    example: http://cfssl:8888/api/v1/cfssl/
+                    example: 'http://cfssl:8888/api/v1/cfssl/'
                   configPath:
                     type: string
                     description: The path that Nextcloud should save the CFSSL configuration files for and that the CFSSL service needs to read to generate the root certificate.
@@ -1658,7 +1700,7 @@ components:
       properties:
         canRequestSign:
           type: boolean
-          description: Person can request sign a new file. To authorize, the person must belong to a group defined in the LibreSign settings.
+          description: 'Person can request sign a new file. To authorize, the person must belong to a group defined in the LibreSign settings.'
           example: true
         hasSignatureFile:
           type: boolean
@@ -1669,7 +1711,7 @@ components:
       properties:
         canRequestSign:
           type: boolean
-          description: Person can request sign a new file. To authorize, the person must belong to a group defined in the LibreSign settings.
+          description: 'Person can request sign a new file. To authorize, the person must belong to a group defined in the LibreSign settings.'
           example: true
         hasSignatureFile:
           type: boolean
@@ -1694,7 +1736,7 @@ components:
           type: string
           description: URL that will receive a POST after the document is signed
           nullable: true
-          example: http://app.test.coop/callback_webhook
+          example: 'http://app.test.coop/callback_webhook'
         status:
           type: string
           enum:
@@ -1705,17 +1747,17 @@ components:
         status_date:
           type: string
           format: date-time
-          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+          pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
           nullable: true
           description: Last status date
-          example: "2021-12-31 22:45:50"
+          example: '2021-12-31 22:45:50'
         request_date:
           type: string
           format: date-time
-          pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+          pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
           nullable: true
           description: Date the file was requested to be signed
-          example: "2021-12-31 22:45:50"
+          example: '2021-12-31 22:45:50'
         requested_by:
           $ref: '#/components/schemas/basicAccount'
         file:
@@ -1731,7 +1773,7 @@ components:
             url:
               type: string
               description: URL to view PDF
-              example: http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef
+              example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
             nodeId:
               type: integer
               description: Node id of a Nextcloud file
@@ -1768,20 +1810,20 @@ components:
                 type: string
                 nullable: true
                 description: Description that will be displayed to the person
-                example: As the company's CEO, you must sign this contract
+                example: 'As the company''s CEO, you must sign this contract'
               sign_date:
                 type: string
                 format: date-time
-                pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+                pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                 nullable: true
                 description: Date the file was signed
-                example: "2021-12-31 22:45:50"
+                example: '2021-12-31 22:45:50'
               request_sign_date:
                 type: string
                 format: date-time
-                pattern: /\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/
+                pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                 description: Date the signature was requested
-                example: "2021-12-31 22:45:50"
+                example: '2021-12-31 22:45:50'
               signatureId:
                 type: integer
                 description: ID of signature. Each signature has an ID that is returned on validation endpoints.
@@ -1800,7 +1842,7 @@ components:
         url:
           type: string
           description: URL of file
-          example: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
+          example: 'http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf'
         fileId:
           type: integer
           description: Node id of a Nextcloud file
@@ -1811,7 +1853,7 @@ components:
           description: base64 of PDF file content
           example: dGVzdA==
       example:
-        url: http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf
+        url: 'http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf'
     pagination:
       type: object
       properties:
