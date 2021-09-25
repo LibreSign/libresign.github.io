@@ -11,7 +11,7 @@ info:
   version: 2.2.2
 servers:
   - description: local
-    url: 'https://localhost/apps/libresign/v1'
+    url: 'http://localhost/apps/libresign/api/0.1'
 tags:
   - name: account
     description: Account
