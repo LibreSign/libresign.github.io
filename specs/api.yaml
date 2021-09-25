@@ -624,6 +624,62 @@ paths:
                     description: Beep! Failure on generate certificate.
                 required:
                   - success
+  /account/signature/elements:
+    post:
+      tags:
+        - account
+      summary: Generates signature key
+      description: Generates the personal signature key
+      operationId: account#createSignatureElement
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: Collection of visible signature elements
+              type: array
+              items:
+                $ref: '#/components/schemas/signatureElement'
+      responses:
+        '200':
+          description: Visible document saved with success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                  message:
+                    type: string
+                    description: Success messagen
+                    example: Success
+                required:
+                  - success
+                  - message
+        '401':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - false
+                    description: Beep! Failure on generate certificate.
+                  message:
+                    type: string
+                    description: Error pessage
+                    example: Invalid file
+                required:
+                  - success
+                  - message
   /sign/register:
     post:
       tags:
@@ -1852,8 +1908,8 @@ components:
           format: base64
           description: base64 of PDF file content
           example: dGVzdA==
-      example:
-        url: 'http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf'
+      examples:
+        - url: 'http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf'
     pagination:
       type: object
       properties:
@@ -1895,3 +1951,36 @@ components:
         - prev
         - last
         - first
+    signatureElement:
+      description: Visible elements to associate with the document
+      type: object
+      x-examples:
+        example-1:
+          type: signature
+          file:
+            url: 'http://cloud.test.coop/s/ry384r6t384/download/signature.png'
+      properties:
+        type:
+          type: string
+          minLength: 1
+          enum:
+            - signature
+            - initial
+            - date
+            - datetime
+            - text
+          example: signature
+        file:
+          $ref: '#/components/schemas/file'
+        metadata:
+          type: object
+          properties:
+            text:
+              type: string
+              minLength: 1
+            dateFormat:
+              type: string
+              minLength: 1
+      required:
+        - type
+        - file
