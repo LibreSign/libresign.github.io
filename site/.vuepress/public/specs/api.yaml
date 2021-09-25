@@ -960,7 +960,7 @@ paths:
           schema:
             type: string
             description: Node id of a Nextcloud file.
-            example: 564
+            example: "564"
       requestBody:
         content:
           application/json:
@@ -1046,7 +1046,7 @@ paths:
           schema:
             type: string
             description: Node id of a Nextcloud file.
-            example: 564
+            example: "564"
       responses:
         200:
           description: Success!
@@ -1091,7 +1091,7 @@ paths:
           schema:
             type: string
             description: Node id of a Nextcloud file.
-            example: 564
+            example: "564"
         - name: signatureId
           in: path
           description: ID of signature
@@ -1585,7 +1585,8 @@ paths:
                   - message
                 example:
                   success: false
-                  message: parameter 'cfsslUri' is required!
+                  message:
+                    - parameter 'cfsslUri' is required!
     get:
       tags:
         - admin
