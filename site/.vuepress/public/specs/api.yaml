@@ -624,6 +624,62 @@ paths:
                     description: Beep! Failure on generate certificate.
                 required:
                   - success
+  /account/signature/elements:
+    post:
+      tags:
+        - account
+      summary: Generates signature key
+      description: Generates the personal signature key
+      operationId: account#createSignatureElement
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: Collection of visible signature elements
+              type: array
+              items:
+                $ref: '#/components/schemas/signatureElement'
+      responses:
+        '200':
+          description: Visible document saved with success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                  message:
+                    type: string
+                    description: Success messagen
+                    example: Success
+                required:
+                  - success
+                  - message
+        '401':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - false
+                    description: Beep! Failure on generate certificate.
+                  message:
+                    type: string
+                    description: Error pessage
+                    example: Invalid file
+                required:
+                  - success
+                  - message
   /sign/register:
     post:
       tags:
