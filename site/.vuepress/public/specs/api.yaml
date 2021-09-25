@@ -900,8 +900,15 @@ paths:
                         description: LibreSign UUID
                   action:
                     type: integer
-                    enum: [350]
+                    enum: [100,150,200,250,300,350,400]
                     description: Numeric code representing what action should be taken with the response
+                      ACTION_REDIRECT = 100
+                      ACTION_CREATE_USER = 150
+                      ACTION_DO_NOTHING = 200
+                      ACTION_SIGN = 250
+                      ACTION_SHOW_ERROR = 300
+                      ACTION_SIGNED = 350
+                      ACTION_CREATE_SIGNATURE_PASSWORD = 400
                     example: 200
                   message:
                     type: string
