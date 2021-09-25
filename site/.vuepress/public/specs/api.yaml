@@ -472,7 +472,7 @@ paths:
                     properties:
                       type:
                         type: string
-                        pattern: '/[A-Z0-9_]+/'
+                        pattern: '[A-Z0-9_]+'
                         example: PASSPORT
                         default: IDENTIFICATION
                         description: The type code of this file to be attached to the account
@@ -1228,7 +1228,7 @@ paths:
                       properties:
                         signed:
                           type: string
-                          pattern: '/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/'
+                          pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                           nullable: true
                           description: 'Signing date, when signed'
                           example: '2021-12-31 22:45:50'
@@ -1353,7 +1353,7 @@ paths:
                       properties:
                         signed:
                           type: string
-                          pattern: '/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/'
+                          pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                           nullable: true
                           description: 'Signing date, when signed'
                           example: '2021-12-31 22:45:50'
@@ -1747,14 +1747,14 @@ components:
         status_date:
           type: string
           format: date-time
-          pattern: '/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/'
+          pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
           nullable: true
           description: Last status date
           example: '2021-12-31 22:45:50'
         request_date:
           type: string
           format: date-time
-          pattern: '/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/'
+          pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
           nullable: true
           description: Date the file was requested to be signed
           example: '2021-12-31 22:45:50'
@@ -1814,14 +1814,14 @@ components:
               sign_date:
                 type: string
                 format: date-time
-                pattern: '/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/'
+                pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                 nullable: true
                 description: Date the file was signed
                 example: '2021-12-31 22:45:50'
               request_sign_date:
                 type: string
                 format: date-time
-                pattern: '/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/'
+                pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                 description: Date the signature was requested
                 example: '2021-12-31 22:45:50'
               signatureId:
