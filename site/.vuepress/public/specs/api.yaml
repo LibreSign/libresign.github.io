@@ -26,7 +26,7 @@ paths:
         - account
       summary: Who am I
       description: replaced by /account/me
-      operationId: 'accountDeprecated#me'
+      operationId: accountDeprecated#me
       deprecated: true
       responses:
         '200':
@@ -65,7 +65,7 @@ paths:
         - sign
       summary: Request signature
       description: replaced by /account/register
-      operationId: 'signFileDeprecated#requestSign'
+      operationId: signFileDeprecated#requestSign
       deprecated: true
       requestBody:
         content:
@@ -151,7 +151,7 @@ paths:
         - sign
       summary: Updates signatures data
       description: Is necessary to inform the UUID of the file and a list of people
-      operationId: 'signFileDeprecated#updateSign'
+      operationId: signFileDeprecated#updateSign
       deprecated: true
       requestBody:
         content:
@@ -231,7 +231,7 @@ paths:
         - sign
       summary: Delete sign request
       description: replaced by /sign/register/signature
-      operationId: 'signFileDeprecated#removeSign'
+      operationId: signFileDeprecated#removeSign
       deprecated: true
       requestBody:
         content:
@@ -292,7 +292,7 @@ paths:
         - admin
       summary: Has root certificate
       description: Replaced by /setting/has-root-cert
-      operationId: 'settingDeprecated#hasRootCert'
+      operationId: settingDeprecated#hasRootCert
       deprecated: true
       responses:
         '200':
@@ -313,7 +313,7 @@ paths:
         - account
       summary: Who am I
       description: Validates API access data and returns the authenticated user's data.
-      operationId: 'account#me'
+      operationId: account#me
       responses:
         '200':
           description: successful operation
@@ -351,7 +351,7 @@ paths:
         - account
       summary: Create person account to sign a document
       description: Accounts can only be created to sign documents.
-      operationId: 'account#createToSign'
+      operationId: account#createToSign
       parameters:
         - name: uuid
           in: path
@@ -456,7 +456,7 @@ paths:
         - account
       summary: Save identification documents
       description: Save identification documents to account
-      operationId: 'account#addFiles'
+      operationId: account#addFiles
       security:
         - basicAuth: []
       requestBody:
@@ -575,7 +575,7 @@ paths:
         - account
       summary: Generates signature key
       description: Generates the personal signature key
-      operationId: 'account#signatureGenerate'
+      operationId: account#signatureGenerate
       security:
         - basicAuth: []
       requestBody:
@@ -630,7 +630,7 @@ paths:
         - sign
       summary: Request signature
       description: Request that a file be signed by a group of people
-      operationId: 'signFile#requestSign'
+      operationId: signFile#requestSign
       requestBody:
         content:
           application/json:
@@ -715,7 +715,7 @@ paths:
         - sign
       summary: Updates signatures data
       description: Is necessary to inform the UUID of the file and a list of people
-      operationId: 'signFile#updateSign'
+      operationId: signFile#updateSign
       requestBody:
         content:
           application/json:
@@ -869,7 +869,7 @@ paths:
         - sign
       summary: Sign a file using user file UUUID
       description: The user UUID is what the person receives via email when asked to sign. This is not the file UUID.
-      operationId: 'signFile#signUsingUuid'
+      operationId: signFile#signUsingUuid
       parameters:
         - name: uuid
           in: path
@@ -978,7 +978,7 @@ paths:
         - sign
       summary: Sign a file using Nextcloud node id
       description: Sign a file using Nextcloud node id.
-      operationId: 'signFile#signUsingFileid'
+      operationId: signFile#signUsingFileid
       parameters:
         - name: fileId
           in: path
@@ -1065,7 +1065,7 @@ paths:
         - sign
       summary: Delete sign request
       description: You can only request exclusion as any sign
-      operationId: 'signFile#deleteAllSignRequestUsingFileId'
+      operationId: signFile#deleteAllSignRequestUsingFileId
       parameters:
         - name: fileId
           in: path
@@ -1111,7 +1111,7 @@ paths:
         - sign
       summary: Delete sign request
       description: You can only request exclusion as any sign
-      operationId: 'signFile#deleteOneSignRequestUsingFileId'
+      operationId: signFile#deleteOneSignRequestUsingFileId
       parameters:
         - name: fileId
           in: path
@@ -1164,7 +1164,7 @@ paths:
         - sign
       summary: List all LibreSign files
       description: List all LibreSign files returning all informations about files
-      operationId: 'libreSignFile#list'
+      operationId: libreSignFile#list
       parameters:
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/limitParam'
@@ -1191,7 +1191,7 @@ paths:
         - sign
       summary: Validate a file using UUID
       description: Validate a file using file UUID returning file data.
-      operationId: 'libreSignFile#validateUuid'
+      operationId: libreSignFile#validateUuid
       parameters:
         - name: uuid
           in: path
@@ -1316,7 +1316,7 @@ paths:
         - sign
       summary: Validate a file using Nextcloud node id
       description: Validate a file using Nextcloud node id.
-      operationId: 'libreSignFile#validateFileId'
+      operationId: libreSignFile#validateFileId
       parameters:
         - name: fileId
           in: path
@@ -1441,7 +1441,7 @@ paths:
         - sign
       summary: Notify signers of a file
       description: Notify signers of a file
-      operationId: 'notify#signers'
+      operationId: notify#signers
       requestBody:
         content:
           application/json:
@@ -1521,7 +1521,7 @@ paths:
         - admin
       summary: Has root certificate
       description: Checks whether the root certificate has been configured by checking the Nextcloud configuration table to see if the root certificate settings have been saved.
-      operationId: 'setting#hasRootCert'
+      operationId: setting#hasRootCert
       responses:
         '200':
           description: Success!
@@ -1541,7 +1541,7 @@ paths:
         - admin
       summary: Create root certificate
       description: Create root certificate and enable execution of CFSSL
-      operationId: 'admin#generateCertificate'
+      operationId: admin#generateCertificate
       security:
         - basicAuth: []
       requestBody:
@@ -1625,7 +1625,7 @@ paths:
         - admin
       summary: Get root certificate
       description: Get root certificate settings
-      operationId: 'admin#loadCertificate'
+      operationId: admin#loadCertificate
       security:
         - basicAuth: []
       responses:
