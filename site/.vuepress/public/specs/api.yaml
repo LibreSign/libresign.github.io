@@ -680,6 +680,59 @@ paths:
                 required:
                   - success
                   - message
+    get:
+      tags:
+        - account
+      summary: Retrieve visible elements
+      description: List all elements visible to user profile
+      operationId: account#getSignatureElements
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/signatureElement'
+              example:
+                - type: signature
+                  file:
+                    url: 'http://cloud.test.coop/s/ry384r6t384/download/signature.png'
+                  metadata:
+                    text: string
+                    dateFormat: string
+  '/account/signature/elements/{elementId}':
+    get:
+      tags:
+        - account
+      summary: Retrieve visible elements
+      description: Get a specific visible element from user profile
+      operationId: account#getSignatureElement
+      parameters:
+        - name: elementId
+          in: path
+          description: ID of visible element
+          required: true
+          schema:
+            type: integer
+            description: Each element has an ID that is returned on validation endpoints.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/signatureElement'
+              example:
+                - type: signature
+                  file:
+                    url: 'http://cloud.test.coop/s/ry384r6t384/download/signature.png'
+                  metadata:
+                    text: string
+                    dateFormat: string
   /sign/register:
     post:
       tags:
