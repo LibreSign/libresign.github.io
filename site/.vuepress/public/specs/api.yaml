@@ -1262,6 +1262,22 @@ paths:
                   type: string
                   format: password
                   example: Ultr4S3cretP3ssword!
+                elements:
+                  type: array
+                  description: 'Visible elements. Not mandatory, only needed when the document has visible elements and the user has many visible elements associated to profile and don''t has favorited visible element to use.'
+                  items:
+                    type: object
+                    description: Relation between document visible element and visible element of user. This will be used to put on document.
+                    properties:
+                      documentElementId:
+                        type: integer
+                        description: Id of visible element on document
+                      profileElementId:
+                        type: integer
+                        description: Id of visible element on document
+                    required:
+                      - documentElementId
+                      - profileElementId
               required:
                 - password
       responses:
