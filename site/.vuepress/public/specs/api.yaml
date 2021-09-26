@@ -1139,8 +1139,6 @@ paths:
                   type: string
                   format: password
                   example: Ultr4S3cretP3ssword!
-                '':
-                  type: string
               required:
                 - password
       responses:
