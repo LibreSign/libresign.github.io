@@ -901,22 +901,18 @@ paths:
                   $ref: '#/components/schemas/file'
                 visibleElements:
                   description: Visible elements on document
-                  allOf:
-                    - $ref: '#/components/schemas/signatureElement'
-                    - $ref: '#/components/schemas/elementCoordinate'
-                    - type: object
-                      properties:
-                        uid:
-                          type: string
-                          nullable: true
-                          description: Nextcloud user id to assign this visible element.
-                          example: johndoe
-                        elementId:
-                          type: integer
-                          minimum: 1
-                          example: 1
-                      required:
-                        - elementId
+                  type: array
+                  items:
+                    allOf:
+                      - $ref: '#/components/schemas/signatureElement'
+                      - $ref: '#/components/schemas/elementCoordinate'
+                      - type: object
+                        properties:
+                          uid:
+                            type: string
+                            nullable: true
+                            description: Nextcloud user id to assign this visible element.
+                            example: johndoe
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -1010,22 +1006,24 @@ paths:
                       example: 2312
                 visibleElements:
                   description: Visible elements on document
-                  allOf:
-                    - $ref: '#/components/schemas/signatureElement'
-                    - $ref: '#/components/schemas/elementCoordinate'
-                    - type: object
-                      properties:
-                        uid:
-                          type: string
-                          nullable: true
-                          description: Nextcloud user id to assign this visible element.
-                          example: johndoe
-                        elementId:
-                          type: integer
-                          minimum: 1
-                          example: 1
-                      required:
-                        - elementId
+                  type: array
+                  items:
+                    allOf:
+                      - $ref: '#/components/schemas/signatureElement'
+                      - $ref: '#/components/schemas/elementCoordinate'
+                      - type: object
+                        properties:
+                          uid:
+                            type: string
+                            nullable: true
+                            description: Nextcloud user id to assign this visible element.
+                            example: johndoe
+                          elementId:
+                            type: integer
+                            minimum: 1
+                            example: 1
+                        required:
+                          - elementId
                 users:
                   type: array
                   description: Collection of users who must sign the document
