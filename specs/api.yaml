@@ -1499,6 +1499,18 @@ paths:
                     type: string
                     description: URL to download signed file
                     example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                  visibleElements:
+                    type: object
+                    description: Visible elements on document
+                    allOf:
+                      - $ref: '#/components/schemas/signatureElement'
+                      - type: object
+                        properties:
+                          id:
+                            type: integer
+                            minimum: 1
+                        required:
+                          - id
                   signers:
                     type: array
                     items:
@@ -1624,6 +1636,18 @@ paths:
                     type: string
                     description: URL to download signed file
                     example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                  visibleElements:
+                    type: object
+                    description: Visible elements on document
+                    allOf:
+                      - $ref: '#/components/schemas/signatureElement'
+                      - type: object
+                        properties:
+                          id:
+                            type: integer
+                            minimum: 1
+                        required:
+                          - id
                   signers:
                     type: array
                     items:
