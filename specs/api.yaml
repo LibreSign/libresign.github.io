@@ -641,7 +641,14 @@ paths:
               description: Collection of visible signature elements
               type: array
               items:
-                $ref: '#/components/schemas/signatureElement'
+                allOf:
+                  - $ref: '#/components/schemas/signatureElement'
+                  - type: object
+                    properties:
+                      starred:
+                        type: boolean
+                        default: false
+                        description: The main signature
       responses:
         '200':
           description: Visible document saved with success
@@ -899,11 +906,18 @@ paths:
                     - $ref: '#/components/schemas/elementCoordinate'
                     - type: object
                       properties:
+                        uid:
+                          type: string
+                          nullable: true
+                          description: Nextcloud user id to assign this visible element.
+                          example: johndoe
                         elementId:
                           type: integer
                           minimum: 1
+                          example: 1
                       required:
                         - elementId
+                        - uid
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -1002,11 +1016,18 @@ paths:
                     - $ref: '#/components/schemas/elementCoordinate'
                     - type: object
                       properties:
+                        uid:
+                          type: string
+                          nullable: true
+                          description: Nextcloud user id to assign this visible element.
+                          example: johndoe
                         elementId:
                           type: integer
                           minimum: 1
+                          example: 1
                       required:
                         - elementId
+                        - uid
                 users:
                   type: array
                   description: Collection of users who must sign the document
