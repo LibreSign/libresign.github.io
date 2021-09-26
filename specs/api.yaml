@@ -697,11 +697,20 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/signatureElement'
+                  allOf:
+                    - $ref: '#/components/schemas/signatureElement'
+                    - type: object
+                      properties:
+                        id:
+                          type: integer
+                          minimum: 1
+                      required:
+                        - id
               example:
                 - type: signature
                   file:
                     url: 'http://cloud.test.coop/s/ry384r6t384/download/signature.png'
+                  id: 5
                   metadata:
                     text: string
                     dateFormat: string
@@ -730,11 +739,20 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/signatureElement'
+                  allOf:
+                    - $ref: '#/components/schemas/signatureElement'
+                    - type: object
+                      properties:
+                        id:
+                          type: integer
+                          minimum: 1
+                      required:
+                        - id
               example:
                 - type: signature
                   file:
                     url: 'http://cloud.test.coop/s/ry384r6t384/download/signature.png'
+                  id: 5
                   metadata:
                     text: string
                     dateFormat: string
