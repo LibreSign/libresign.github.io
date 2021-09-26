@@ -917,7 +917,6 @@ paths:
                           example: 1
                       required:
                         - elementId
-                        - uid
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -1027,7 +1026,6 @@ paths:
                           example: 1
                       required:
                         - elementId
-                        - uid
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -1551,9 +1549,15 @@ paths:
                       - $ref: '#/components/schemas/elementCoordinate'
                       - type: object
                         properties:
+                          uid:
+                            type: string
+                            nullable: true
+                            description: Nextcloud user id to assign this visible element.
+                            example: johndoe
                           elementId:
                             type: integer
                             minimum: 1
+                            example: 1
                         required:
                           - elementId
                   signers:
@@ -1688,9 +1692,15 @@ paths:
                       - $ref: '#/components/schemas/elementCoordinate'
                       - type: object
                         properties:
+                          uid:
+                            type: string
+                            nullable: true
+                            description: Nextcloud user id to assign this visible element.
+                            example: johndoe
                           elementId:
                             type: integer
                             minimum: 1
+                            example: 1
                         required:
                           - elementId
                   signers:
