@@ -892,6 +892,18 @@ paths:
                   description: The name of file to sign
                 file:
                   $ref: '#/components/schemas/file'
+                visibleElements:
+                  description: Visible elements on document
+                  allOf:
+                    - $ref: '#/components/schemas/signatureElement'
+                    - $ref: '#/components/schemas/elementCoordinate'
+                    - type: object
+                      properties:
+                        elementId:
+                          type: integer
+                          minimum: 1
+                      required:
+                        - elementId
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -983,6 +995,18 @@ paths:
                       type: integer
                       description: Node id of a Nextcloud file
                       example: 2312
+                visibleElements:
+                  description: Visible elements on document
+                  allOf:
+                    - $ref: '#/components/schemas/signatureElement'
+                    - $ref: '#/components/schemas/elementCoordinate'
+                    - type: object
+                      properties:
+                        elementId:
+                          type: integer
+                          minimum: 1
+                      required:
+                        - elementId
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -1500,17 +1524,17 @@ paths:
                     description: URL to download signed file
                     example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
                   visibleElements:
-                    type: object
                     description: Visible elements on document
                     allOf:
                       - $ref: '#/components/schemas/signatureElement'
+                      - $ref: '#/components/schemas/elementCoordinate'
                       - type: object
                         properties:
-                          id:
+                          elementId:
                             type: integer
                             minimum: 1
                         required:
-                          - id
+                          - elementId
                   signers:
                     type: array
                     items:
@@ -1519,18 +1543,18 @@ paths:
                         signed:
                           type: string
                           pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
-                          nullable: true
                           description: 'Signing date, when signed'
                           example: '2021-12-31 22:45:50'
+                          nullable: true
                         displayName:
                           type: string
                           description: The person display name
                           example: John
                         fullName:
                           type: string
-                          nullable: true
                           description: The person full name
                           example: John Doe
+                          nullable: true
                         me:
                           type: boolean
                           description: It's me?
@@ -1637,17 +1661,17 @@ paths:
                     description: URL to download signed file
                     example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
                   visibleElements:
-                    type: object
                     description: Visible elements on document
                     allOf:
                       - $ref: '#/components/schemas/signatureElement'
+                      - $ref: '#/components/schemas/elementCoordinate'
                       - type: object
                         properties:
-                          id:
+                          elementId:
                             type: integer
                             minimum: 1
                         required:
-                          - id
+                          - elementId
                   signers:
                     type: array
                     items:
@@ -1656,18 +1680,18 @@ paths:
                         signed:
                           type: string
                           pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
-                          nullable: true
                           description: 'Signing date, when signed'
                           example: '2021-12-31 22:45:50'
+                          nullable: true
                         displayName:
                           type: string
                           description: The person display name
                           example: John
                         fullName:
                           type: string
-                          nullable: true
                           description: The person full name
                           example: John Doe
+                          nullable: true
                         me:
                           type: boolean
                           description: It's me?
@@ -2231,3 +2255,50 @@ components:
       required:
         - type
         - file
+    elementCoordinate:
+      description: Coortinates of a visible element on PDF
+      type: object
+      x-examples:
+        example-1:
+          coordinates:
+            page: 0
+            urx: 0
+            ury: 0
+            llx: 0
+            lly: 0
+      properties:
+        coordinates:
+          type: object
+          required:
+            - page
+            - urx
+            - ury
+            - llx
+            - lly
+          properties:
+            page:
+              type: integer
+              example: 0
+              minimum: 0
+            urx:
+              type: number
+              description: upper right corner postion on X-axe of visible signature
+              minimum: 0
+              example: 0
+            ury:
+              type: number
+              description: upper right corner postion on Y-axe of visible signature
+              minimum: 0
+              example: 0
+            llx:
+              type: number
+              description: lower left corner postion on X-axe of visible signature
+              minimum: 0
+              example: 0
+            lly:
+              type: number
+              description: lower left corner postion on Y-axe of visible signature
+              minimum: 0
+              example: 0
+      required:
+        - coordinates
