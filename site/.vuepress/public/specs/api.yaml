@@ -27,6 +27,8 @@ paths:
       summary: Who am I
       description: replaced by /account/me
       operationId: accountDeprecated#me
+      security:
+        - basicAuth: []
       deprecated: true
       responses:
         '200':
@@ -57,8 +59,6 @@ paths:
                     example: Invalid user or password
                 required:
                   - message
-      security:
-        - basicAuth: []
   /webhook/register:
     post:
       tags:
@@ -66,6 +66,8 @@ paths:
       summary: Request signature
       description: replaced by /account/register
       operationId: signFileDeprecated#requestSign
+      security:
+        - basicAuth: []
       deprecated: true
       requestBody:
         content:
@@ -144,14 +146,14 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: User 0 needs an email address
-      security:
-        - basicAuth: []
     patch:
       tags:
         - sign
       summary: Updates signatures data
       description: Is necessary to inform the UUID of the file and a list of people
       operationId: signFileDeprecated#updateSign
+      security:
+        - basicAuth: []
       deprecated: true
       requestBody:
         content:
@@ -223,8 +225,6 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: User 0 needs an email address
-      security:
-        - basicAuth: []
   /webhook/register/signature:
     delete:
       tags:
@@ -232,6 +232,8 @@ paths:
       summary: Delete sign request
       description: replaced by /sign/register/signature
       operationId: signFileDeprecated#removeSign
+      security:
+        - basicAuth: []
       deprecated: true
       requestBody:
         content:
@@ -284,8 +286,6 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: UUID not found
-      security:
-        - basicAuth: []
   /signature/has-root-cert:
     get:
       tags:
@@ -293,6 +293,8 @@ paths:
       summary: Has root certificate
       description: Replaced by /setting/has-root-cert
       operationId: settingDeprecated#hasRootCert
+      security:
+        - basicAuth: []
       deprecated: true
       responses:
         '200':
@@ -305,8 +307,6 @@ paths:
                   hasRootCert:
                     type: boolean
                     example: true
-      security:
-        - basicAuth: []
   /account/me:
     get:
       tags:
@@ -314,6 +314,8 @@ paths:
       summary: Who am I
       description: Validates API access data and returns the authenticated user's data.
       operationId: account#me
+      security:
+        - basicAuth: []
       responses:
         '200':
           description: successful operation
@@ -343,8 +345,6 @@ paths:
                     example: Invalid user or password
                 required:
                   - message
-      security:
-        - basicAuth: []
   '/account/create/{uuid}':
     post:
       tags:
@@ -531,6 +531,9 @@ paths:
         - sign
       summary: List all account files
       description: Identification document files can be associated with each account profile. Here you can list all these files and your status.
+      operationId: account#approvalList
+      security:
+        - basicAuth: []
       parameters:
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/limitParam'
@@ -567,8 +570,6 @@ paths:
                             $ref: '#/components/schemas/libresignFile'
                   pagination:
                     $ref: '#/components/schemas/pagination'
-      security:
-        - basicAuth: []
   /account/signature:
     post:
       tags:
@@ -686,6 +687,8 @@ paths:
       summary: Retrieve visible elements
       description: List all elements visible to user profile
       operationId: account#getSignatureElements
+      security:
+        - basicAuth: []
       responses:
         '200':
           description: successful operation
@@ -709,6 +712,8 @@ paths:
       summary: Retrieve visible elements
       description: Get a specific visible element from user profile
       operationId: account#getSignatureElement
+      security:
+        - basicAuth: []
       parameters:
         - name: elementId
           in: path
@@ -740,6 +745,8 @@ paths:
       summary: Request signature
       description: Request that a file be signed by a group of people
       operationId: signFile#requestSign
+      security:
+        - basicAuth: []
       requestBody:
         content:
           application/json:
@@ -817,14 +824,14 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: User 0 needs an email address
-      security:
-        - basicAuth: []
     patch:
       tags:
         - sign
       summary: Updates signatures data
       description: Is necessary to inform the UUID of the file and a list of people
       operationId: signFile#updateSign
+      security:
+        - basicAuth: []
       requestBody:
         content:
           application/json:
@@ -903,14 +910,15 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: User 0 needs an email address
-      security:
-        - basicAuth: []
   /sign/register/signature:
     delete:
       tags:
         - sign
       summary: Delete sign request
       description: You can only request exclusion as any sign
+      operationId: signFile#deleteSignature
+      security:
+        - basicAuth: []
       requestBody:
         content:
           application/json:
@@ -970,8 +978,6 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: UUID not found
-      security:
-        - basicAuth: []
   '/sign/uuid/{uuid}':
     post:
       tags:
@@ -979,6 +985,8 @@ paths:
       summary: Sign a file using user file UUUID
       description: The user UUID is what the person receives via email when asked to sign. This is not the file UUID.
       operationId: signFile#signUsingUuid
+      security:
+        - basicAuth: []
       parameters:
         - name: uuid
           in: path
@@ -1079,8 +1087,6 @@ paths:
                   - success
                   - action
                   - errors
-      security:
-        - basicAuth: []
   '/sign/file_id/{fileId}':
     post:
       tags:
@@ -1088,6 +1094,8 @@ paths:
       summary: Sign a file using Nextcloud node id
       description: Sign a file using Nextcloud node id.
       operationId: signFile#signUsingFileid
+      security:
+        - basicAuth: []
       parameters:
         - name: fileId
           in: path
@@ -1167,14 +1175,14 @@ paths:
                   - success
                   - action
                   - errors
-      security:
-        - basicAuth: []
     delete:
       tags:
         - sign
       summary: Delete sign request
       description: You can only request exclusion as any sign
       operationId: signFile#deleteAllSignRequestUsingFileId
+      security:
+        - basicAuth: []
       parameters:
         - name: fileId
           in: path
@@ -1212,8 +1220,6 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: UUID not found
-      security:
-        - basicAuth: []
   '/sign/file_id/{fileId}/{signatureId}':
     delete:
       tags:
@@ -1221,6 +1227,8 @@ paths:
       summary: Delete sign request
       description: You can only request exclusion as any sign
       operationId: signFile#deleteOneSignRequestUsingFileId
+      security:
+        - basicAuth: []
       parameters:
         - name: fileId
           in: path
@@ -1265,8 +1273,6 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: Signer not associated to this file
-      security:
-        - basicAuth: []
   /file/list:
     get:
       tags:
@@ -1274,6 +1280,8 @@ paths:
       summary: List all LibreSign files
       description: List all LibreSign files returning all informations about files
       operationId: libreSignFile#list
+      security:
+        - basicAuth: []
       parameters:
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/limitParam'
@@ -1292,8 +1300,6 @@ paths:
                       $ref: '#/components/schemas/libresignFile'
                   pagination:
                     $ref: '#/components/schemas/pagination'
-      security:
-        - basicAuth: []
   '/file/validate/uuid/{uuid}':
     get:
       tags:
@@ -1551,6 +1557,8 @@ paths:
       summary: Notify signers of a file
       description: Notify signers of a file
       operationId: notify#signers
+      security:
+        - basicAuth: []
       requestBody:
         content:
           application/json:
@@ -1631,6 +1639,8 @@ paths:
       summary: Has root certificate
       description: Checks whether the root certificate has been configured by checking the Nextcloud configuration table to see if the root certificate settings have been saved.
       operationId: setting#hasRootCert
+      security:
+        - basicAuth: []
       responses:
         '200':
           description: Success!
@@ -1642,8 +1652,6 @@ paths:
                   hasRootCert:
                     type: boolean
                     example: true
-      security:
-        - basicAuth: []
   /admin/certificate:
     post:
       tags:
