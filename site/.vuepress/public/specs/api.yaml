@@ -797,6 +797,25 @@ paths:
                 required:
                   - success
                   - message
+        '401':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - false
+                    description: Beep! Failure on update visible element.
+                  message:
+                    type: string
+                    description: Error pessage
+                    example: Invalid typee
+                required:
+                  - success
+                  - message
   /sign/register:
     post:
       tags:
