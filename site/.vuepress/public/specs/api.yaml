@@ -731,13 +731,7 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - name: elementId
-          in: path
-          description: ID of visible element
-          required: true
-          schema:
-            type: integer
-            description: Each element has an ID that is returned on validation endpoints.
+        - $ref: '#/components/parameters/elementIdParam'
       responses:
         '200':
           description: successful operation
@@ -772,13 +766,7 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - name: elementId
-          in: path
-          description: ID of visible element
-          required: true
-          schema:
-            type: integer
-            description: Each element has an ID that is returned on validation endpoints.
+        - $ref: '#/components/parameters/elementIdParam'
       requestBody:
         content:
           application/json:
@@ -832,13 +820,7 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - name: elementId
-          in: path
-          description: ID of visible element
-          required: true
-          schema:
-            type: integer
-            description: Each element has an ID that is returned on validation endpoints.
+        - $ref: '#/components/parameters/elementIdParam'
       responses:
         '200':
           description: Success!
@@ -1104,13 +1086,7 @@ paths:
                   format: uuid
                   description: Received from sign request
                 file:
-                  type: object
-                  description: File object.
-                  properties:
-                    fileId:
-                      type: integer
-                      description: Node id of a Nextcloud file
-                      example: 2312
+                  $ref: '#/components/schemas/file'
                 users:
                   type: array
                   description: Collection of persons
@@ -1162,14 +1138,7 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - name: uuid
-          in: path
-          description: File UUID
-          required: true
-          schema:
-            type: string
-            format: uuid
-            description: UUID user file identifier. The user UUID is what the person receives via email when asked to sign. This is not the file UUID.
+        - $ref: '#/components/parameters/uuidParam'
       requestBody:
         content:
           application/json:
@@ -1285,14 +1254,7 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - name: fileId
-          in: path
-          description: Node id of a Nextcloud file
-          required: true
-          schema:
-            type: string
-            description: Node id of a Nextcloud file.
-            example: '564'
+        - $ref: '#/components/parameters/fileIdParam'
       requestBody:
         content:
           application/json:
@@ -1388,14 +1350,7 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - name: fileId
-          in: path
-          description: Node id of a Nextcloud file
-          required: true
-          schema:
-            type: string
-            description: Node id of a Nextcloud file.
-            example: '564'
+        - $ref: '#/components/parameters/fileIdParam'
       responses:
         '200':
           description: Success!
@@ -1434,14 +1389,7 @@ paths:
       security:
         - basicAuth: []
       parameters:
-        - name: fileId
-          in: path
-          description: Node id of a Nextcloud file
-          required: true
-          schema:
-            type: string
-            description: Node id of a Nextcloud file.
-            example: '564'
+        - $ref: '#/components/parameters/fileIdParam'
         - name: signatureId
           in: path
           description: ID of signature
@@ -1655,14 +1603,15 @@ paths:
       description: Validate a file using Nextcloud node id.
       operationId: libreSignFile#validateFileId
       parameters:
-        - name: fileId
-          in: path
-          description: Nextcloud node id
-          required: true
+        - $ref: '#/components/parameters/fileIdParam'
+        - name: format
+          in: query
+          description: 'The format of file to view. On default format (pdf) will return file property, if the format is image, will return a property pages with list of all pages converted to images.'
           schema:
-            type: integer
-            description: Nextcloud node id.
-            example: 564
+            type: string
+            enum:
+              - pdf
+            default: pdf
       responses:
         '200':
           description: Success!
@@ -2038,6 +1987,32 @@ components:
         minimum: 1
         default: 15
       description: The number of page to return
+    fileIdParam:
+      name: fileId
+      in: path
+      description: Node id of a Nextcloud file
+      required: true
+      schema:
+        type: string
+        description: Node id of a Nextcloud file.
+        example: '564'
+    uuidParam:
+      name: uuid
+      in: path
+      description: File UUID
+      required: true
+      schema:
+        type: string
+        format: uuid
+        description: UUID user file identifier. The user UUID is what the person receives via email when asked to sign. This is not the file UUID.
+    elementIdParam:
+      name: elementId
+      in: path
+      description: ID of visible element
+      required: true
+      schema:
+        type: integer
+        description: Each element has an ID that is returned on validation endpoints.
   schemas:
     basicAccount:
       type: object
