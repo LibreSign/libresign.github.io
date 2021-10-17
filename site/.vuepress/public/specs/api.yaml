@@ -639,16 +639,19 @@ paths:
           application/json:
             schema:
               description: Collection of visible signature elements
-              type: array
-              items:
-                allOf:
-                  - $ref: '#/components/schemas/signatureElement'
-                  - type: object
-                    properties:
-                      starred:
-                        type: boolean
-                        default: false
-                        description: The main signature
+              type: object
+              properties:
+                elements:
+                  type: array
+                  items:
+                    allOf:
+                      - $ref: '#/components/schemas/signatureElement'
+                      - type: object
+                        properties:
+                          starred:
+                            type: boolean
+                            default: false
+                            description: The main signature
       responses:
         '200':
           description: Visible document saved with success
