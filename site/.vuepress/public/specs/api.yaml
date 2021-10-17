@@ -883,18 +883,19 @@ paths:
                   $ref: '#/components/schemas/file'
                 visibleElements:
                   description: Visible elements on document
-                  type: array
-                  items:
-                    allOf:
-                      - $ref: '#/components/schemas/signatureElement'
-                      - $ref: '#/components/schemas/elementCoordinate'
-                      - type: object
-                        properties:
-                          uid:
-                            type: string
-                            nullable: true
-                            description: Nextcloud user id to assign this visible element.
-                            example: johndoe
+                  allOf:
+                    - $ref: '#/components/schemas/signatureElement'
+                    - $ref: '#/components/schemas/signatureMetadataElement'
+                    - $ref: '#/components/schemas/elementCoordinate'
+                    - type: object
+                      properties:
+                        uid:
+                          type: string
+                          nullable: true
+                          description: Nextcloud user id to assign this visible element.
+                          example: johndoe
+                      required:
+                        - elementId
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -979,33 +980,26 @@ paths:
                   format: uuid
                   description: Received from sign request
                 file:
-                  type: object
-                  description: File object.
-                  properties:
-                    fileId:
-                      type: integer
-                      description: Node id of a Nextcloud file
-                      example: 2312
+                  $ref: '#/components/schemas/file'
                 visibleElements:
                   description: Visible elements on document
-                  type: array
-                  items:
-                    allOf:
-                      - $ref: '#/components/schemas/signatureElement'
-                      - $ref: '#/components/schemas/elementCoordinate'
-                      - type: object
-                        properties:
-                          uid:
-                            type: string
-                            nullable: true
-                            description: Nextcloud user id to assign this visible element.
-                            example: johndoe
-                          elementId:
-                            type: integer
-                            minimum: 1
-                            example: 1
-                        required:
-                          - elementId
+                  allOf:
+                    - $ref: '#/components/schemas/signatureElement'
+                    - $ref: '#/components/schemas/signatureMetadataElement'
+                    - $ref: '#/components/schemas/elementCoordinate'
+                    - type: object
+                      properties:
+                        uid:
+                          type: string
+                          nullable: true
+                          description: Nextcloud user id to assign this visible element.
+                          example: johndoe
+                        elementId:
+                          type: integer
+                          minimum: 1
+                          example: 1
+                      required:
+                        - elementId
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -2247,6 +2241,15 @@ components:
           example: signature
         file:
           $ref: '#/components/schemas/file'
+      required:
+        - type
+    signatureMetadataElement:
+      description: Metadata of visible elements to associate with the document
+      type: object
+      example:
+        metadata:
+          text: Lorem ipsum
+      properties:
         metadata:
           type: object
           properties:
