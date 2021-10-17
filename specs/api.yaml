@@ -724,6 +724,17 @@ paths:
                   metadata:
                     text: string
                     dateFormat: string
+        '404':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Description of the failure that occurred
+                    example: Elements not found
   '/account/signature/elements/{elementId}':
     get:
       tags:
