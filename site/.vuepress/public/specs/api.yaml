@@ -2312,10 +2312,6 @@ components:
       properties:
         coordinates:
           type: object
-          required:
-            - page
-            - llx
-            - lly
           properties:
             page:
               type: integer
