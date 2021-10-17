@@ -2321,25 +2321,30 @@ components:
               type: integer
               example: 0
               minimum: 0
+              default: 0
             urx:
-              type: number
+              type: integer
               description: upper right corner postion on X-axe of visible signature
               minimum: 0
               example: 0
+              default: 0
             ury:
-              type: number
+              type: integer
               description: upper right corner postion on Y-axe of visible signature
               minimum: 0
               example: 0
+              default: 0
             llx:
-              type: number
+              type: integer
               description: lower left corner postion on X-axe of visible signature
               minimum: 0
               example: 0
+              default: 0
             lly:
-              type: number
+              type: integer
               description: lower left corner postion on Y-axe of visible signature
               minimum: 0
               example: 0
+              default: 0
       required:
         - coordinates
