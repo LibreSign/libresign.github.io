@@ -2312,16 +2312,12 @@ components:
       properties:
         coordinates:
           type: object
-          required:
-            - page
-            - llx
-            - lly
           properties:
             page:
               type: integer
               example: 0
               minimum: 0
-              default: 0
+              default: 1
             urx:
               type: integer
               description: upper right corner postion on X-axe of visible signature
