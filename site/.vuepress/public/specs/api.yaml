@@ -1462,6 +1462,14 @@ paths:
             type: string
             format: uuid
             description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
+        - name: format
+          in: query
+          description: 'The format of file to view. On default format (pdf) will return file property, if the format is image, will return a property pages with list of all pages converted to images.'
+          schema:
+            type: string
+            enum:
+              - pdf
+            default: pdf
       responses:
         '200':
           description: Success!
@@ -1482,6 +1490,20 @@ paths:
                     type: string
                     description: URL to download signed file
                     example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                  pages:
+                    type: array
+                    description: |-
+                      List with all pages on image format.
+                      This property only will be returned when the query param format=image
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                          description: URL of page
+                          example: 'http://cloud.test.coop/apps/libresign/img/46d30465-ae11-484b-aad5-327249a1e8ef/page/1'
+                      required:
+                        - url
                   visibleElements:
                     description: Visible elements on document
                     allOf:
@@ -1626,6 +1648,20 @@ paths:
                     type: string
                     description: URL to download signed file
                     example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                  pages:
+                    type: array
+                    description: |-
+                      List with all pages on image format.
+                      This property only will be returned when the query param format=image
+                    items:
+                      type: object
+                      properties:
+                        url:
+                          type: string
+                          description: URL of page
+                          example: 'http://cloud.test.coop/apps/libresign/img/46d30465-ae11-484b-aad5-327249a1e8ef/page/1'
+                      required:
+                        - url
                   visibleElements:
                     description: Visible elements on document
                     allOf:
@@ -2259,9 +2295,6 @@ components:
             dateFormat:
               type: string
               minLength: 1
-      required:
-        - type
-        - file
     elementCoordinate:
       description: Coortinates of a visible element on PDF
       type: object
@@ -2278,8 +2311,6 @@ components:
           type: object
           required:
             - page
-            - urx
-            - ury
             - llx
             - lly
           properties:
