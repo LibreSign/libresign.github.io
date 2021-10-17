@@ -983,6 +983,9 @@ paths:
                   $ref: '#/components/schemas/file'
                 visibleElements:
                   description: Visible elements on document
+                  not:
+                    required:
+                      - coordinates
                   allOf:
                     - $ref: '#/components/schemas/signatureElement'
                     - $ref: '#/components/schemas/signatureMetadataElement'
