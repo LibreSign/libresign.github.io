@@ -376,12 +376,12 @@ paths:
                   type: string
                   format: password
                   description: Password used to authenticate to Nextcloud
-                  example: Ultr4S3cretP3ssword!
+                  example: password
                 signPassword:
                   type: string
                   format: password
                   description: Password used to sign a document
-                  example: Ultr4S3cretP3ssword!
+                  example: password
               required:
                 - email
                 - password
@@ -589,7 +589,7 @@ paths:
                   type: string
                   format: password
                   description: Password to pfx file
-                  example: MySecretP4ssword!
+                  example: password
       responses:
         '200':
           description: Folder where the pfx file was saved
@@ -1159,7 +1159,7 @@ paths:
                 password:
                   type: string
                   format: password
-                  example: Ultr4S3cretP3ssword!
+                  example: password
                 elements:
                   type: array
                   description: 'Visible elements. Not mandatory, only needed when the document has visible elements and the user has many visible elements associated to profile and don''t has favorited visible element to use.'
@@ -1275,7 +1275,7 @@ paths:
                 password:
                   type: string
                   format: password
-                  example: Ultr4S3cretP3ssword!
+                  example: password
                 elements:
                   type: array
                   description: 'Visible elements. Not mandatory, only needed when the document has visible elements and the user has many visible elements associated to profile and don''t has favorited visible element to use.'
