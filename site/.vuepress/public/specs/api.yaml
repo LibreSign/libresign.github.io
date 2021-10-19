@@ -629,8 +629,8 @@ paths:
     post:
       tags:
         - account
-      summary: Generates signature key
-      description: Generates the personal signature key
+      summary: Profile visible elements
+      description: Add visible elements to profile. Signature or initials.
       operationId: account#createSignatureElement
       security:
         - basicAuth: []
