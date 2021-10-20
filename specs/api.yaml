@@ -648,6 +648,10 @@ paths:
                       - $ref: '#/components/schemas/signatureElement'
                       - type: object
                         properties:
+                          uid:
+                            type: string
+                            description: The account login to associate this element
+                            example: jhondoe
                           starred:
                             type: boolean
                             default: false
@@ -907,11 +911,10 @@ paths:
                         properties:
                           uid:
                             type: string
-                            nullable: true
                             description: Nextcloud user id to assign this visible element.
-                            example: johndoe
+                            example: username
                         required:
-                          - elementId
+                          - uid
                 users:
                   type: array
                   description: Collection of users who must sign the document
