@@ -630,7 +630,7 @@ paths:
       tags:
         - account
       summary: Profile visible elements
-      description: Add visible elements to profile. Signature or initials
+      description: Add visible elements to profile. Signature or initials.
       operationId: account#createSignatureElement
       security:
         - basicAuth: []
