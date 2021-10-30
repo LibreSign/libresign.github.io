@@ -1640,7 +1640,7 @@ paths:
         '200':
           description: Success!
           content:
-            application/json:
+            image/png:
               schema:
                 type: object
                 properties:
@@ -1777,6 +1777,34 @@ paths:
                   - settings
                   - errors
                   - action
+  '/file/page/{uuid}/{page}':
+    get:
+      tags:
+        - sign
+      summary: Returns the image of a pdf page
+      description: Returns the image of a pdf page
+      operationId: libreSignFile#getPage
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: '#/components/parameters/uuidParam'
+        - name: page
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The number of page to return
+      responses:
+        '200':
+          description: 'The image of page'
+          content:
+            image/png:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Request failed
   /notify/signers:
     post:
       tags:
