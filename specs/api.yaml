@@ -1512,29 +1512,7 @@ paths:
                       List with all pages on image format.
                       This property only will be returned when the query param format=image
                     items:
-                      type: object
-                      properties:
-                        url:
-                          type: string
-                          description: URL of page
-                          example: 'http://cloud.test.coop/apps/libresign/img/46d30465-ae11-484b-aad5-327249a1e8ef/page/1'
-                        resolution:
-                          type: object
-                          properties:
-                            w:
-                              type: number
-                              description: Width in pixels of page
-                              example: 200.5
-                            h:
-                              type: number
-                              description: Height in pixels of page
-                              example: 200.5
-                          required:
-                            - w
-                            - h
-                      required:
-                        - url
-                        - resolution
+                      $ref: '#/components/schemas/pdfPage'
                   visibleElements:
                     description: Visible elements on document
                     allOf:
@@ -1677,29 +1655,7 @@ paths:
                       List with all pages on image format.
                       This property only will be returned when the query param format=image
                     items:
-                      type: object
-                      properties:
-                        url:
-                          type: string
-                          description: URL of page
-                          example: 'http://cloud.test.coop/apps/libresign/img/46d30465-ae11-484b-aad5-327249a1e8ef/page/1'
-                        resolution:
-                          type: object
-                          required:
-                            - w
-                            - h
-                          properties:
-                            w:
-                              type: number
-                              description: Width in pixels of page
-                              example: 200.5
-                            h:
-                              type: number
-                              description: Height in pixels of page
-                              example: 200.5
-                      required:
-                        - url
-                        - resolution
+                      $ref: '#/components/schemas/pdfPage'
                   visibleElements:
                     description: Visible elements on document
                     allOf:
@@ -2407,3 +2363,28 @@ components:
               default: 0
       required:
         - coordinates
+    pdfPage:
+      type: object
+      description: Metadata of PDF page on image format
+      properties:
+        url:
+          type: string
+          description: URL of page
+          example: 'http://cloud.test.coop/apps/libresign/img/46d30465-ae11-484b-aad5-327249a1e8ef/page/1'
+        resolution:
+          type: object
+          required:
+            - w
+            - h
+          properties:
+            w:
+              type: number
+              description: Width in pixels of page
+              example: 200.5
+            h:
+              type: number
+              description: Height in pixels of page
+              example: 200.5
+      required:
+        - url
+        - resolution
