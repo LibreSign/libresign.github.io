@@ -891,56 +891,58 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: filename
-                  description: The name of file to sign
-                file:
-                  $ref: '#/components/schemas/file'
-                visibleElements:
-                  type: array
-                  description: Visible elements on document
-                  items:
-                    allOf:
-                      - $ref: '#/components/schemas/signatureElement'
-                      - $ref: '#/components/schemas/signatureMetadataElement'
-                      - $ref: '#/components/schemas/elementCoordinate'
-                      - type: object
+              allOf:
+                - $ref: '#/components/schemas/libresignFileStatus'
+                - type: object
+                  properties:
+                    name:
+                      type: string
+                      example: filename
+                      description: The name of file to sign
+                    file:
+                      $ref: '#/components/schemas/file'
+                    visibleElements:
+                      type: array
+                      description: Visible elements on document
+                      items:
+                        allOf:
+                          - $ref: '#/components/schemas/signatureElement'
+                          - $ref: '#/components/schemas/signatureMetadataElement'
+                          - $ref: '#/components/schemas/elementCoordinate'
+                          - type: object
+                            properties:
+                              uid:
+                                type: string
+                                description: Nextcloud user id to assign this visible element.
+                                example: username
+                            required:
+                              - uid
+                    users:
+                      type: array
+                      description: Collection of users who must sign the document
+                      items:
+                        type: object
+                        description: Person who will sign
                         properties:
-                          uid:
+                          email:
                             type: string
-                            description: Nextcloud user id to assign this visible element.
-                            example: username
+                            format: email
+                            description: Unique email to identify user
+                            example: user@test.coop
+                          displayName:
+                            type: string
+                            description: Persons name
+                            example: John Doe
+                          description:
+                            type: string
+                            description: Description that will be displayed to the person
+                            example: 'As the company''s CEO, you must sign this contract'
                         required:
-                          - uid
-                users:
-                  type: array
-                  description: Collection of users who must sign the document
-                  items:
-                    type: object
-                    description: Person who will sign
-                    properties:
-                      email:
-                        type: string
-                        format: email
-                        description: Unique email to identify user
-                        example: user@test.coop
-                      displayName:
-                        type: string
-                        description: Persons name
-                        example: John Doe
-                      description:
-                        type: string
-                        description: Description that will be displayed to the person
-                        example: 'As the company''s CEO, you must sign this contract'
-                    required:
-                      - email
-                callback:
-                  type: string
-                  description: URL that will receive a POST after the document is signed
-                  example: 'http://app.test.coop/callback_webhook'
+                          - email
+                    callback:
+                      type: string
+                      description: URL that will receive a POST after the document is signed
+                      example: 'http://app.test.coop/callback_webhook'
               required:
                 - name
                 - file
@@ -992,63 +994,64 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                uuid:
-                  type: string
-                  format: uuid
-                  description: Received from sign request
-                file:
-                  $ref: '#/components/schemas/file'
-                visibleElements:
-                  type: array
-                  description: Visible elements on document
-                  items:
-                    not:
-                      required:
-                        - coordinates
-                    allOf:
-                      - $ref: '#/components/schemas/signatureElement'
-                      - $ref: '#/components/schemas/signatureMetadataElement'
-                      - $ref: '#/components/schemas/elementCoordinate'
-                      - type: object
+              allOf:
+                - $ref: '#/components/schemas/libresignFileStatus'
+                - type: object
+                  properties:
+                    uuid:
+                      type: string
+                      format: uuid
+                      description: Received from sign request
+                    file:
+                      $ref: '#/components/schemas/file'
+                    visibleElements:
+                      type: array
+                      description: Visible elements on document
+                      items:
+                        not:
+                          required:
+                            - coordinates
+                        allOf:
+                          - $ref: '#/components/schemas/signatureElement'
+                          - $ref: '#/components/schemas/signatureMetadataElement'
+                          - $ref: '#/components/schemas/elementCoordinate'
+                          - type: object
+                            properties:
+                              uid:
+                                type: string
+                                nullable: true
+                                description: Nextcloud user id to assign this visible element.
+                                example: johndoe
+                              elementId:
+                                type: integer
+                                minimum: 1
+                                example: 1
+                            required:
+                              - elementId
+                    users:
+                      type: array
+                      description: Collection of users who must sign the document
+                      items:
+                        type: object
+                        description: Person who will sign
                         properties:
-                          uid:
+                          email:
                             type: string
-                            nullable: true
-                            description: Nextcloud user id to assign this visible element.
-                            example: johndoe
-                          elementId:
-                            type: integer
-                            minimum: 1
-                            example: 1
+                            format: email
+                            description: Unique email to identify user
+                            example: user@test.coop
+                          displayName:
+                            type: string
+                            description: Persons name
+                            example: John Doe
+                          description:
+                            type: string
+                            description: Description that will be displayed to the person
+                            example: 'As the company''s CEO, you must sign this contract'
                         required:
-                          - elementId
-                users:
-                  type: array
-                  description: Collection of users who must sign the document
-                  items:
-                    type: object
-                    description: Person who will sign
-                    properties:
-                      email:
-                        type: string
-                        format: email
-                        description: Unique email to identify user
-                        example: user@test.coop
-                      displayName:
-                        type: string
-                        description: Persons name
-                        example: John Doe
-                      description:
-                        type: string
-                        description: Description that will be displayed to the person
-                        example: 'As the company''s CEO, you must sign this contract'
-                    required:
-                      - email
+                          - email
               required:
                 - uuid
-                - users
         required: true
       responses:
         '200':
@@ -2420,3 +2423,22 @@ components:
       required:
         - url
         - resolution
+    libresignFileStatus:
+      title: LibreSign file status
+      type: object
+      properties:
+        status:
+          type: integer
+          description: |-
+            Numeric code of signature status
+
+            STATUS_DRAFT = 0
+            STATUS_ABLE_TO_SIGN = 1
+            STATUS_PARTIAL_SIGNED = 2
+            STATUS_SIGNED = 3
+          enum:
+            - 0
+            - 1
+            - 2
+            - 3
+          default: 1
