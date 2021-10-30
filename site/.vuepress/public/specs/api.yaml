@@ -630,7 +630,7 @@ paths:
       tags:
         - account
       summary: Profile visible elements
-      description: Add visible elements to profile. Signature or initials.
+      description: Add visible elements to profile. Signature or initials
       operationId: account#createSignatureElement
       security:
         - basicAuth: []
@@ -1518,8 +1518,23 @@ paths:
                           type: string
                           description: URL of page
                           example: 'http://cloud.test.coop/apps/libresign/img/46d30465-ae11-484b-aad5-327249a1e8ef/page/1'
+                        resolution:
+                          type: object
+                          properties:
+                            w:
+                              type: number
+                              description: Width in pixels of page
+                              example: 200.5
+                            h:
+                              type: number
+                              description: Height in pixels of page
+                              example: 200.5
+                          required:
+                            - w
+                            - h
                       required:
                         - url
+                        - resolution
                   visibleElements:
                     description: Visible elements on document
                     allOf:
@@ -1668,8 +1683,23 @@ paths:
                           type: string
                           description: URL of page
                           example: 'http://cloud.test.coop/apps/libresign/img/46d30465-ae11-484b-aad5-327249a1e8ef/page/1'
+                        resolution:
+                          type: object
+                          required:
+                            - w
+                            - h
+                          properties:
+                            w:
+                              type: number
+                              description: Width in pixels of page
+                              example: 200.5
+                            h:
+                              type: number
+                              description: Height in pixels of page
+                              example: 200.5
                       required:
                         - url
+                        - resolution
                   visibleElements:
                     description: Visible elements on document
                     allOf:
@@ -1679,9 +1709,9 @@ paths:
                         properties:
                           uid:
                             type: string
-                            nullable: true
                             description: Nextcloud user id to assign this visible element.
                             example: johndoe
+                            nullable: true
                           elementId:
                             type: integer
                             minimum: 1
@@ -1797,7 +1827,7 @@ paths:
           description: The number of page to return
       responses:
         '200':
-          description: 'The image of page'
+          description: The image of page
           content:
             image/png:
               schema:
