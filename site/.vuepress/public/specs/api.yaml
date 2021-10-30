@@ -1486,14 +1486,6 @@ paths:
             type: string
             format: uuid
             description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
-        - name: format
-          in: query
-          description: 'The format of file to view. On default format (pdf) will return file property, if the format is image, will return a property pages with list of all pages converted to images.'
-          schema:
-            type: string
-            enum:
-              - pdf
-            default: pdf
       responses:
         '200':
           description: Success!
@@ -1644,15 +1636,6 @@ paths:
       operationId: libreSignFile#validateFileId
       parameters:
         - $ref: '#/components/parameters/fileIdParam'
-        - name: format
-          in: query
-          description: 'The format of file to view. On default format (pdf) will return file property, if the format is image, will return a property pages with list of all pages converted to images.'
-          schema:
-            type: string
-            enum:
-              - pdf
-              - png
-            default: pdf
       responses:
         '200':
           description: Success!
