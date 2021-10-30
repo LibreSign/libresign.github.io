@@ -80,7 +80,7 @@ paths:
                   example: filename
                   description: The name of file to sign
                 file:
-                  $ref: '#/components/schemas/file'
+                  $ref: '#/components/schemas/newFile'
                 users:
                   type: array
                   description: Collection of users who must sign the document
@@ -477,7 +477,7 @@ paths:
                         default: IDENTIFICATION
                         description: The type code of this file to be attached to the account
                       file:
-                        $ref: '#/components/schemas/file'
+                        $ref: '#/components/schemas/newFile'
       responses:
         '200':
           description: Documents have been attached to the account
@@ -720,14 +720,6 @@ paths:
                           minimum: 1
                       required:
                         - id
-              example:
-                - type: signature
-                  file:
-                    url: 'http://cloud.test.coop/s/ry384r6t384/download/signature.png'
-                  id: 5
-                  metadata:
-                    text: string
-                    dateFormat: string
         '404':
           description: Request failed
           content:
@@ -767,14 +759,6 @@ paths:
                           minimum: 1
                       required:
                         - id
-              example:
-                - type: signature
-                  file:
-                    url: 'http://cloud.test.coop/s/ry384r6t384/download/signature.png'
-                  id: 5
-                  metadata:
-                    text: string
-                    dateFormat: string
     patch:
       tags:
         - account
@@ -900,7 +884,7 @@ paths:
                       example: filename
                       description: The name of file to sign
                     file:
-                      $ref: '#/components/schemas/file'
+                      $ref: '#/components/schemas/newFile'
                     visibleElements:
                       type: array
                       description: Visible elements on document
@@ -1003,7 +987,7 @@ paths:
                       format: uuid
                       description: Received from sign request
                     file:
-                      $ref: '#/components/schemas/file'
+                      $ref: '#/components/schemas/fileId'
                     visibleElements:
                       type: array
                       description: Visible elements on document
@@ -1107,7 +1091,7 @@ paths:
                   format: uuid
                   description: Received from sign request
                 file:
-                  $ref: '#/components/schemas/file'
+                  $ref: '#/components/schemas/fileId'
                 users:
                   type: array
                   description: Collection of persons
@@ -2260,25 +2244,34 @@ components:
         - uuid
         - name
         - status
-    file:
+    fileId:
       type: object
-      description: File object. Use one of these types
+      description: File object.
       properties:
-        url:
-          type: string
-          description: URL of file
-          example: 'http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf'
         fileId:
           type: integer
           description: Node id of a Nextcloud file
           example: 2312
-        base64:
-          type: string
-          format: base64
-          description: base64 of PDF file content
-          example: dGVzdA==
       example:
-        url: 'http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf'
+        fileId: 2312
+    newFile:
+      type: object
+      description: File object. Use one of these types
+      oneOf:
+        - $ref: '#/components/schemas/fileId'
+        - type: object
+          properties:
+            url:
+              type: string
+              description: URL of file
+              example: 'http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf'
+        - type: object
+          properties:
+            base64:
+              type: string
+              format: base64
+              description: base64 of PDF file content
+              example: dGVzdA==
     pagination:
       type: object
       properties:
@@ -2323,10 +2316,6 @@ components:
     signatureElement:
       description: Visible elements to associate with the document
       type: object
-      example:
-        type: signature
-        file:
-          url: 'http://cloud.test.coop/s/ry384r6t384/download/signature.png'
       properties:
         type:
           type: string
@@ -2339,7 +2328,7 @@ components:
             - text
           example: signature
         file:
-          $ref: '#/components/schemas/file'
+          $ref: '#/components/schemas/newFile'
       required:
         - type
     signatureMetadataElement:
@@ -2442,9 +2431,11 @@ components:
             STATUS_ABLE_TO_SIGN = 1
             STATUS_PARTIAL_SIGNED = 2
             STATUS_SIGNED = 3
+            STATUS_DELETED = 4
           enum:
             - 0
             - 1
             - 2
             - 3
+            - 4
           default: 1
