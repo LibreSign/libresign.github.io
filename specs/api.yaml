@@ -531,7 +531,7 @@ paths:
         - sign
       summary: List all account files
       description: Identification document files can be associated with each account profile. Here you can list all these files and your status.
-      operationId: account#approvalList
+      operationId: account#accountFileList
       security:
         - basicAuth: []
       parameters:
