@@ -2471,6 +2471,13 @@ components:
             ury: 0
             llx: 0
             lly: 0
+        example-2:
+          coordinates:
+            page: 0
+            width: 0
+            height: 0
+            left: 0
+            top: 0
       properties:
         coordinates:
           type: object
@@ -2480,6 +2487,30 @@ components:
               example: 0
               minimum: 0
               default: 1
+            width:
+              type: integer
+              description: width of visible signature
+              minimum: 0
+              example: 0
+              default: 0
+            height:
+              type: integer
+              description: height of visible signature
+              minimum: 0
+              example: 0
+              default: 0
+            left:
+              type: integer
+              description: left position of visible signature
+              minimum: 0
+              example: 0
+              default: 0
+            top:
+              type: integer
+              description: top position of visible signature
+              minimum: 0
+              example: 0
+              default: 0
             urx:
               type: integer
               description: upper right corner postion on X-axe of visible signature
