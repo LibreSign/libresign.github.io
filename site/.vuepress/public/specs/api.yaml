@@ -898,32 +898,11 @@ paths:
                       type: array
                       description: Collection of users who must sign the document
                       items:
-                        type: object
-                        description: Person who will sign
-                        properties:
-                          email:
-                            type: string
-                            format: email
-                            description: Unique email to identify user
-                            example: user@test.coop
-                          displayName:
-                            type: string
-                            description: Persons name
-                            example: John Doe
-                          description:
-                            type: string
-                            description: Description that will be displayed to the person
-                            example: 'As the company''s CEO, you must sign this contract'
-                        required:
-                          - email
+                        $ref: '#/components/schemas/signAccount'
                     callback:
                       type: string
                       description: URL that will receive a POST after the document is signed
                       example: 'http://app.test.coop/callback_webhook'
-              required:
-                - name
-                - file
-                - users
         required: true
       responses:
         '200':
@@ -1002,26 +981,7 @@ paths:
                       type: array
                       description: Collection of users who must sign the document
                       items:
-                        type: object
-                        description: Person who will sign
-                        properties:
-                          email:
-                            type: string
-                            format: email
-                            description: Unique email to identify user
-                            example: user@test.coop
-                          displayName:
-                            type: string
-                            description: Persons name
-                            example: John Doe
-                          description:
-                            type: string
-                            description: Description that will be displayed to the person
-                            example: 'As the company''s CEO, you must sign this contract'
-                        required:
-                          - email
-              required:
-                - uuid
+                        $ref: '#/components/schemas/signAccount'
         required: true
       responses:
         '200':
@@ -2237,14 +2197,26 @@ components:
       properties:
         displayName:
           type: string
-          nullable: true
           description: Who requested that the file be signed?
           example: John Doe
         uid:
           type: string
-          nullable: true
           description: Nextcloud user id of who requested the file to be signed.
           example: johndoe
+    signAccount:
+      allOf:
+        - $ref: '#/components/schemas/basicAccount'
+        - type: object
+          properties:
+            email:
+              type: string
+              format: email
+              description: Unique email to identify user. Use this or uid.
+              example: user@test.coop
+            description:
+              type: string
+              description: Description that will be displayed to the person
+              example: 'As the company''s CEO, you must sign this contract'
     accountSettings:
       type: object
       properties:
