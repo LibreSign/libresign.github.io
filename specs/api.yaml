@@ -1817,12 +1817,7 @@ paths:
         content:
           application/json:
             schema:
-              items:
-                not:
-                  required:
-                    - coordinates
-                allOf:
-                  - $ref: '#/components/schemas/pdfVisibleElement'
+              $ref: '#/components/schemas/pdfVisibleElement'
       responses:
         '200':
           description: Visible document saved with success
