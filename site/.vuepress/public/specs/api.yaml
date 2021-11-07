@@ -273,7 +273,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    description: Success messagen
+                    description: Success message
                     example: Success
         '422':
           description: Request failed
@@ -671,7 +671,7 @@ paths:
                     description: Uhuuu! Need true vale.
                   message:
                     type: string
-                    description: Success messagen
+                    description: Success message
                     example: Success
                 required:
                   - success
@@ -889,18 +889,11 @@ paths:
                       type: array
                       description: Visible elements on document
                       items:
+                        not:
+                          required:
+                            - coordinates
                         allOf:
-                          - $ref: '#/components/schemas/signatureElement'
-                          - $ref: '#/components/schemas/signatureMetadataElement'
-                          - $ref: '#/components/schemas/elementCoordinate'
-                          - type: object
-                            properties:
-                              uid:
-                                type: string
-                                description: Nextcloud user id to assign this visible element.
-                                example: username
-                            required:
-                              - uid
+                          - $ref: '#/components/schemas/pdfVisibleElement'
                     users:
                       type: array
                       description: Collection of users who must sign the document
@@ -996,16 +989,9 @@ paths:
                           required:
                             - coordinates
                         allOf:
-                          - $ref: '#/components/schemas/signatureElement'
-                          - $ref: '#/components/schemas/signatureMetadataElement'
-                          - $ref: '#/components/schemas/elementCoordinate'
+                          - $ref: '#/components/schemas/pdfVisibleElement'
                           - type: object
                             properties:
-                              uid:
-                                type: string
-                                nullable: true
-                                description: Nextcloud user id to assign this visible element.
-                                example: johndoe
                               elementId:
                                 type: integer
                                 minimum: 1
@@ -1120,7 +1106,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    description: Success messagen
+                    description: Success message
                     example: Success
         '422':
           description: Request failed
@@ -1371,7 +1357,7 @@ paths:
                     description: Uhuuu! Need true vale.
                   message:
                     type: string
-                    description: Success messagen
+                    description: Success message
                     example: Success
         '401':
           description: Request failed
@@ -1417,7 +1403,7 @@ paths:
                     description: Uhuuu! Need true vale.
                   message:
                     type: string
-                    description: Success messagen
+                    description: Success message
                     example: Success
         '401':
           description: Request failed
@@ -1816,6 +1802,166 @@ paths:
                 format: binary
         '404':
           description: Request failed
+  '/file/{uuid}/elements':
+    post:
+      tags:
+        - sign
+      summary: Create visible element
+      description: Create visible element of a specific file
+      operationId: libreSignFile#postElement
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: '#/components/parameters/uuidParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                not:
+                  required:
+                    - coordinates
+                allOf:
+                  - $ref: '#/components/schemas/pdfVisibleElement'
+      responses:
+        '200':
+          description: Visible document saved with success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                  message:
+                    type: string
+                    description: Success message
+                    example: Success
+                required:
+                  - success
+                  - message
+        '401':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - false
+                    description: Beep! Failure on generate certificate.
+                  message:
+                    type: string
+                    description: Error pessage
+                    example: Invalid file
+                required:
+                  - success
+                  - message
+  '/file/{uuid}/elements/{elementId}':
+    patch:
+      tags:
+        - sign
+      summary: Update visible element
+      description: Update visible element of a specific file
+      operationId: libreSignFile#patchElement
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: '#/components/parameters/uuidParam'
+        - $ref: '#/components/parameters/elementIdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                not:
+                  required:
+                    - coordinates
+                allOf:
+                  - $ref: '#/components/schemas/pdfVisibleElement'
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                  message:
+                    type: string
+                    description: Visible element upated
+                    example: Visible element upated
+                required:
+                  - success
+                  - message
+        '401':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - false
+                    description: Beep! Failure on update visible element.
+                  message:
+                    type: string
+                    description: Error pessage
+                    example: Invalid type
+                required:
+                  - success
+                  - message
+    delete:
+      tags:
+        - sign
+      summary: Delete visible element
+      description: Delete visible element of a specific file
+      operationId: libreSignFile#deleteElement
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: '#/components/parameters/uuidParam'
+        - $ref: '#/components/parameters/elementIdParam'
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                  message:
+                    type: string
+                    description: Success message
+                    example: Success
+        '401':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Description of the failure that occurred
+                    example: Element not associated to this file
   /notify/signers:
     post:
       tags:
@@ -1867,7 +2013,7 @@ paths:
                     description: Uhuuu! Need true vale.
                   message:
                     type: string
-                    description: Success messagen
+                    description: Success message
                     example: Success
         '401':
           description: Request failed
@@ -2393,6 +2539,45 @@ components:
               default: 0
       required:
         - coordinates
+    pdfVisibleElement:
+      description: Coortinates of a visible element on PDF
+      type: object
+      x-examples:
+        Example of new element:
+          type: signature
+          metadata:
+            text: Lorem ipsum
+          coordinates:
+            page: 0
+            urx: 0
+            ury: 0
+            llx: 0
+            lly: 0
+          uid: johndoe
+      not:
+        required:
+          - coordinates
+      allOf:
+        - $ref: '#/components/schemas/signatureMetadataElement'
+        - $ref: '#/components/schemas/elementCoordinate'
+        - type: object
+          properties:
+            type:
+              type: string
+              minLength: 1
+              enum:
+                - signature
+                - initial
+                - date
+                - datetime
+                - text
+              example: signature
+            uid:
+              type: string
+              description: Nextcloud user id to assign this visible element.
+              example: johndoe
+          required:
+            - uid
     pdfPage:
       type: object
       description: Metadata of PDF page on image format
