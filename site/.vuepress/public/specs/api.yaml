@@ -2545,8 +2545,6 @@ components:
       x-examples:
         Example of new element:
           type: signature
-          file:
-            fileId: 2312
           metadata:
             text: Lorem ipsum
           coordinates:
@@ -2560,14 +2558,22 @@ components:
         required:
           - coordinates
       allOf:
-        - $ref: '#/components/schemas/signatureElement'
         - $ref: '#/components/schemas/signatureMetadataElement'
         - $ref: '#/components/schemas/elementCoordinate'
         - type: object
           properties:
+            type:
+              type: string
+              minLength: 1
+              enum:
+                - signature
+                - initial
+                - date
+                - datetime
+                - text
+              example: signature
             uid:
               type: string
-              nullable: true
               description: Nextcloud user id to assign this visible element.
               example: johndoe
           required:
