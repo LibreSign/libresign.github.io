@@ -2198,10 +2198,12 @@ components:
         displayName:
           type: string
           description: Who requested that the file be signed?
+          nullable: true
           example: John Doe
         uid:
           type: string
           description: Nextcloud user id of who requested the file to be signed.
+          nullable: true
           example: johndoe
     signAccount:
       allOf:
