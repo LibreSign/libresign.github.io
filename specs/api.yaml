@@ -96,6 +96,7 @@ paths:
                       displayName:
                         type: string
                         description: Persons name
+                        nullable: true
                         example: John Doe
                       description:
                         type: string
@@ -180,6 +181,7 @@ paths:
                       displayName:
                         type: string
                         description: Persons name
+                        nullable: true
                         example: John Doe
                       description:
                         type: string
@@ -885,15 +887,6 @@ paths:
                       description: The name of file to sign
                     file:
                       $ref: '#/components/schemas/newFile'
-                    visibleElements:
-                      type: array
-                      description: Visible elements on document
-                      items:
-                        not:
-                          required:
-                            - coordinates
-                        allOf:
-                          - $ref: '#/components/schemas/pdfVisibleElement'
                     users:
                       type: array
                       description: Collection of users who must sign the document
@@ -1455,10 +1448,10 @@ paths:
                           - $ref: '#/components/schemas/elementCoordinate'
                           - type: object
                             properties:
-                              uid:
+                              fileUserId:
                                 type: string
                                 nullable: true
-                                description: Nextcloud user id to assign this visible element.
+                                description: Representative ID of relation between file and user
                                 example: johndoe
                               elementId:
                                 type: integer
@@ -1480,6 +1473,7 @@ paths:
                             displayName:
                               type: string
                               description: The person display name
+                              nullable: true
                               example: John
                             fullName:
                               type: string
@@ -1495,16 +1489,15 @@ paths:
                               format: email
                               description: Unique email to identify signer. This property will only exist when it is a request made by the person who requested the document to be signed.
                               example: user@test.coop
-                            signatureId:
+                            fileUserId:
                               type: integer
-                              description: ID of signature. Each signature has an ID that is returned on validation endpoints.
+                              description: Relation between file and user
                               example: 1
                           required:
                             - signed
-                            - displayName
                             - fullName
                             - me
-                            - signatureId
+                            - fileUserId
                       settings:
                         $ref: '#/components/schemas/signSettings'
                       messages:
@@ -1642,6 +1635,7 @@ paths:
                             displayName:
                               type: string
                               description: The person display name
+                              nullable: true
                               example: John
                             fullName:
                               type: string
@@ -1663,7 +1657,6 @@ paths:
                               example: 1
                           required:
                             - signed
-                            - displayName
                             - fullName
                             - me
                             - signatureId
@@ -1786,6 +1779,9 @@ paths:
               schema:
                 type: object
                 properties:
+                  fileElementId:
+                    type: integer
+                    description: Representative ID of relation between file, fileUser and the visible element on pdf
                   success:
                     type: boolean
                     enum:
@@ -2203,7 +2199,6 @@ components:
         uid:
           type: string
           description: Nextcloud user id of who requested the file to be signed.
-          nullable: true
           example: johndoe
     signAccount:
       allOf:
@@ -2553,7 +2548,7 @@ components:
             ury: 0
             llx: 0
             lly: 0
-          uid: johndoe
+          fileUserId: 123
       not:
         required:
           - coordinates
@@ -2572,12 +2567,12 @@ components:
                 - datetime
                 - text
               example: signature
-            uid:
-              type: string
-              description: Nextcloud user id to assign this visible element.
-              example: johndoe
+            fileUserId:
+              type: integer
+              description: Representative ID of relation between file, fileUser and the visible element on pdf
+              example: 123
           required:
-            - uid
+            - fileUserId
     pdfPage:
       type: object
       description: Metadata of PDF page on image format
