@@ -1434,6 +1434,14 @@ paths:
                         type: string
                         description: URL to download signed file
                         example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      fileId:
+                        type: integer
+                        description: Node id of a Nextcloud file
+                        example: 2312
+                      uuid:
+                        type: string
+                        format: uuid
+                        description: Received from sign request
                       pages:
                         type: array
                         description: |-
@@ -1596,6 +1604,14 @@ paths:
                         type: string
                         description: URL to download signed file
                         example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      fileId:
+                        type: integer
+                        description: Node id of a Nextcloud file
+                        example: 2312
+                      uuid:
+                        type: string
+                        format: uuid
+                        description: Received from sign request
                       pages:
                         type: array
                         description: |-
