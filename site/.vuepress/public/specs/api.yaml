@@ -1323,7 +1323,7 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: UUID not found
-  '/sign/file_id/{fileId}/{signatureId}':
+  '/sign/file_id/{fileId}/{fileUserId}':
     delete:
       tags:
         - sign
@@ -1334,13 +1334,13 @@ paths:
         - basicAuth: []
       parameters:
         - $ref: '#/components/parameters/fileIdParam'
-        - name: signatureId
+        - name: fileUserId
           in: path
-          description: ID of signature
+          description: ID of relation between file and user.
           required: true
           schema:
             type: integer
-            description: Each signature has an ID that is returned on validation endpoints.
+            description: Each relation between file and user has an ID that is returned on validation endpoints.
       responses:
         '200':
           description: Success!
@@ -1667,15 +1667,15 @@ paths:
                               format: email
                               description: Unique email to identify signer. This property will only exist when it is a request made by the person who requested the document to be signed.
                               example: user@test.coop
-                            signatureId:
+                            fileUserId:
                               type: integer
-                              description: ID of signature. Each signature has an ID that is returned on validation endpoints.
+                              description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
                               example: 1
                           required:
                             - signed
                             - fullName
                             - me
-                            - signatureId
+                            - fileUserId
                       settings:
                         $ref: '#/components/schemas/signSettings'
                       messages:
@@ -2359,9 +2359,9 @@ components:
                 pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                 description: Date the signature was requested
                 example: '2021-12-31 22:45:50'
-              signatureId:
+              fileUserId:
                 type: integer
-                description: ID of signature. Each signature has an ID that is returned on validation endpoints.
+                description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
                 example: 1
             required:
               - email
