@@ -347,6 +347,83 @@ paths:
                     example: Invalid user or password
                 required:
                   - message
+  /account/settings:
+    patch:
+      tags:
+        - account
+      summary: Update account settings
+      operationId: account#updateSettings
+      security:
+        - basicAuth: []
+      description: Update account settings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: string
+                  example: '+123456789'
+                  description: Phone number
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    status: success
+                    data:
+                      userId: admin
+                      phone: ''
+                      message: Settings saved
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                  data:
+                    type: object
+                    required:
+                      - userId
+                      - phone
+                      - message
+                    properties:
+                      userId:
+                        type: string
+                        minLength: 1
+                      phone:
+                        type: string
+                        description: 'Phone number, empty if invalid, filled if valid.'
+                      message:
+                        type: string
+                        minLength: 1
+                required:
+                  - status
+                  - data
+        '400':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - false
+                    description: Beep! Failure on update visible element.
+                  message:
+                    type: string
+                    description: Error pessage
+                    example: Invalid type
+                required:
+                  - success
+                  - message
   '/account/create/{uuid}':
     post:
       tags:
@@ -1797,7 +1874,7 @@ paths:
                 properties:
                   fileElementId:
                     type: integer
-                    description: Representative ID of relation between file, fileUser and the visible element on pdf
+                    description: 'Representative ID of relation between file, fileUser and the visible element on pdf'
                   success:
                     type: boolean
                     enum:
@@ -2585,7 +2662,7 @@ components:
               example: signature
             fileUserId:
               type: integer
-              description: Representative ID of relation between file, fileUser and the visible element on pdf
+              description: 'Representative ID of relation between file, fileUser and the visible element on pdf'
               example: 123
           required:
             - fileUserId
