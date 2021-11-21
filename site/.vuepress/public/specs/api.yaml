@@ -1446,12 +1446,12 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: Signer not associated to this file
-  /sign/uuid/{uuid}/token:
+  /sign/uuid/{uuid}/code:
     get:
       tags:
         - account
-      summary: Request sign token
-      description: Request token to sign file using uuid
+      summary: Request sign code
+      description: Request code to sign file using uuid
       operationId: signFile#getTokenUsingUuid
       security:
         - basicAuth: []
@@ -1485,12 +1485,12 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: Signer not associated to this file
-  /sign/file_id/{fileId}/token:
+  /sign/file_id/{fileId}/code:
     get:
       tags:
         - account
-      summary: Request sign token
-      description: Request token to sign file using fileId
+      summary: Request sign code
+      description: Request code to sign file using fileId
       operationId: signFile#getTokenUsingFileId
       security:
         - basicAuth: []
