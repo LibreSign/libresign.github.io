@@ -1446,8 +1446,8 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: Signer not associated to this file
-  /sign/uuid/{uuid}/code:
-    get:
+  /sign/uuid/{uuid}/token:
+    post:
       tags:
         - account
       summary: Request sign code
@@ -1485,8 +1485,8 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: Signer not associated to this file
-  /sign/file_id/{fileId}/code:
-    get:
+  /sign/file_id/{fileId}/token:
+    post:
       tags:
         - account
       summary: Request sign code
