@@ -2333,6 +2333,13 @@ components:
           type: boolean
           description: Can request sign this file
           example: true
+        phoneNumber:
+          description: User phone number when defined.
+          type: string
+        signMethod:
+          type: string
+          description: Defined method to sign file
+          example: password
     libresignFile:
       type: object
       properties:
