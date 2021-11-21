@@ -1446,6 +1446,84 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: Signer not associated to this file
+  /sign/uuid/{uuid}/token:
+    get:
+      tags:
+        - account
+      summary: Request sign token
+      description: Request token to sign file using uuid
+      operationId: signFile#getTokenUsingUuid
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: '#/components/parameters/uuidParam'
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                  message:
+                    type: string
+                    description: Success message
+                    example: Success
+        '401':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Description of the failure that occurred
+                    example: Signer not associated to this file
+  /sign/file_id/{fileId}/token:
+    get:
+      tags:
+        - account
+      summary: Request sign token
+      description: Request token to sign file using fileId
+      operationId: signFile#getTokenUsingFileId
+      security:
+        - basicAuth: []
+      parameters:
+        - $ref: '#/components/parameters/fileIdParam'
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                  message:
+                    type: string
+                    description: Success message
+                    example: Success
+        '401':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Description of the failure that occurred
+                    example: Signer not associated to this file
   /file/list:
     get:
       tags:
@@ -1481,14 +1559,7 @@ paths:
       description: Validate a file using file UUID returning file data.
       operationId: libreSignFile#validateUuid
       parameters:
-        - name: uuid
-          in: path
-          description: File UUID
-          required: true
-          schema:
-            type: string
-            format: uuid
-            description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
+        - $ref: '#/components/parameters/uuidParam'
       responses:
         '200':
           description: Success!
