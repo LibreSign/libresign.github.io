@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Prequisited | LibreSign</title>
+    <title>API Guide | LibreSign</title>
     <meta name="generator" content="VuePress 1.8.2">
     
     <meta name="description" content="Libre digital signature app for Nextcloud.">
     
-    <link rel="preload" href="/assets/css/0.styles.b5caa233.css" as="style"><link rel="preload" href="/assets/js/app.328d1e81.js" as="script"><link rel="preload" href="/assets/js/3.52d2861b.js" as="script"><link rel="preload" href="/assets/js/8.f05bd0cb.js" as="script"><link rel="prefetch" href="/assets/js/10.eb99055e.js"><link rel="prefetch" href="/assets/js/11.be1ab916.js"><link rel="prefetch" href="/assets/js/12.506a00e7.js"><link rel="prefetch" href="/assets/js/13.8908a76d.js"><link rel="prefetch" href="/assets/js/2.5261425a.js"><link rel="prefetch" href="/assets/js/4.92c554cf.js"><link rel="prefetch" href="/assets/js/5.510fa2c8.js"><link rel="prefetch" href="/assets/js/6.b36310a6.js"><link rel="prefetch" href="/assets/js/7.e9bc9caa.js"><link rel="prefetch" href="/assets/js/9.2bc1ab09.js">
+    <link rel="preload" href="/assets/css/0.styles.b5caa233.css" as="style"><link rel="preload" href="/assets/js/app.f4b92ef0.js" as="script"><link rel="preload" href="/assets/js/3.52d2861b.js" as="script"><link rel="preload" href="/assets/js/8.cfb27266.js" as="script"><link rel="prefetch" href="/assets/js/10.eb99055e.js"><link rel="prefetch" href="/assets/js/11.be1ab916.js"><link rel="prefetch" href="/assets/js/12.506a00e7.js"><link rel="prefetch" href="/assets/js/13.8908a76d.js"><link rel="prefetch" href="/assets/js/2.5261425a.js"><link rel="prefetch" href="/assets/js/4.92c554cf.js"><link rel="prefetch" href="/assets/js/5.510fa2c8.js"><link rel="prefetch" href="/assets/js/6.b36310a6.js"><link rel="prefetch" href="/assets/js/7.e9bc9caa.js"><link rel="prefetch" href="/assets/js/9.2bc1ab09.js">
     <link rel="stylesheet" href="/assets/css/0.styles.b5caa233.css">
   </head>
   <body>
@@ -32,7 +32,7 @@
   en-US
 </a></li><li class="dropdown-item"><!----> <a href="/pt/Getting-started.html" class="nav-link">
   pt-BR
-</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Prequisited</span> <!----></p> <!----></section></li></ul> </aside> <main class="page custom"> <!----> <div class="theme-default-content content__default"><h1 id="prequisited"><a href="#prequisited" class="header-anchor">#</a> Prequisited</h1> <ul><li>All requests require a <code>Content-Type</code> of <code>application/json</code>.</li> <li>The API is located at https://nextcloud.local/index.php/apps/libresign/api/v1.0</li> <li>All request parameters are required, unless otherwise specified</li></ul> <h1 id="headers"><a href="#headers" class="header-anchor">#</a> Headers</h1> <p>Read https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization</p> <p>Example:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> -X POST <span class="token punctuation">\</span>
+</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>API Guide</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/Getting-started.html#prerequisites" class="sidebar-link">Prerequisites</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/Getting-started.html#examples-on-insomnia" class="sidebar-link">Examples on Insomnia</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/Getting-started.html#headers" class="sidebar-link">Headers</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/Getting-started.html#endpoints" class="sidebar-link">Endpoints</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Getting-started.html#request-signature" class="sidebar-link">Request signature</a></li><li class="sidebar-sub-header"><a href="/Getting-started.html#validate" class="sidebar-link">Validate</a></li><li class="sidebar-sub-header"><a href="/Getting-started.html#list-files" class="sidebar-link">List files</a></li><li class="sidebar-sub-header"><a href="/Getting-started.html#visible-elements" class="sidebar-link">Visible elements</a></li><li class="sidebar-sub-header"><a href="/Getting-started.html#define-sign-password" class="sidebar-link">Define sign password</a></li><li class="sidebar-sub-header"><a href="/Getting-started.html#changing-status" class="sidebar-link">Changing status</a></li><li class="sidebar-sub-header"><a href="/Getting-started.html#define-user-signature" class="sidebar-link">Define user signature</a></li><li class="sidebar-sub-header"><a href="/Getting-started.html#sign-method" class="sidebar-link">Sign method</a></li></ul></li></ul></section></li></ul> </aside> <main class="page custom"> <!----> <div class="theme-default-content content__default"><h1 id="api-guide"><a href="#api-guide" class="header-anchor">#</a> API Guide</h1> <h2 id="prerequisites"><a href="#prerequisites" class="header-anchor">#</a> Prerequisites</h2> <ul><li>All requests require a <code>Content-Type</code> of <code>application/json</code>.</li> <li>The API is located at https://nextcloud.local/index.php/apps/libresign/api/v1.0</li> <li>All request parameters are required, unless otherwise specified</li></ul> <h2 id="examples-on-insomnia"><a href="#examples-on-insomnia" class="header-anchor">#</a> Examples on Insomnia</h2> <p>You can <a href="Insomnia_2021-11-24.json">download here</a> an example of request to API.</p> <h2 id="headers"><a href="#headers" class="header-anchor">#</a> Headers</h2> <p>Read https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization</p> <p>Example:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> -X POST <span class="token punctuation">\</span>
   http://localhost/index.php/apps/libresign/api/0.1/webhook/register <span class="token punctuation">\</span>
   -H <span class="token string">'Accept: application/json'</span> <span class="token punctuation">\</span>
   -H <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
@@ -51,7 +51,121 @@
 		}
 	]
 }'</span>
-</code></pre></div><h1 id="endpoints"><a href="#endpoints" class="header-anchor">#</a> Endpoints</h1> <p><a href="api">Api Documentation</a></p></div>  <!----></main></div></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.328d1e81.js" defer></script><script src="/assets/js/3.52d2861b.js" defer></script><script src="/assets/js/8.f05bd0cb.js" defer></script>
+</code></pre></div><h2 id="endpoints"><a href="#endpoints" class="header-anchor">#</a> Endpoints</h2> <p><a href="api">Api Documentation</a></p> <h1 id="sign-flow"><a href="#sign-flow" class="header-anchor">#</a> Sign flow</h1> <h3 id="request-signature"><a href="#request-signature" class="header-anchor">#</a> Request signature</h3> <p>POST /sign/register</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request POST <span class="token punctuation">\</span>
+  --url http://localhost/apps/libresign/api/0.1/sign/register <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
+  --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
+  --data <span class="token string">'{
+	&quot;file&quot;: {
+		&quot;base64&quot;: &quot;JVBERi0xLjYKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+CnN0cmVhbQp4nDPQM1Qo5ypUMFAw0DMwslAwtTTVMzIxV7AwMdSzMDNUKErlCtdSyOMyVADBonQuA4iUhaVCLheKYqBIDlw7xLAcuLEgFlwVVwZXmhZXoAIAI+sZGAplbmRzdHJlYW0KZW5kb2JqCgozIDAgb2JqCjg2CmVuZG9iagoKNSAwIG9iago8PAo+PgplbmRvYmoKCjYgMCBvYmoKPDwvRm9udCA1IDAgUgovUHJvY1NldFsvUERGL1RleHRdCj4+CmVuZG9iagoKMSAwIG9iago8PC9UeXBlL1BhZ2UvUGFyZW50IDQgMCBSL1Jlc291cmNlcyA2IDAgUi9NZWRpYUJveFswIDAgNTk1LjI3NTU5MDU1MTE4MSA4NDEuODg5NzYzNzc5NTI4XS9Hcm91cDw8L1MvVHJhbnNwYXJlbmN5L0NTL0RldmljZVJHQi9JIHRydWU+Pi9Db250ZW50cyAyIDAgUj4+CmVuZG9iagoKNCAwIG9iago8PC9UeXBlL1BhZ2VzCi9SZXNvdXJjZXMgNiAwIFIKL01lZGlhQm94WyAwIDAgNTk1IDg0MSBdCi9LaWRzWyAxIDAgUiBdCi9Db3VudCAxPj4KZW5kb2JqCgo3IDAgb2JqCjw8L1R5cGUvQ2F0YWxvZy9QYWdlcyA0IDAgUgovT3BlbkFjdGlvblsxIDAgUiAvWFlaIG51bGwgbnVsbCAwXQo+PgplbmRvYmoKCjggMCBvYmoKPDwvQ3JlYXRvcjxGRUZGMDA0NDAwNzIwMDYxMDA3Nz4KL1Byb2R1Y2VyPEZFRkYwMDRDMDA2OTAwNjIwMDcyMDA2NTAwNEYwMDY2MDA2NjAwNjkwMDYzMDA2NTAwMjAwMDM3MDAyRTAwMzA+Ci9DcmVhdGlvbkRhdGUoRDoyMDIxMDIyMzExMDgwOS0wMycwMCcpPj4KZW5kb2JqCgp4cmVmCjAgOQowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAyNzAgMDAwMDAgbiAKMDAwMDAwMDAxOSAwMDAwMCBuIAowMDAwMDAwMTc2IDAwMDAwIG4gCjAwMDAwMDA0MzggMDAwMDAgbiAKMDAwMDAwMDE5NSAwMDAwMCBuIAowMDAwMDAwMjE3IDAwMDAwIG4gCjAwMDAwMDA1MzYgMDAwMDAgbiAKMDAwMDAwMDYxOSAwMDAwMCBuIAp0cmFpbGVyCjw8L1NpemUgOS9Sb290IDcgMCBSCi9JbmZvIDggMCBSCi9JRCBbIDw1RkQ4MDlEMTdFODMwQUU5OTRDODkxNDVBMTMwNUQyQz4KPDVGRDgwOUQxN0U4MzBBRTk5NEM4OTE0NUExMzA1RDJDPiBdCi9Eb2NDaGVja3N1bSAvRDZBQThGQTBBQjMwODg2QkQ5ODU0QzYyMTg5QjI2NDQKPj4Kc3RhcnR4cmVmCjc4NQolJUVPRgo=&quot;
+	},
+	&quot;status&quot;: 0,
+	&quot;name&quot;: &quot;Contract&quot;,
+	&quot;users&quot;: [
+		{
+			&quot;email&quot;: &quot;a@b.c&quot;
+			&quot;displayName&quot;: &quot;User Name&quot;
+		}
+	]
+}'</span>
+</code></pre></div><p>After this request the file will receive the status <code>draft</code> and you need change the status of the document to notify all users.</p> <p>You will receive the fileId or UUID, store this data to create visible elements.</p> <h3 id="validate"><a href="#validate" class="header-anchor">#</a> Validate</h3> <p>Get data of a specific file, you can use <code>file_id</code> or <code>uuid</code> on path, both data you will receive after request to <code>POST /sign/register</code></p> <p>The association between user and file will result on a <code>fileUserId</code>. You will need this to sign the document or define the page and coordinates of place that the signature of the user will be filled.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request GET <span class="token punctuation">\</span>
+  --url http://localhost/apps/libresign/api/0.1/file/validate/file_id/1995 <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span>
+</code></pre></div><h3 id="list-files"><a href="#list-files" class="header-anchor">#</a> List files</h3> <p>List all LibreSign files</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request GET <span class="token punctuation">\</span>
+  --url http://localhost/apps/libresign/api/0.1/file/list <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
+</code></pre></div><h3 id="visible-elements"><a href="#visible-elements" class="header-anchor">#</a> Visible elements</h3> <h4 id="create"><a href="#create" class="header-anchor">#</a> Create</h4> <p>POST /file/{uuid}/elements</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request POST <span class="token punctuation">\</span>
+  --url http://localhost/apps/libresign/api/0.1/file/88968195-6f0a-4036-ac05-9680feb109e4/elements <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
+  --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
+  --data <span class="token string">'{
+    &quot;coordinates&quot;: {
+        &quot;top&quot;: 188,
+        &quot;left&quot;: 4,
+        &quot;width&quot;: 370,
+        &quot;height&quot;: 90,
+        &quot;page&quot;: 1
+    },
+    &quot;type&quot;: &quot;signature&quot;,
+    &quot;fileUserId&quot;: 51
+}'</span>
+</code></pre></div><h4 id="update"><a href="#update" class="header-anchor">#</a> Update</h4> <p>PATCH /file/{uuid}/elements/{elementId}</p> <p>The UUID you will receive when you will do a request to <code>POST /sign/register</code> and the <code>fileUserId</code> is the relation between an user and the file to sign. You can check the <code>fileUserId</code> doing a request to /validate</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request PATCH <span class="token punctuation">\</span>
+  --url http://localhost/apps/libresign/api/0.1/file/87e5d5f0-1a9b-48cd-8146-0ee8b3aafd83/elements/1 <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
+  --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
+  --data <span class="token string">'{
+    &quot;coordinates&quot;: {
+        &quot;top&quot;: 188,
+        &quot;left&quot;: 4,
+        &quot;width&quot;: 370,
+        &quot;height&quot;: 90,
+        &quot;page&quot;: 1
+    },
+    &quot;type&quot;: &quot;signature&quot;,
+    &quot;fileUserId&quot;: 1
+}'</span>
+</code></pre></div><h4 id="delete"><a href="#delete" class="header-anchor">#</a> Delete</h4> <p>DELETE /file/{uuid}/elements/{elementId}</p> <h3 id="define-sign-password"><a href="#define-sign-password" class="header-anchor">#</a> Define sign password</h3> <p>If the system is enabled to sign using password, the user will need to create a password to sign the file.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request POST <span class="token punctuation">\</span>
+  --url http://localhost/apps/libresign/api/0.1/account/signature <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
+  --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
+  --data <span class="token string">'{
+  &quot;signPassword&quot;: &quot;password&quot;
+}'</span>
+</code></pre></div><h3 id="changing-status"><a href="#changing-status" class="header-anchor">#</a> Changing status</h3> <p>You will need change the status of a file from draft to able to sign. When you change the status, all users will receive an email with URL to create account if the user don't exists or authenticate and sign the file.</p> <blockquote><p><strong>PS</strong>: The URL that all users will receive have an UUID, this is the UUID of the relation between the file and user, don't is the UUID of file.</p></blockquote> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request PATCH <span class="token punctuation">\</span>
+  --url http://localhost/apps/libresign/api/0.1/sign/register <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
+  --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
+  --data <span class="token string">'{
+	&quot;file&quot;: {
+		&quot;fileId&quot;: 1995
+	},
+	&quot;status&quot;: 1
+}'</span>
+</code></pre></div><h3 id="define-user-signature"><a href="#define-user-signature" class="header-anchor">#</a> Define user signature</h3> <p>This is necessary for all user to store the own signature or initial.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request POST <span class="token punctuation">\</span>
+  --url http://localhost/apps/libresign/api/0.1/account/signature/elements <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
+  --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
+  --data <span class="token string">'{
+  &quot;elements&quot;: [
+    {
+      &quot;type&quot;: &quot;signature&quot;,
+      &quot;file&quot;: {
+        &quot;base64&quot;: &quot;iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAIAAACzY+a1AAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TRSkVQTtIcchQnSyIFREnrUIRKpRaoVUHk0u/oElDkuLiKLgWHPxYrDq4OOvq4CoIgh8gbm5Oii5S4v+SQosYD4778e7e4+4dIDQqTDW7xgFVs4x0Ii5mc6tizysCCGMAMcxIzNTnUqkkPMfXPXx8vYvyLO9zf44+JW8ywCcSzzLdsIg3iKc2LZ3zPnGIlSSF+Jx4zKALEj9yXXb5jXPRYYFnhoxMep44RCwWO1juYFYyVOJJ4oiiapQvZF1WOG9xVis11ronf2Ewr60sc53mMBJYxBJSECGjhjIqsBClVSPFRJr24x7+sONPkUsmVxmMHAuoQoXk+MH/4He3ZiE24SYF40D3i21/jAA9u0Czbtvfx7bdPAH8z8CV1vZXG8D0J+n1thY5Avq3gYvrtibvAZc7wNCTLhmSI/lpCoUC8H5G35QDBm+BwJrbW2sfpw9AhrpK3gAHh8BokbLXPd7d29nbv2da/f0AA+Zy4dveUIkAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQflChoSNCP5pnpQAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAFhJREFUeNrtwTEBAAAAwqD1T20Hb6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAxCFEAAZDlHEoAAAAASUVORK5CYII=&quot;
+      }
+    },
+    {
+      &quot;type&quot;: &quot;initial&quot;,
+      &quot;file&quot;: {
+        &quot;base64&quot;: &quot;iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAIAAACzY+a1AAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9TRSkVQTtIcchQnSyIFREnrUIRKpRaoVUHk0u/oElDkuLiKLgWHPxYrDq4OOvq4CoIgh8gbm5Oii5S4v+SQosYD4778e7e4+4dIDQqTDW7xgFVs4x0Ii5mc6tizysCCGMAMcxIzNTnUqkkPMfXPXx8vYvyLO9zf44+JW8ywCcSzzLdsIg3iKc2LZ3zPnGIlSSF+Jx4zKALEj9yXXb5jXPRYYFnhoxMep44RCwWO1juYFYyVOJJ4oiiapQvZF1WOG9xVis11ronf2Ewr60sc53mMBJYxBJSECGjhjIqsBClVSPFRJr24x7+sONPkUsmVxmMHAuoQoXk+MH/4He3ZiE24SYF40D3i21/jAA9u0Czbtvfx7bdPAH8z8CV1vZXG8D0J+n1thY5Avq3gYvrtibvAZc7wNCTLhmSI/lpCoUC8H5G35QDBm+BwJrbW2sfpw9AhrpK3gAHh8BokbLXPd7d29nbv2da/f0AA+Zy4dveUIkAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQflChoSNCP5pnpQAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAFhJREFUeNrtwTEBAAAAwqD1T20Hb6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAxCFEAAZDlHEoAAAAASUVORK5CYII=&quot;
+      }
+    }
+  ]
+}'</span>
+</code></pre></div><h3 id="sign-method"><a href="#sign-method" class="header-anchor">#</a> Sign method</h3> <p>You can change the sign method between <code>password</code>, <code>email</code>, <code>sms</code>, <code>telegram</code> or <code>signal</code>.</p> <p>To sign using SMS you will need install the app <code>twofactor_gateway</code> and configure the gateway to SMS.</p> <p>Example:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>docker-compose <span class="token builtin class-name">exec</span> --user www-data nextcloud php occ config:app:set libresign sign_method --value<span class="token operator">=</span>password
+
+docker-compose <span class="token builtin class-name">exec</span> --user www-data nextcloud php occ config:app:set libresign sign_method --value<span class="token operator">=</span>email
+
+docker-compose <span class="token builtin class-name">exec</span> --user www-data nextcloud php occ config:app:set libresign sign_method --value<span class="token operator">=</span>sms
+</code></pre></div><h4 id="sms"><a href="#sms" class="header-anchor">#</a> SMS</h4> <p>Configuring the SMS gateway.</p> <div class="language-bash extra-class"><pre class="language-bash"><code>docker-compose <span class="token builtin class-name">exec</span> --user www-data nextcloud php occ twofactorauth:gateway:configure sms
+</code></pre></div><p>I recomend to use the <a href="https://github.com/librecodecoop/playsms-docker" target="_blank" rel="noopener noreferrer">playSMS<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> as a SMS gateway.</p> <h4 id="define-phone-number"><a href="#define-phone-number" class="header-anchor">#</a> Define phone number</h4> <p>To sign using SMS the user will need define the phone number.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request PUT <span class="token punctuation">\</span>
+  --url http://localhost/settings/users/admin/settings <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
+  --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
+  --data <span class="token string">'{
+	&quot;phone&quot;: &quot;+1987654321&quot;
+}'</span>
+</code></pre></div><h4 id="request-code"><a href="#request-code" class="header-anchor">#</a> Request code</h4> <p>If the sign method is a code, the authenticated user will need request a code to sign the file.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request POST <span class="token punctuation">\</span>
+  --url http://localhost/apps/libresign/api/0.1/sign/file_id/3051/code <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
+  --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
+</code></pre></div><h4 id="sign-using-code"><a href="#sign-using-code" class="header-anchor">#</a> Sign using code</h4> <p>To sign you only will need send the code that you received by email or SMS.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> --request POST <span class="token punctuation">\</span>
+  --url http://localhost/apps/libresign/api/0.1/sign/file_id/1995 <span class="token punctuation">\</span>
+  --header <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
+  --header <span class="token string">'Content-Type: application/json'</span> <span class="token punctuation">\</span>
+  --data <span class="token string">'{
+  &quot;code&quot;: &quot;5150&quot;
+}'</span>
+</code></pre></div><p>You also can define the relation between the user and the file elements. You can receive the list of elements on validate endpoint and you will need create a relation between the user to sign and the element.</p></div>  <!----></main></div></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.f4b92ef0.js" defer></script><script src="/assets/js/3.52d2861b.js" defer></script><script src="/assets/js/8.cfb27266.js" defer></script>
   </body>
 </html>
