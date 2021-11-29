@@ -2794,6 +2794,10 @@ components:
       title: LibreSign file status
       type: object
       properties:
+        statusText:
+          type: string
+          description: Status human readdable
+          example: able to sign
         status:
           type: integer
           description: |-
