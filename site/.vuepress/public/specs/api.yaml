@@ -632,7 +632,7 @@ paths:
         - identification documents
       summary: List all account files - require permission to approve
       description: Identification document files can be associated with each account profile. Here you can list all these files and your status. The authenticated user need have permission to approve these documents.
-      operationId: account#accountFileList
+      operationId: account#accountFileListToApproval
       security:
         - basicAuth: []
       parameters:
