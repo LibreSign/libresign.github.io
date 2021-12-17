@@ -2566,13 +2566,13 @@ components:
       type: object
       description: File object. Use one of these types
       oneOf:
-        - $ref: '#/components/schemas/fileId'
         - type: object
           properties:
             url:
               type: string
               description: URL of file
-              example: 'http://cloud.test.coop/s/ry384r6t384/download/test_small.pdf'
+              example: 'https://github.com/LibreSign/libresign/raw/main/tests/fixtures/small_valid.pdf'
+        - $ref: '#/components/schemas/fileId'
         - type: object
           properties:
             base64:
