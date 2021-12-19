@@ -1468,7 +1468,7 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: Signer not associated to this file
-  /sign/uuid/{uuid}/token:
+  '/sign/uuid/{uuid}/token':
     post:
       tags:
         - account
@@ -1507,7 +1507,7 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: Signer not associated to this file
-  /sign/file_id/{fileId}/token:
+  '/sign/file_id/{fileId}/token':
     post:
       tags:
         - account
