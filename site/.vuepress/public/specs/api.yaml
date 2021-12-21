@@ -557,7 +557,7 @@ paths:
         - identification documents
       summary: Save identification documents
       description: Save identification documents to account
-      operationId: account#addFiles
+      operationId: account#addFile
       security:
         - basicAuth: []
       requestBody:
@@ -577,6 +577,10 @@ paths:
                         example: PASSPORT
                         default: IDENTIFICATION
                         description: The type code of this file to be attached to the account
+                      name:
+                        type: string
+                        example: filename
+                        description: The name of file
                       file:
                         $ref: '#/components/schemas/newFile'
       responses:
