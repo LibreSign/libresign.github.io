@@ -2533,6 +2533,16 @@ components:
           type: string
           description: Defined method to sign file
           example: password
+        needIdentificationDocuments:
+          type: boolean
+          description: need identification documents
+          nullable: true
+          example: true
+        identificationDocumentsWaitingApproval:
+          type: boolean
+          description: identification documents waiting approval
+          nullable: true
+          example: true
     libresignFile:
       type: object
       properties:
