@@ -630,6 +630,97 @@ paths:
                           type: string
                           description: Text of message
                           example: Invalid type
+    get:
+      tags:
+        - identification documents
+      summary: List account documents of owner
+      operationId: account#accountFileListToOwner
+      description: List all account documents to owner of documents
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    minItems: 0
+                    items:
+                      type: object
+                      properties:
+                        account:
+                          $ref: '#/components/schemas/basicAccount'
+                        files:
+                          type: array
+                          description: Files associated with account
+                          items:
+                            $ref: '#/components/schemas/libresignFile'
+                  pagination:
+                    $ref: '#/components/schemas/pagination'
+    delete:
+      summary: Delete identification document
+      operationId: account#deleteFile
+      security:
+        - basicAuth: []
+      description: Delete identification document of an account
+      tags:
+        - identification documents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nodeId:
+                  type: integer
+                  minimum: 1
+                  description: NodeId of identification document
+                  example: 1
+              required:
+                - nodeId
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - true
+                    description: Uhuuu! Need true vale.
+                  message:
+                    type: string
+                    description: Visible element deleted
+                    example: Visible element deleted
+                required:
+                  - success
+                  - message
+        '401':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    enum:
+                      - false
+                    description: Beep! Failure on delete visible element.
+                  message:
+                    type: string
+                    description: Error pessage
+                    example: This isn't your element
+                required:
+                  - success
+                  - message
   /account/files/approval/list:
     get:
       tags:
@@ -664,15 +755,15 @@ paths:
                     type: array
                     minItems: 0
                     items:
-                      type: object
-                      properties:
-                        account:
-                          $ref: '#/components/schemas/basicAccount'
-                        files:
-                          type: array
-                          description: Files associated with account
-                          items:
-                            $ref: '#/components/schemas/libresignFile'
+                      allOf:
+                        - type: object
+                          properties:
+                            file_type:
+                              $ref: '#/components/schemas/fileType'
+                            account:
+                              $ref: '#/components/schemas/basicAccount'
+                            file:
+                              $ref: '#/components/schemas/libresignFile'
                   pagination:
                     $ref: '#/components/schemas/pagination'
   /account/signature:
@@ -2584,6 +2675,25 @@ components:
               format: base64
               description: base64 of PDF file content
               example: dGVzdA==
+      x-examples:
+        example-url:
+          url: 'https://github.com/LibreSign/libresign/raw/main/tests/fixtures/small_valid.pdf'
+    fileType:
+      type: object
+      description: Type of files
+      properties:
+        type:
+          type: string
+          description: Constant defining the type of file
+          example: IDENTIFICATION
+        name:
+          type: string
+          description: The name of file
+          example: Identification Document
+        description:
+          type: string
+          description: Description of file
+          example: Identification Document
     pagination:
       type: object
       properties:
