@@ -2550,12 +2550,13 @@ components:
           nullable: true
           example: 'http://app.test.coop/callback_webhook'
         status:
+          type: integer
+          description: Numeric code of status
+          example: 1
+        status_text:
           type: string
-          enum:
-            - signed
-            - pending
-            - disabled
-            - no signers
+          description: Translated text of status
+          example: able to sign
         status_date:
           type: string
           format: date-time
