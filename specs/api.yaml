@@ -1762,6 +1762,10 @@ paths:
                               format: email
                               description: Unique email to identify signer. This property will only exist when it is a request made by the person who requested the document to be signed.
                               example: user@test.coop
+                            uid:
+                              type: string
+                              description: Nextcloud user id of who requested the file to be signed.
+                              example: johndoe
                             fileUserId:
                               type: integer
                               description: Relation between file and user
@@ -1932,6 +1936,10 @@ paths:
                               format: email
                               description: Unique email to identify signer. This property will only exist when it is a request made by the person who requested the document to be signed.
                               example: user@test.coop
+                            uid:
+                              type: string
+                              description: Nextcloud user id of who requested the file to be signed.
+                              example: johndoe
                             fileUserId:
                               type: integer
                               description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
