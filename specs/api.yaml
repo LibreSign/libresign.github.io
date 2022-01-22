@@ -2044,13 +2044,13 @@ paths:
                 format: binary
         '404':
           description: Request failed
-  '/file/{uuid}/elements':
+  '/file-element/{uuid}':
     post:
       tags:
         - sign
       summary: Create visible element
       description: Create visible element of a specific file
-      operationId: File#postElement
+      operationId: File#post
       security:
         - basicAuth: []
       parameters:
@@ -2102,13 +2102,13 @@ paths:
                 required:
                   - success
                   - message
-  '/file/{uuid}/elements/{elementId}':
+  '/file-element/{uuid}/{elementId}':
     patch:
       tags:
         - sign
       summary: Update visible element
       description: Update visible element of a specific file
-      operationId: File#patchElement
+      operationId: File#patch
       security:
         - basicAuth: []
       parameters:
@@ -2168,7 +2168,7 @@ paths:
         - sign
       summary: Delete visible element
       description: Delete visible element of a specific file
-      operationId: File#deleteElement
+      operationId: File#delete
       security:
         - basicAuth: []
       parameters:
