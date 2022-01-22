@@ -1647,7 +1647,7 @@ paths:
         - sign
       summary: List all LibreSign files
       description: List all LibreSign files returning all informations about files
-      operationId: libreSignFile#list
+      operationId: File#list
       security:
         - basicAuth: []
       parameters:
@@ -1674,7 +1674,7 @@ paths:
         - sign validate
       summary: Validate a file using UUID
       description: Validate a file using file UUID returning file data.
-      operationId: libreSignFile#validateUuid
+      operationId: File#validateUuid
       parameters:
         - $ref: '#/components/parameters/uuidParam'
       responses:
@@ -1848,7 +1848,7 @@ paths:
         - sign validate
       summary: Validate a file using Nextcloud node id
       description: Validate a file using Nextcloud node id.
-      operationId: libreSignFile#validateFileId
+      operationId: File#validateFileId
       parameters:
         - $ref: '#/components/parameters/fileIdParam'
       responses:
@@ -2022,7 +2022,7 @@ paths:
         - sign
       summary: Returns the image of a pdf page
       description: Returns the image of a pdf page
-      operationId: libreSignFile#getPage
+      operationId: File#getPage
       security:
         - basicAuth: []
       parameters:
@@ -2050,7 +2050,7 @@ paths:
         - sign
       summary: Create visible element
       description: Create visible element of a specific file
-      operationId: libreSignFile#postElement
+      operationId: File#postElement
       security:
         - basicAuth: []
       parameters:
@@ -2108,7 +2108,7 @@ paths:
         - sign
       summary: Update visible element
       description: Update visible element of a specific file
-      operationId: libreSignFile#patchElement
+      operationId: File#patchElement
       security:
         - basicAuth: []
       parameters:
@@ -2168,7 +2168,7 @@ paths:
         - sign
       summary: Delete visible element
       description: Delete visible element of a specific file
-      operationId: libreSignFile#deleteElement
+      operationId: File#deleteElement
       security:
         - basicAuth: []
       parameters:
