@@ -2076,13 +2076,9 @@ paths:
                     enum:
                       - true
                     description: Uhuuu! Need true vale.
-                  message:
-                    type: string
-                    description: Success message
-                    example: Success
                 required:
                   - success
-                  - message
+                  - fileElementId
         '401':
           description: Request failed
           content:
