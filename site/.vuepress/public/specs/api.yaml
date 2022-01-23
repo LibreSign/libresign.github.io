@@ -2114,12 +2114,11 @@ paths:
         content:
           application/json:
             schema:
-              items:
-                not:
-                  required:
-                    - coordinates
-                allOf:
-                  - $ref: '#/components/schemas/pdfVisibleElement'
+              not:
+                required:
+                  - coordinates
+              allOf:
+                - $ref: '#/components/schemas/pdfVisibleElement'
       responses:
         '200':
           description: Success!
@@ -2128,18 +2127,17 @@ paths:
               schema:
                 type: object
                 properties:
+                  fileElementId:
+                    type: integer
+                    description: 'Representative ID of relation between file, fileUser and the visible element on pdf'
                   success:
                     type: boolean
                     enum:
                       - true
                     description: Uhuuu! Need true vale.
-                  message:
-                    type: string
-                    description: Visible element upated
-                    example: Visible element upated
                 required:
                   - success
-                  - message
+                  - fileElementId
         '401':
           description: Request failed
           content:
