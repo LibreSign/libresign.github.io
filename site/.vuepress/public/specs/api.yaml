@@ -1641,6 +1641,54 @@ paths:
                     type: string
                     description: Description of the failure that occurred
                     example: Signer not associated to this file
+  /file:
+    post:
+      tags:
+        - sign
+      summary: Send a file
+      description: Send a new file to Nextcloud and return the fileId to request to sign usign fileId
+      operationId: File#send
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: filename
+                  description: The name of file to sign
+                file:
+                  oneOf:
+                    - type: object
+                      properties:
+                        url:
+                          type: string
+                          description: URL of file
+                          example: 'https://github.com/LibreSign/libresign/raw/main/tests/fixtures/small_valid.pdf'
+                    - type: object
+                      properties:
+                        base64:
+                          type: string
+                          format: base64
+                          description: base64 of PDF file content
+                          example: dGVzdA==
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: filename
+                    description: The name of file to sign
+                  file:
+                    $ref: '#/components/schemas/fileId'
   /file/list:
     get:
       tags:
