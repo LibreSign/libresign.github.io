@@ -1683,12 +1683,31 @@ paths:
               schema:
                 type: object
                 properties:
+                  message:
+                    type: string
+                    description: Success message
+                    example: Success
                   name:
                     type: string
                     example: filename
                     description: The name of file to sign
-                  file:
-                    $ref: '#/components/schemas/fileId'
+                  id:
+                    type: integer
+                    description: Node id of a Nextcloud file
+                    example: 2312
+                  etag:
+                    type: string
+                  path:
+                    type: string
+                  type:
+                    type: string
+                required:
+                  - message
+                  - name
+                  - id
+                  - etag
+                  - path
+                  - type
   /file/list:
     get:
       tags:
