@@ -2630,7 +2630,15 @@ components:
           example: 'http://app.test.coop/callback_webhook'
         status:
           type: integer
-          description: Numeric code of status
+          enum:
+            - 0
+            - 1
+            - 2
+          description: >
+            Numeric code of status
+            * 0 - no signers
+            * 1 - signed
+            * 2 - pending
           example: 1
         status_text:
           type: string
@@ -2688,6 +2696,10 @@ components:
                 type: boolean
                 description: It's me?
                 example: true
+              sign_uuid:
+                type: string
+                format: uuid
+                description: Received from sign request, only returned when me=true
               displayName:
                 type: string
                 nullable: true
