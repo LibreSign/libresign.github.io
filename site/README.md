@@ -15,3 +15,4 @@ features:
 
 - [Getting started guide](Getting-started.md)
 - [Api Documentation](api)
+- [Releases](releases.md)
