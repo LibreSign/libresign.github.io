@@ -2365,6 +2365,26 @@ paths:
                   hasRootCert:
                     type: boolean
                     example: true
+  /admin/download-binaries:
+    get:
+      tags:
+        - admin
+      summary: Download binaries
+      description: Download all binaries required to work
+      operationId: admin#downloadBinaries
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hasRootCert:
+                    type: boolean
+                    example: true
   /admin/certificate:
     post:
       tags:
