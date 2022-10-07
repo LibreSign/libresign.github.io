@@ -2406,14 +2406,18 @@ paths:
                   type: object
                   description: Check list
                   properties:
-                    status:
-                      type: string
-                      description: The status of setting
-                      example: 🟢
-                    message:
-                      type: string
-                      description: The setting text
-                      example: Signature working fine
+                    success:
+                      type: array
+                      description: List of success messages
+                      items:
+                        type: string
+                      example: ["success 1", "success 2"]
+                    errors:
+                      type: array
+                      description: List of error messages
+                      items:
+                        type: string
+                      example: ["error 1", "error 2"]
   /admin/certificate:
     post:
       tags:
