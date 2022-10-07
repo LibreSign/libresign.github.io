@@ -2382,9 +2382,38 @@ paths:
               schema:
                 type: object
                 properties:
-                  hasRootCert:
-                    type: boolean
-                    example: true
+                  message:
+                    type: string
+                    description: Success message
+                    example: Success
+  /admin/configure-check:
+    get:
+      tags:
+        - admin
+      summary: Configure check
+      description: Verify if all required to work fine is ok.
+      operationId: admin#configureCheck
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: List of settings and status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  description: Check list
+                  properties:
+                    status:
+                      type: string
+                      description: The status of setting
+                      example: 🟢
+                    message:
+                      type: string
+                      description: The setting text
+                      example: Signature working fine
   /admin/certificate:
     post:
       tags:
