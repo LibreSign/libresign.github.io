@@ -2386,6 +2386,31 @@ paths:
                     type: string
                     description: Success message
                     example: Success
+  /admin/download-status:
+    get:
+      tags:
+        - admin
+      summary: Status download binaries
+      description: Progress status of download all binaries required to work
+      operationId: admin#downloadStatus
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  description: List of resources with the progress status
+                  properties:
+                    java:
+                      description: name of resource and the install status progress
+                      type: integer
+                      minimum: 0
+                      maximum: 100
   /admin/configure-check:
     get:
       tags:
@@ -2406,14 +2431,18 @@ paths:
                   type: object
                   description: Check list
                   properties:
-                    status:
-                      type: string
-                      description: The status of setting
-                      example: 🟢
-                    message:
-                      type: string
-                      description: The setting text
-                      example: Signature working fine
+                    success:
+                      type: array
+                      description: List of success messages
+                      items:
+                        allOf:
+                          - $ref: '#/components/schemas/configureCheck'
+                    errors:
+                      type: array
+                      description: List of error messages
+                      items:
+                        allOf:
+                          - $ref: '#/components/schemas/configureCheck'
   /admin/certificate:
     post:
       tags:
@@ -3076,3 +3105,26 @@ components:
             - 3
             - 4
           default: 1
+    configureCheck:
+      title: Configure check result
+      description: Returned to each return of configure check
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status human readdable
+          enum:
+            - error
+            - success
+        message:
+          type: string
+          description: Text of message
+          example: Invalid type
+        resource:
+          type: string
+          description: Type of checked resource
+          example: java
+        tip:
+          type: string
+          description: Returned when the status is error. Is a tip to solve the problem.
+          example: install java
