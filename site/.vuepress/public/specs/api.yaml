@@ -2482,9 +2482,6 @@ paths:
                   type: string
                   description: The path that Nextcloud should save the CFSSL configuration files for and that the CFSSL service needs to read to generate the root certificate.
                   example: /cfssl/
-                generated:
-                  type: boolean
-                  description: Root certificate already generated
               required:
                 - commonName
                 - country
@@ -2492,7 +2489,6 @@ paths:
                 - organizationUnit
                 - cfsslUri
                 - configPath
-                - generated
       responses:
         '200':
           description: 'If the response is successful, it is because the settings have been saved and the root certificate has been generated.'
@@ -2572,6 +2568,9 @@ paths:
                     type: string
                     description: The path that Nextcloud should save the CFSSL configuration files for and that the CFSSL service needs to read to generate the root certificate.
                     example: /cfssl/
+                  generated:
+                    type: boolean
+                    description: Root certificate already generated
 components:
   securitySchemes:
     basicAuth:
