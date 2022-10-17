@@ -2471,6 +2471,9 @@ paths:
                     enum:
                       - true
                     description: CFSSL server is up?
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/certificate'
                 required:
                   - success
                 example:
@@ -2511,35 +2514,8 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  commonName:
-                    type: string
-                    description: Common name
-                    example: CommonName
-                  country:
-                    type: string
-                    description: Country name
-                    example: Brazil
-                  organization:
-                    type: string
-                    description: Organization
-                    example: Organization
-                  organizationUnit:
-                    type: string
-                    description: Organization unit
-                    example: organizationUnit
-                  cfsslUri:
-                    type: string
-                    description: CFSSL service URL
-                    example: 'http://cfssl:8888/api/v1/cfssl/'
-                  configPath:
-                    type: string
-                    description: The path that Nextcloud should save the CFSSL configuration files for and that the CFSSL service needs to read to generate the root certificate.
-                    example: /cfssl/
-                  generated:
-                    type: boolean
-                    description: Root certificate already generated
+                allOf:
+                  - $ref: '#/components/schemas/certificate'
 components:
   securitySchemes:
     basicAuth:
