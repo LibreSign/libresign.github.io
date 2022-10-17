@@ -3103,6 +3103,9 @@ components:
           type: string
           description: The path that Nextcloud should save the CFSSL configuration files for and that the CFSSL service needs to read to generate the root certificate.
           example: /cfssl/
+        generated:
+          type: boolean
+          description: Is CFSSL certificate generated?
       required:
         - commonName
         - country
