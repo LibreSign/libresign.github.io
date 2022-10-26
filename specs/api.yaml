@@ -2476,6 +2476,7 @@ paths:
                       - $ref: '#/components/schemas/certificate'
                 required:
                   - success
+                  - data
                 example:
                   success: true
         '401':
@@ -3079,22 +3080,28 @@ components:
     certificate:
       type: object
       properties:
-        commonName:
-          type: string
-          description: Common name
-          example: CommonName
-        country:
-          type: string
-          description: Country name
-          example: Brazil
-        organization:
-          type: string
-          description: Organization
-          example: Organization
-        organizationUnit:
-          type: string
-          description: Organization unit
-          example: organizationUnit
+        rootCert:
+          type: object
+          description: Data to generate root certificate
+          properties:
+            commonName:
+              type: string
+              description: Common name
+              example: CommonName
+            names:
+              type: array
+              description: Custom cert name options
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Short identifier
+                    example: C
+                  value:
+                    type: string
+                    description: Value of ID
+                    example: BR
         cfsslUri:
           type: string
           description: CFSSL service URL
@@ -3107,9 +3114,6 @@ components:
           type: boolean
           description: Is CFSSL certificate generated?
       required:
-        - commonName
-        - country
-        - organization
-        - organizationUnit
+        - rootCert
         - cfsslUri
         - configPath
