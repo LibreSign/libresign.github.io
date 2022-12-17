@@ -2602,6 +2602,10 @@ components:
           type: boolean
           description: Has signature file.
           example: true
+        canPreviewPageAsImage:
+          type: boolean
+          description: Can preview page as image
+          example: true
     signSettings:
       type: object
       properties:
