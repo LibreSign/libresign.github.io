@@ -2613,6 +2613,10 @@ components:
           type: boolean
           description: Has signature file.
           example: true
+        canPreviewPageAsImage:
+          type: boolean
+          description: Can preview page as image
+          example: true
         canSign:
           type: boolean
           description: Can request sign this file
