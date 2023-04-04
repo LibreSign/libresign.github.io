@@ -2591,6 +2591,16 @@ components:
               type: string
               description: Description that will be displayed to the person
               example: 'As the company''s CEO, you must sign this contract'
+            identify:
+              type: string
+              default: nextcloud
+              example: nextcloud
+              description: 'When is requested to a person to sign a file, is necessary identify what is the identification method. The identification method is used to define how will be the sign flow.'
+              enum:
+                - nextcloud
+                - email-link
+                - email-token
+                - sms-token
     accountSettings:
       type: object
       properties:
@@ -2669,11 +2679,8 @@ components:
             - 0
             - 1
             - 2
-          description: >
-            Numeric code of status
-            * 0 - no signers
-            * 1 - signed
-            * 2 - pending
+          description: |
+            Numeric code of status * 0 - no signers * 1 - signed * 2 - pending
           example: 1
         status_text:
           type: string
@@ -2734,7 +2741,7 @@ components:
               sign_uuid:
                 type: string
                 format: uuid
-                description: Received from sign request, only returned when me=true
+                description: 'Received from sign request, only returned when me=true'
               displayName:
                 type: string
                 nullable: true
@@ -2763,6 +2770,17 @@ components:
                 pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                 description: Date the signature was requested
                 example: '2021-12-31 22:45:50'
+              identify:
+                type: string
+                nullable: true
+                default: nextcloud
+                example: nextcloud
+                description: 'When is requested to a person to sign a file, is necessary identify what is the identification method. The identification method is used to define how will be the sign flow.'
+                enum:
+                  - nextcloud
+                  - email-link
+                  - email-token
+                  - sms-token
               fileUserId:
                 type: integer
                 description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
