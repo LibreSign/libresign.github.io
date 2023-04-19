@@ -46,11 +46,11 @@ curl -X POST \
 
 ### Request signature
 
-POST /sign/register
+POST /request-signature
 
 ```bash
 curl --request POST \
-  --url http://localhost/apps/libresign/api/0.1/sign/register \
+  --url http://localhost/apps/libresign/api/0.1/request-signature \
   --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -74,7 +74,7 @@ You will receive the fileId or UUID, store this data to create visible elements.
 
 ### Validate
 
-Get data of a specific file, you can use `file_id` or `uuid` on path, both data you will receive after request to `POST /sign/register`
+Get data of a specific file, you can use `file_id` or `uuid` on path, both data you will receive after request to `POST /request-signature`
 
 The association between user and file will result on a `fileUserId`. You will need this to sign the document or define the page and coordinates of place that the signature of the user will be filled.
 
@@ -120,7 +120,7 @@ curl --request POST \
 #### Update
 PATCH /file/{uuid}/elements/{elementId}
 
-The UUID you will receive when you will do a request to `POST /sign/register` and the `fileUserId` is the relation between an user and the file to sign. You can check the `fileUserId` doing a request to /validate
+The UUID you will receive when you will do a request to `POST /request-signature` and the `fileUserId` is the relation between an user and the file to sign. You can check the `fileUserId` doing a request to /validate
 
 ```bash
 curl --request PATCH \
@@ -165,7 +165,7 @@ You will need change the status of a file from draft to able to sign. When you c
 
 ```bash
 curl --request PATCH \
-  --url http://localhost/apps/libresign/api/0.1/sign/register \
+  --url http://localhost/apps/libresign/api/0.1/request-signature \
   --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
   --header 'Content-Type: application/json' \
   --data '{
