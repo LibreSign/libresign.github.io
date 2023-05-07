@@ -12,7 +12,7 @@ Exemplo:
 
 ```bash
 curl -X POST \
-  http://localhost/index.php/apps/libresign/api/0.1/webhook/register \
+  http://localhost/index.php/apps/libresign/api/v1/webhook/register \
   -H 'Accept: application/json' \
   -H 'Authorization: Basic YWRtaW46YWRtaW4=' \
   -H 'Content-Type: application/json'

@@ -11,7 +11,7 @@ info:
   version: 2.2.2
 servers:
   - description: local
-    url: 'http://localhost/apps/libresign/api/0.1'
+    url: 'http://localhost/ocsapp/apps/libresign/api/v1'
 tags:
   - name: account
     description: Account
@@ -1209,7 +1209,7 @@ paths:
                     type: string
                     description: Success message
                     example: Success
-        '401':
+        '422':
           description: Request failed
           content:
             application/json:
@@ -1255,7 +1255,7 @@ paths:
                     type: string
                     description: Success message
                     example: Success
-        '401':
+        '422':
           description: Request failed
           content:
             application/json:

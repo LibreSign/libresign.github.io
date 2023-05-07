@@ -4,7 +4,7 @@ module.exports = {
   description: 'Libre digital signature app for Nextcloud.',
   theme: 'openapi',
   themeConfig: {
-    servers: ['/api/0.1/'],
+    servers: ['/api/v1/'],
     locales: {
       '/': {
         sidebar: 'auto',

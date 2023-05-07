@@ -18,7 +18,7 @@ Example:
 
 ```bash
 curl -X POST \
-  http://localhost/index.php/apps/libresign/api/0.1/webhook/register \
+  http://localhost/index.php/apps/libresign/api/v1/webhook/register \
   -H 'Accept: application/json' \
   -H 'Authorization: Basic YWRtaW46YWRtaW4=' \
   -H 'Content-Type: application/json'
@@ -50,7 +50,7 @@ POST /request-signature
 
 ```bash
 curl --request POST \
-  --url http://localhost/apps/libresign/api/0.1/request-signature \
+  --url http://localhost/apps/libresign/api/v1/request-signature \
   --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -80,7 +80,7 @@ The association between user and file will result on a `fileUserId`. You will ne
 
 ```bash
 curl --request GET \
-  --url http://localhost/apps/libresign/api/0.1/file/validate/file_id/1995 \
+  --url http://localhost/apps/libresign/api/v1/file/validate/file_id/1995 \
   --header 'Authorization: Basic YWRtaW46YWRtaW4='
 ```
 
@@ -90,7 +90,7 @@ List all LibreSign files
 
 ```bash
 curl --request GET \
-  --url http://localhost/apps/libresign/api/0.1/file/list \
+  --url http://localhost/apps/libresign/api/v1/file/list \
   --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
 ```
 
@@ -101,7 +101,7 @@ POST /file/{uuid}/elements
 
 ```bash
 curl --request POST \
-  --url http://localhost/apps/libresign/api/0.1/file/88968195-6f0a-4036-ac05-9680feb109e4/elements \
+  --url http://localhost/apps/libresign/api/v1/file/88968195-6f0a-4036-ac05-9680feb109e4/elements \
   --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -124,7 +124,7 @@ The UUID you will receive when you will do a request to `POST /request-signature
 
 ```bash
 curl --request PATCH \
-  --url http://localhost/apps/libresign/api/0.1/file/87e5d5f0-1a9b-48cd-8146-0ee8b3aafd83/elements/1 \
+  --url http://localhost/apps/libresign/api/v1/file/87e5d5f0-1a9b-48cd-8146-0ee8b3aafd83/elements/1 \
   --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -149,7 +149,7 @@ If the system is enabled to sign using password, the user will need to create a 
 
 ```bash
 curl --request POST \
-  --url http://localhost/apps/libresign/api/0.1/account/signature \
+  --url http://localhost/apps/libresign/api/v1/account/signature \
   --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -165,7 +165,7 @@ You will need change the status of a file from draft to able to sign. When you c
 
 ```bash
 curl --request PATCH \
-  --url http://localhost/apps/libresign/api/0.1/request-signature \
+  --url http://localhost/apps/libresign/api/v1/request-signature \
   --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -182,7 +182,7 @@ This is necessary for all user to store the own signature or initial.
 
 ```bash
 curl --request POST \
-  --url http://localhost/apps/libresign/api/0.1/account/signature/elements \
+  --url http://localhost/apps/libresign/api/v1/account/signature/elements \
   --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -212,11 +212,11 @@ To sign using SMS you will need install the app `twofactor_gateway` and configur
 Example:
 
 ```bash
-docker-compose exec --user www-data nextcloud php occ config:app:set libresign sign_method --value=password
+docker-compose exec --user www-data nextcloud php occ config:app:set libresign identify_method --value=["nextcloud"]
 
-docker-compose exec --user www-data nextcloud php occ config:app:set libresign sign_method --value=email
+docker-compose exec --user www-data nextcloud php occ config:app:set libresign identify_method --value=["email"]
 
-docker-compose exec --user www-data nextcloud php occ config:app:set libresign sign_method --value=sms
+docker-compose exec --user www-data nextcloud php occ config:app:set libresign identify_method --value=["sms"]
 ```
 
 #### SMS
@@ -247,7 +247,7 @@ If the sign method is a code, the authenticated user will need request a code to
 
 ```bash
 curl --request POST \
-  --url http://localhost/apps/libresign/api/0.1/sign/file_id/3051/code \
+  --url http://localhost/apps/libresign/api/v1/sign/file_id/3051/code \
   --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
   --header 'Content-Type: application/json' \
 ```
@@ -257,7 +257,7 @@ To sign you only will need send the code that you received by email or SMS.
 
 ```bash
 curl --request POST \
-  --url http://localhost/apps/libresign/api/0.1/sign/file_id/1995 \
+  --url http://localhost/apps/libresign/api/v1/sign/file_id/1995 \
   --header 'Authorization: Basic YWRtaW46YWRtaW4=' \
   --header 'Content-Type: application/json' \
   --data '{
