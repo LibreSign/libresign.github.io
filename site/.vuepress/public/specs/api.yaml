@@ -2295,15 +2295,16 @@ components:
               description: Description that will be displayed to the person
               example: 'As the company''s CEO, you must sign this contract'
             identify:
-              type: string
-              default: nextcloud
-              example: nextcloud
-              description: 'When is requested to a person to sign a file, is necessary identify what is the identification method. The identification method is used to define how will be the sign flow.'
-              enum:
-                - nextcloud
-                - email-link
-                - email-token
-                - sms-token
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: signer1
+                  description: The email of signer
+                account:
+                  type: string
+                  example: signer1
+                  description: The account name of signer
     accountSettings:
       type: object
       properties:
