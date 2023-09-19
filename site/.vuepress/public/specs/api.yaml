@@ -724,10 +724,16 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: User 0 needs an email address
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - User 0 needs an email address
+                  action:
+                    type: integer
+                    description: Numeric code representing what action should be taken with the response.
+                    example: 200
     patch:
       tags:
         - sign
@@ -803,10 +809,16 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: User 0 needs an email address
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - User 0 needs an email address
+                  action:
+                    type: integer
+                    description: Numeric code representing what action should be taken with the response.
+                    example: 200
   /request-signature/signature:
     delete:
       tags:
@@ -1087,10 +1099,17 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
+                  errors:
+                    type: array
                     description: Description of the failure that occurred
-                    example: UUID not found
+                    items:
+                      type: string
+                    example:
+                      - UUID not found
+                  action:
+                    type: integer
+                    description: Numeric code representing what action should be taken with the response.
+                    example: 200
   '/sign/file_id/{fileId}/{fileUserId}':
     delete:
       tags:
@@ -1128,10 +1147,16 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: Signer not associated to this file
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - Signer not associated to this file
+                  action:
+                    type: integer
+                    description: Numeric code representing what action should be taken with the response.
+                    example: 200
   '/sign/uuid/{uuid}/token':
     post:
       tags:
