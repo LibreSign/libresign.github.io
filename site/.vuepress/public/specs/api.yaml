@@ -107,10 +107,6 @@ paths:
                       phone: ''
                       message: Settings saved
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
                   data:
                     type: object
                     required:
@@ -137,17 +133,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on update visible element.
                   message:
                     type: string
                     description: Error pessage
                     example: Invalid type
                 required:
-                  - success
                   - message
   '/account/create/{uuid}':
     post:
@@ -197,11 +187,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -227,7 +212,6 @@ paths:
                     description: Description for the person who will sign the document
                     example: 'As the company''s CEO, you must sign this contract'
                 required:
-                  - success
                   - message
                   - action
         '422':
@@ -237,11 +221,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure!
                   action:
                     type: integer
                     description: Numeric code representing what action should be taken with the response
@@ -251,7 +230,6 @@ paths:
                     description: Description of the failure that occurred
                     example: User 0 needs an email address
                 required:
-                  - success
                   - action
                   - message
   /account/files:
@@ -289,18 +267,6 @@ paths:
       responses:
         '200':
           description: Documents have been attached to the account
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
-                required:
-                  - success
         '401':
           description: Request failed
           content:
@@ -308,11 +274,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Oh no!
                   messages:
                     type: array
                     items:
@@ -324,7 +285,6 @@ paths:
                         type:
                           type: string
                           enum:
-                            - success
                             - info
                             - warning
                             - danger
@@ -393,17 +353,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Visible element deleted
                     example: Visible element deleted
                 required:
-                  - success
                   - message
         '401':
           description: Request failed
@@ -412,17 +366,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on delete visible element.
                   message:
                     type: string
                     description: Error pessage
                     example: This isn't your element
                 required:
-                  - success
                   - message
   /account/files/approval/list:
     get:
@@ -497,17 +445,10 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   signature:
                     type: string
                     description: Folder where the pfx file was saved
                     example: /LibreSign
-                required:
-                  - success
         '401':
           description: Request failed
           content:
@@ -519,11 +460,6 @@ paths:
                     type: string
                     description: Password to sign is mandatory
                     example: Password to sign is mandatory
-                  success:
-                    type: boolean
-                    description: Beep! Failure on generate certificate.
-                required:
-                  - success
   /account/signature/elements:
     post:
       tags:
@@ -563,17 +499,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
                     example: Success
                 required:
-                  - success
                   - message
         '401':
           description: Request failed
@@ -582,17 +512,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on generate certificate.
                   message:
                     type: string
                     description: Error pessage
                     example: Invalid file
                 required:
-                  - success
                   - message
     get:
       tags:
@@ -681,17 +605,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Visible element upated
                     example: Visible element upated
                 required:
-                  - success
                   - message
         '401':
           description: Request failed
@@ -700,17 +618,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on update visible element.
                   message:
                     type: string
                     description: Error pessage
                     example: Invalid type
                 required:
-                  - success
                   - message
     delete:
       tags:
@@ -730,17 +642,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Visible element deleted
                     example: Visible element deleted
                 required:
-                  - success
                   - message
         '401':
           description: Request failed
@@ -749,17 +655,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on delete visible element.
                   message:
                     type: string
                     description: Error pessage
                     example: This isn't your element
                 required:
-                  - success
                   - message
   /request-signature:
     post:
@@ -1016,11 +916,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   file:
                     type: object
                     description: LibreSign file
@@ -1056,7 +951,6 @@ paths:
                       - File signed
                     example: File signed
                 required:
-                  - success
                   - action
                   - message
         '422':
@@ -1066,11 +960,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure!
                   action:
                     type: integer
                     description: Numeric code representing what action should be taken with the response
@@ -1082,7 +971,6 @@ paths:
                     example:
                       - File already signed by you
                 required:
-                  - success
                   - action
                   - errors
   '/sign/file_id/{fileId}':
@@ -1132,11 +1020,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   file:
                     type: object
                     description: LibreSign file
@@ -1153,7 +1036,6 @@ paths:
                     type: string
                     example: File signed
                 required:
-                  - success
                   - action
                   - message
         '422':
@@ -1163,11 +1045,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure!
                   action:
                     type: integer
                     description: Numeric code representing what action should be taken with the response
@@ -1179,7 +1056,6 @@ paths:
                     example:
                       - File already signed by you
                 required:
-                  - success
                   - action
                   - errors
     delete:
@@ -1200,11 +1076,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -1246,11 +1117,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -1285,11 +1151,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -1324,11 +1185,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -1457,11 +1313,6 @@ paths:
                   - $ref: '#/components/schemas/libresignFileStatus'
                   - type: object
                     properties:
-                      success:
-                        type: boolean
-                        enum:
-                          - true
-                        description: Uhuuu! Need true vale.
                       name:
                         type: string
                         example: filename
@@ -1564,7 +1415,6 @@ paths:
                               type: string
                               description: Text of message
                 required:
-                  - success
                   - name
                   - file
                   - status
@@ -1576,11 +1426,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure!
                   settings:
                     $ref: '#/components/schemas/signSettings'
                   action:
@@ -1608,7 +1453,6 @@ paths:
                           type: string
                           description: Text of message
                 required:
-                  - success
                   - settings
                   - errors
                   - action
@@ -1631,11 +1475,6 @@ paths:
                   - $ref: '#/components/schemas/libresignFileStatus'
                   - type: object
                     properties:
-                      success:
-                        type: boolean
-                        enum:
-                          - true
-                        description: Uhuuu! Need true vale.
                       name:
                         type: string
                         example: filename
@@ -1738,7 +1577,6 @@ paths:
                               type: string
                               description: Text of message
                 required:
-                  - success
                   - name
                   - file
                   - status
@@ -1750,11 +1588,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure!
                   settings:
                     $ref: '#/components/schemas/signSettings'
                   action:
@@ -1782,7 +1615,6 @@ paths:
                           type: string
                           description: Text of message
                 required:
-                  - success
                   - settings
                   - errors
                   - action
@@ -1841,13 +1673,7 @@ paths:
                   fileElementId:
                     type: integer
                     description: 'Representative ID of relation between file, fileUser and the visible element on pdf'
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                 required:
-                  - success
                   - fileElementId
         '401':
           description: Request failed
@@ -1856,17 +1682,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on generate certificate.
                   message:
                     type: string
                     description: Error pessage
                     example: Invalid file
                 required:
-                  - success
                   - message
   '/file-element/{uuid}/{elementId}':
     patch:
@@ -1900,13 +1720,7 @@ paths:
                   fileElementId:
                     type: integer
                     description: 'Representative ID of relation between file, fileUser and the visible element on pdf'
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                 required:
-                  - success
                   - fileElementId
         '401':
           description: Request failed
@@ -1915,17 +1729,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on update visible element.
                   message:
                     type: string
                     description: Error pessage
                     example: Invalid type
                 required:
-                  - success
                   - message
     delete:
       tags:
@@ -1946,11 +1754,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -2010,11 +1813,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -2026,11 +1824,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Oh no!
                   messages:
                     type: array
                     items:
@@ -2187,19 +1980,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: CFSSL server is up?
                   data:
                     allOf:
                       - $ref: '#/components/schemas/certificate-cfssl'
                 required:
-                  - success
                   - data
-                example:
-                  success: true
         '401':
           description: Request failed
           content:
@@ -2207,19 +1992,12 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: CFSSL server is up?
                   message:
                     type: array
                     description: List of failures that occurred
                 required:
-                  - success
                   - message
                 example:
-                  success: false
                   message:
                     - parameter 'cfsslUri' is required!
   /admin/certificate/openssl:
@@ -2245,19 +2023,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: CFSSL server is up?
                   data:
                     allOf:
                       - $ref: '#/components/schemas/certificate-openssl'
                 required:
-                  - success
                   - data
-                example:
-                  success: true
         '401':
           description: Request failed
           content:
@@ -2265,19 +2035,12 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: CFSSL server is up?
                   message:
                     type: array
                     description: List of failures that occurred
                 required:
-                  - success
                   - message
                 example:
-                  success: false
                   message:
                     - parameter 'cfsslUri' is required!
 components:
