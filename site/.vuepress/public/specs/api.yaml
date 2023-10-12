@@ -1353,6 +1353,8 @@ paths:
                         type: string
                         format: uuid
                         description: Received from sign request
+                      requested_by:
+                        $ref: '#/components/schemas/basicAccount'
                       pages:
                         type: array
                         description: |-
