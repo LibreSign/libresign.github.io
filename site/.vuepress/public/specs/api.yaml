@@ -1405,6 +1405,15 @@ paths:
                               type: boolean
                               description: It's me?
                               example: true
+                            identifyMethods:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  method:
+                                    type: string
+                                  value:
+                                    type: string
                             email:
                               type: string
                               format: email
@@ -1567,6 +1576,15 @@ paths:
                               type: boolean
                               description: It's me?
                               example: true
+                            identifyMethods:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  method:
+                                    type: string
+                                  value:
+                                    type: string
                             email:
                               type: string
                               format: email
