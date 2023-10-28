@@ -1292,7 +1292,12 @@ paths:
                         format: uuid
                         description: Received from sign request
                       request_date:
-                        type: integer
+                        type: string
+                        format: date-time
+                        pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                        nullable: true
+                        description: Date the file was requested to be signed
+                        example: '2021-12-31 22:45:50'
                       requested_by:
                         $ref: '#/components/schemas/basicAccount'
                       pages:
