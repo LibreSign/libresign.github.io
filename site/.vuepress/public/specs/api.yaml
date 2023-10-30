@@ -819,68 +819,6 @@ paths:
                     type: integer
                     description: Numeric code representing what action should be taken with the response.
                     example: 200
-  /request-signature/signature:
-    delete:
-      tags:
-        - sign
-      summary: Delete sign request using a list of users
-      description: Delete the request to sign using a list of users
-      operationId: signFile#deleteSignature
-      security:
-        - basicAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                uuid:
-                  type: string
-                  format: uuid
-                  description: Received from sign request
-                file:
-                  $ref: '#/components/schemas/fileId'
-                users:
-                  type: array
-                  description: Collection of persons
-                  items:
-                    type: object
-                    description: Person who will deleted
-                    properties:
-                      email:
-                        type: string
-                        format: email
-                        description: Unique email to identify user
-                        example: user@test.coop
-                    required:
-                      - email
-              required:
-                - uuid
-                - users
-        required: true
-      responses:
-        '200':
-          description: Success!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Success message
-                    example: Success
-        '422':
-          description: Request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: UUID not found
   '/sign/uuid/{uuid}':
     post:
       tags:
@@ -1353,6 +1291,13 @@ paths:
                         type: string
                         format: uuid
                         description: Received from sign request
+                      request_date:
+                        type: string
+                        format: date-time
+                        pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                        nullable: true
+                        description: Date the file was requested to be signed
+                        example: '2021-12-31 22:45:50'
                       requested_by:
                         $ref: '#/components/schemas/basicAccount'
                       pages:
@@ -1405,6 +1350,15 @@ paths:
                               type: boolean
                               description: It's me?
                               example: true
+                            identifyMethods:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  method:
+                                    type: string
+                                  value:
+                                    type: string
                             email:
                               type: string
                               format: email
@@ -1528,6 +1482,8 @@ paths:
                         type: string
                         format: uuid
                         description: Received from sign request
+                      request_date:
+                        type: integer
                       pages:
                         type: array
                         description: |-
@@ -1578,6 +1534,15 @@ paths:
                               type: boolean
                               description: It's me?
                               example: true
+                            identifyMethods:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  method:
+                                    type: string
+                                  value:
+                                    type: string
                             email:
                               type: string
                               format: email
