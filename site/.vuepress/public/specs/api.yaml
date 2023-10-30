@@ -1351,20 +1351,6 @@ paths:
                               description: It's me?
                               example: true
                             identifyMethods:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  method:
-                                    type: string
-                                  value:
-                                    type: string
-                            email:
-                              type: string
-                              format: email
-                              description: Unique email to identify signer. This property will only exist when it is a request made by the person who requested the document to be signed.
-                              example: user@test.coop
-                            identify-methods:
                               type: object
                               properties:
                                 method:
@@ -1375,6 +1361,11 @@ paths:
                                   type: string
                                   example: signer1
                                   description: The value that identify the signer in the authentication method
+                            email:
+                              type: string
+                              format: email
+                              description: Unique email to identify signer. This property will only exist when it is a request made by the person who requested the document to be signed.
+                              example: user@test.coop
                             uid:
                               type: string
                               description: Nextcloud user id of who requested the file to be signed.
@@ -1535,14 +1526,16 @@ paths:
                               description: It's me?
                               example: true
                             identifyMethods:
-                              type: array
-                              items:
-                                type: object
-                                properties:
-                                  method:
-                                    type: string
-                                  value:
-                                    type: string
+                              type: object
+                              properties:
+                                method:
+                                  type: string
+                                  example: account
+                                  description: The identify method name
+                                value:
+                                  type: string
+                                  example: signer1
+                                  description: The value that identify the signer in the authentication method
                             email:
                               type: string
                               format: email
