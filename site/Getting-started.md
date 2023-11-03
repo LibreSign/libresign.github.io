@@ -76,7 +76,7 @@ You will receive the fileId or UUID, store this data to create visible elements.
 
 Get data of a specific file, you can use `file_id` or `uuid` on path, both data you will receive after request to `POST /request-signature`
 
-The association between user and file will result on a `fileUserId`. You will need this to sign the document or define the page and coordinates of place that the signature of the user will be filled.
+The association between user and file will result on a `signRequestId`. You will need this to sign the document or define the page and coordinates of place that the signature of the user will be filled.
 
 ```bash
 curl --request GET \
@@ -113,14 +113,14 @@ curl --request POST \
         "page": 1
     },
     "type": "signature",
-    "fileUserId": 51
+    "signRequestId": 51
 }'
 ```
 
 #### Update
 PATCH /file/{uuid}/elements/{elementId}
 
-The UUID you will receive when you will do a request to `POST /request-signature` and the `fileUserId` is the relation between an user and the file to sign. You can check the `fileUserId` doing a request to /validate
+The UUID you will receive when you will do a request to `POST /request-signature` and the `signRequestId` is the relation between an user and the file to sign. You can check the `signRequestId` doing a request to /validate
 
 ```bash
 curl --request PATCH \
@@ -136,7 +136,7 @@ curl --request PATCH \
         "page": 1
     },
     "type": "signature",
-    "fileUserId": 1
+    "signRequestId": 1
 }'
 ```
 
