@@ -2247,6 +2247,10 @@ components:
               type: integer
               description: Node id of a Nextcloud file
               example: 2312
+            path:
+              type: string
+              description: Path of a Nextcloud file
+              example: /path/here/filename.pdf
           required:
             - type
         signers:
