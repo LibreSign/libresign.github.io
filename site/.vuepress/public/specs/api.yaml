@@ -836,10 +836,14 @@ paths:
             schema:
               type: object
               properties:
-                password:
+                method:
                   type: string
                   format: password
                   example: password
+                identifyValue:
+                  type: string
+                  format: password
+                  example: secretPassword
                 elements:
                   type: array
                   description: 'Visible elements. Not mandatory, only needed when the document has visible elements and the user has many visible elements associated to profile and don''t has favorited visible element to use.'
@@ -857,7 +861,8 @@ paths:
                       - documentElementId
                       - profileElementId
               required:
-                - password
+                - method
+                - identifyValue
       responses:
         '200':
           description: Success!
@@ -940,10 +945,14 @@ paths:
             schema:
               type: object
               properties:
-                password:
+                method:
                   type: string
                   format: password
                   example: password
+                identifyValue:
+                  type: string
+                  format: password
+                  example: secretPassword
                 elements:
                   type: array
                   description: 'Visible elements. Not mandatory, only needed when the document has visible elements and the user has many visible elements associated to profile and don''t has favorited visible element to use.'
@@ -961,7 +970,8 @@ paths:
                       - documentElementId
                       - profileElementId
               required:
-                - password
+                - method
+                - identifyValue
       responses:
         '200':
           description: Success!
