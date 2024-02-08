@@ -915,10 +915,127 @@ paths:
                         type: integer
                         description: Node id of a Nextcloud file
                         example: 2312
+                      fileId:
+                        type: integer
+                        description: Node id of a Nextcloud file
+                        example: 2312
+                      file:
+                        type: string
+                        description: URL to download signed file
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      name:
+                        type: string
+                        example: filename
+                        description: The name of file to sign
                       uuid:
                         type: string
                         format: uuid
                         description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
+                      status:
+                        type: integer
+                        enum:
+                          - 0
+                          - 1
+                          - 2
+                        description: |
+                          Numeric code of status * 0 - no signers * 1 - signed * 2 - pending
+                        example: 1
+                      statusText:
+                        type: string
+                        description: Translated text of status
+                        example: able to sign
+                      request_date:
+                        type: string
+                        format: date-time
+                        pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                        nullable: true
+                        description: Date the file was requested to be signed
+                        example: '2021-12-31 22:45:50'
+                      requested_by:
+                        $ref: '#/components/schemas/basicAccount'
+                      settings:
+                        $ref: '#/components/schemas/signSettings'
+                      signers:
+                        type: array
+                        description: Collection of users who must sign the document
+                        items:
+                          type: object
+                          description: Person who will sign
+                          properties:
+                            email:
+                              type: string
+                              format: email
+                              description: Unique email to identify user
+                              example: user@test.coop
+                            me:
+                              type: boolean
+                              description: It's me?
+                              example: true
+                            sign_uuid:
+                              type: string
+                              format: uuid
+                              description: 'Received from sign request, only returned when me=true'
+                            displayName:
+                              type: string
+                              nullable: true
+                              description: Persons name
+                              example: John Doe
+                            fullName:
+                              type: string
+                              description: The person full name
+                              example: John Doe
+                              nullable: true
+                            signed:
+                              type: string
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              description: 'Signing date, when signed'
+                              example: '2021-12-31 22:45:50'
+                              nullable: true
+                            identifyMethods:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  method:
+                                    type: string
+                                    example: account
+                                    description: The identify method name
+                                  value:
+                                    type: string
+                                    example: signer1
+                                    description: The value that identify the signer in the authentication method
+                            uid:
+                              type: string
+                              nullable: true
+                              description: Nextcloud user id of who requested the file to be signed when the person created account.
+                              example: johndoe
+                            description:
+                              type: string
+                              nullable: true
+                              description: Description that will be displayed to the person
+                              example: 'As the company''s CEO, you must sign this contract'
+                            sign_date:
+                              type: string
+                              format: date-time
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              nullable: true
+                              description: Date the file was signed
+                              example: '2021-12-31 22:45:50'
+                            identify:
+                              type: string
+                              nullable: true
+                              default: nextcloud
+                              example: nextcloud
+                              description: 'When is requested to a person to sign a file, is necessary identify what is the identification method. The identification method is used to define how will be the sign flow.'
+                              enum:
+                                - nextcloud
+                                - email-link
+                                - email-token
+                                - sms-token
+                            signRequestId:
+                              type: integer
+                              description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
+                              example: 1request_sign_date
         '422':
           description: Request failed
           content:
@@ -1624,7 +1741,7 @@ paths:
                         type: string
                         description: URL to download signed file
                         example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
-                      fileId:
+                      nodeId:
                         type: integer
                         description: Node id of a Nextcloud file
                         example: 2312
