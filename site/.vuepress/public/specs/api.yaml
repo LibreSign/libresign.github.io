@@ -749,6 +749,22 @@ paths:
                         nullable: true
                         description: Date the file was requested to be signed
                         example: '2021-12-31 22:45:50'
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - success
+                                - info
+                                - warning
+                                - danger
+                              description: Type of message
+                            message:
+                              type: string
+                              description: Text of message
                       requested_by:
                         $ref: '#/components/schemas/basicAccount'
                       settings:
@@ -951,6 +967,22 @@ paths:
                         nullable: true
                         description: Date the file was requested to be signed
                         example: '2021-12-31 22:45:50'
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - success
+                                - info
+                                - warning
+                                - danger
+                              description: Type of message
+                            message:
+                              type: string
+                              description: Text of message
                       requested_by:
                         $ref: '#/components/schemas/basicAccount'
                       settings:
