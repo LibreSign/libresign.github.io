@@ -794,11 +794,6 @@ paths:
                               nullable: true
                               description: Persons name
                               example: John Doe
-                            fullName:
-                              type: string
-                              description: The person full name
-                              example: John Doe
-                              nullable: true
                             signed:
                               type: string
                               pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
@@ -1012,11 +1007,6 @@ paths:
                               nullable: true
                               description: Persons name
                               example: John Doe
-                            fullName:
-                              type: string
-                              description: The person full name
-                              example: John Doe
-                              nullable: true
                             signed:
                               type: string
                               pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
@@ -1647,11 +1637,6 @@ paths:
                               description: The person display name
                               nullable: true
                               example: John
-                            fullName:
-                              type: string
-                              description: The person full name
-                              example: John Doe
-                              nullable: true
                             me:
                               type: boolean
                               description: It's me?
@@ -1684,7 +1669,6 @@ paths:
                               example: 1
                           required:
                             - signed
-                            - fullName
                             - me
                             - signRequestId
                       settings:
@@ -1831,11 +1815,6 @@ paths:
                               description: The person display name
                               nullable: true
                               example: John
-                            fullName:
-                              type: string
-                              description: The person full name
-                              example: John Doe
-                              nullable: true
                             me:
                               type: boolean
                               description: It's me?
@@ -1868,7 +1847,6 @@ paths:
                               example: 1
                           required:
                             - signed
-                            - fullName
                             - me
                             - signRequestId
                       settings:
@@ -2008,11 +1986,6 @@ paths:
                               description: The person display name
                               nullable: true
                               example: John
-                            fullName:
-                              type: string
-                              description: The person full name
-                              example: John Doe
-                              nullable: true
                             me:
                               type: boolean
                               description: It's me?
@@ -2045,7 +2018,6 @@ paths:
                               example: 1
                           required:
                             - signed
-                            - fullName
                             - me
                             - signRequestId
                       settings:
