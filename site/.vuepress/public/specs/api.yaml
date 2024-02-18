@@ -2675,13 +2675,6 @@ components:
           type: string
           description: Translated text of status
           example: able to sign
-        status_date:
-          type: string
-          format: date-time
-          pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
-          nullable: true
-          description: Last status date
-          example: '2021-12-31 22:45:50'
         request_date:
           type: string
           format: date-time
