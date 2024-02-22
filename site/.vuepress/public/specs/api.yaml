@@ -813,6 +813,10 @@ paths:
                                     type: string
                                     example: signer1
                                     description: The value that identify the signer in the authentication method
+                                  mandatory:
+                                    type: integer
+                                    example: 1
+                                    description: is this sign method mandatory?
                             uid:
                               type: string
                               nullable: true
@@ -1026,6 +1030,10 @@ paths:
                                     type: string
                                     example: signer1
                                     description: The value that identify the signer in the authentication method
+                                  mandatory:
+                                    type: integer
+                                    example: 1
+                                    description: is this sign method mandatory?
                             uid:
                               type: string
                               nullable: true
@@ -1654,6 +1662,10 @@ paths:
                                     type: string
                                     example: signer1
                                     description: The value that identify the signer in the authentication method
+                                  mandatory:
+                                    type: integer
+                                    example: 1
+                                    description: is this sign method mandatory?
                             email:
                               type: string
                               format: email
@@ -1832,6 +1844,10 @@ paths:
                                     type: string
                                     example: signer1
                                     description: The value that identify the signer in the authentication method
+                                  mandatory:
+                                    type: integer
+                                    example: 1
+                                    description: is this sign method mandatory?
                             email:
                               type: string
                               format: email
@@ -2003,6 +2019,10 @@ paths:
                                     type: string
                                     example: signer1
                                     description: The value that identify the signer in the authentication method
+                                  mandatory:
+                                    type: integer
+                                    example: 1
+                                    description: is this sign method mandatory?
                             email:
                               type: string
                               format: email
