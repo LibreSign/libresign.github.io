@@ -721,6 +721,10 @@ paths:
                         type: string
                         description: URL to download signed file
                         example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      url:
+                        type: string
+                        description: URL to view PDF
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
                       name:
                         type: string
                         example: filename
@@ -800,6 +804,12 @@ paths:
                               description: 'Signing date, when signed'
                               example: '2021-12-31 22:45:50'
                               nullable: true
+                            request_sign_date:
+                              type: string
+                              format: date-time
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              description: Date the signature was requested
+                              example: '2021-12-31 22:45:50'
                             identifyMethods:
                               type: array
                               items:
@@ -827,13 +837,6 @@ paths:
                               nullable: true
                               description: Description that will be displayed to the person
                               example: 'As the company''s CEO, you must sign this contract'
-                            sign_date:
-                              type: string
-                              format: date-time
-                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
-                              nullable: true
-                              description: Date the file was signed
-                              example: '2021-12-31 22:45:50'
                             identify:
                               type: string
                               nullable: true
@@ -848,7 +851,7 @@ paths:
                             signRequestId:
                               type: integer
                               description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
-                              example: 1request_sign_date
+                              example: request_sign_date
         '422':
           description: Request failed
           content:
@@ -938,6 +941,10 @@ paths:
                         type: string
                         description: URL to download signed file
                         example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      url:
+                        type: string
+                        description: URL to view PDF
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
                       name:
                         type: string
                         example: filename
@@ -1017,6 +1024,12 @@ paths:
                               description: 'Signing date, when signed'
                               example: '2021-12-31 22:45:50'
                               nullable: true
+                            request_sign_date:
+                              type: string
+                              format: date-time
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              description: Date the signature was requested
+                              example: '2021-12-31 22:45:50'
                             identifyMethods:
                               type: array
                               items:
@@ -1044,13 +1057,6 @@ paths:
                               nullable: true
                               description: Description that will be displayed to the person
                               example: 'As the company''s CEO, you must sign this contract'
-                            sign_date:
-                              type: string
-                              format: date-time
-                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
-                              nullable: true
-                              description: Date the file was signed
-                              example: '2021-12-31 22:45:50'
                             identify:
                               type: string
                               nullable: true
@@ -1065,7 +1071,7 @@ paths:
                             signRequestId:
                               type: integer
                               description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
-                              example: 1request_sign_date
+                              example: request_sign_date
         '422':
           description: Request failed
           content:
@@ -1640,6 +1646,12 @@ paths:
                               description: 'Signing date, when signed'
                               example: '2021-12-31 22:45:50'
                               nullable: true
+                            request_sign_date:
+                              type: string
+                              format: date-time
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              description: Date the signature was requested
+                              example: '2021-12-31 22:45:50'
                             displayName:
                               type: string
                               description: The person display name
@@ -1649,6 +1661,10 @@ paths:
                               type: boolean
                               description: It's me?
                               example: true
+                            sign_uuid:
+                              type: string
+                              format: uuid
+                              description: 'Received from sign request, only returned when me=true'
                             identifyMethods:
                               type: array
                               items:
@@ -1675,6 +1691,11 @@ paths:
                               type: string
                               description: Nextcloud user id of who requested the file to be signed.
                               example: johndoe
+                            description:
+                              type: string
+                              nullable: true
+                              description: Description that will be displayed to the person
+                              example: 'As the company''s CEO, you must sign this contract'
                             signRequestId:
                               type: integer
                               description: Relation between file and user
@@ -1769,6 +1790,10 @@ paths:
                         type: string
                         description: URL to download signed file
                         example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      url:
+                        type: string
+                        description: URL to view PDF
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
                       nodeId:
                         type: integer
                         description: Node id of a Nextcloud file
@@ -1822,6 +1847,12 @@ paths:
                               description: 'Signing date, when signed'
                               example: '2021-12-31 22:45:50'
                               nullable: true
+                            request_sign_date:
+                              type: string
+                              format: date-time
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              description: Date the signature was requested
+                              example: '2021-12-31 22:45:50'
                             displayName:
                               type: string
                               description: The person display name
@@ -1831,6 +1862,10 @@ paths:
                               type: boolean
                               description: It's me?
                               example: true
+                            sign_uuid:
+                              type: string
+                              format: uuid
+                              description: 'Received from sign request, only returned when me=true'
                             identifyMethods:
                               type: array
                               items:
@@ -1857,6 +1892,11 @@ paths:
                               type: string
                               description: Nextcloud user id of who requested the file to be signed.
                               example: johndoe
+                            description:
+                              type: string
+                              nullable: true
+                              description: Description that will be displayed to the person
+                              example: 'As the company''s CEO, you must sign this contract'
                             signRequestId:
                               type: integer
                               description: Relation between file and user
@@ -1951,6 +1991,10 @@ paths:
                         type: string
                         description: URL to download signed file
                         example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      url:
+                        type: string
+                        description: URL to view PDF
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
                       fileId:
                         type: integer
                         description: Node id of a Nextcloud file
@@ -1960,7 +2004,12 @@ paths:
                         format: uuid
                         description: Received from sign request
                       request_date:
-                        type: integer
+                        type: string
+                        format: date-time
+                        pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                        nullable: true
+                        description: Date the file was requested to be signed
+                        example: '2021-12-31 22:45:50'
                       pages:
                         type: array
                         description: |-
@@ -1997,6 +2046,12 @@ paths:
                               description: 'Signing date, when signed'
                               example: '2021-12-31 22:45:50'
                               nullable: true
+                            request_sign_date:
+                              type: string
+                              format: date-time
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              description: Date the signature was requested
+                              example: '2021-12-31 22:45:50'
                             displayName:
                               type: string
                               description: The person display name
@@ -2006,6 +2061,10 @@ paths:
                               type: boolean
                               description: It's me?
                               example: true
+                            sign_uuid:
+                              type: string
+                              format: uuid
+                              description: 'Received from sign request, only returned when me=true'
                             identifyMethods:
                               type: array
                               items:
@@ -2032,6 +2091,11 @@ paths:
                               type: string
                               description: Nextcloud user id of who requested the file to be signed.
                               example: johndoe
+                            description:
+                              type: string
+                              nullable: true
+                              description: Description that will be displayed to the person
+                              example: 'As the company''s CEO, you must sign this contract'
                             signRequestId:
                               type: integer
                               description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
@@ -2763,7 +2827,7 @@ components:
                 nullable: true
                 description: Description that will be displayed to the person
                 example: 'As the company''s CEO, you must sign this contract'
-              sign_date:
+              signed:
                 type: string
                 format: date-time
                 pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
