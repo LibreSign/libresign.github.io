@@ -725,6 +725,23 @@ paths:
                         type: string
                         description: URL to view PDF
                         example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      visibleElements:
+                        type: array
+                        description: Visible elements on document
+                        items:
+                          not:
+                            required:
+                              - coordinates
+                          allOf:
+                            - $ref: '#/components/schemas/pdfVisibleElement'
+                            - type: object
+                              properties:
+                                elementId:
+                                  type: integer
+                                  minimum: 1
+                                  example: 1
+                              required:
+                                - elementId
                       name:
                         type: string
                         example: filename
@@ -945,6 +962,23 @@ paths:
                         type: string
                         description: URL to view PDF
                         example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      visibleElements:
+                        type: array
+                        description: Visible elements on document
+                        items:
+                          not:
+                            required:
+                              - coordinates
+                          allOf:
+                            - $ref: '#/components/schemas/pdfVisibleElement'
+                            - type: object
+                              properties:
+                                elementId:
+                                  type: integer
+                                  minimum: 1
+                                  example: 1
+                              required:
+                                - elementId
                       name:
                         type: string
                         example: filename
@@ -1618,23 +1652,25 @@ paths:
                         items:
                           $ref: '#/components/schemas/pdfPage'
                       visibleElements:
+                        type: array
                         description: Visible elements on document
-                        allOf:
-                          - $ref: '#/components/schemas/signatureElement'
-                          - $ref: '#/components/schemas/elementCoordinate'
-                          - type: object
-                            properties:
-                              signRequestId:
-                                type: string
-                                nullable: true
-                                description: Representative ID of relation between file and user
-                                example: johndoe
-                              elementId:
-                                type: integer
-                                minimum: 1
-                                example: 1
-                            required:
-                              - elementId
+                        items:
+                          allOf:
+                            - $ref: '#/components/schemas/signatureElement'
+                            - $ref: '#/components/schemas/elementCoordinate'
+                            - type: object
+                              properties:
+                                signRequestId:
+                                  type: string
+                                  nullable: true
+                                  description: Representative ID of relation between file and user
+                                  example: johndoe
+                                elementId:
+                                  type: integer
+                                  minimum: 1
+                                  example: 1
+                              required:
+                                - elementId
                       signers:
                         type: array
                         items:
@@ -1819,23 +1855,25 @@ paths:
                         items:
                           $ref: '#/components/schemas/pdfPage'
                       visibleElements:
+                        type: array
                         description: Visible elements on document
-                        allOf:
-                          - $ref: '#/components/schemas/signatureElement'
-                          - $ref: '#/components/schemas/elementCoordinate'
-                          - type: object
-                            properties:
-                              signRequestId:
-                                type: string
-                                nullable: true
-                                description: Representative ID of relation between file and user
-                                example: johndoe
-                              elementId:
-                                type: integer
-                                minimum: 1
-                                example: 1
-                            required:
-                              - elementId
+                        items:
+                          allOf:
+                            - $ref: '#/components/schemas/signatureElement'
+                            - $ref: '#/components/schemas/elementCoordinate'
+                            - type: object
+                              properties:
+                                signRequestId:
+                                  type: string
+                                  nullable: true
+                                  description: Representative ID of relation between file and user
+                                  example: johndoe
+                                elementId:
+                                  type: integer
+                                  minimum: 1
+                                  example: 1
+                              required:
+                                - elementId
                       signers:
                         type: array
                         items:
@@ -2018,23 +2056,25 @@ paths:
                         items:
                           $ref: '#/components/schemas/pdfPage'
                       visibleElements:
+                        type: array
                         description: Visible elements on document
-                        allOf:
-                          - $ref: '#/components/schemas/signatureElement'
-                          - $ref: '#/components/schemas/elementCoordinate'
-                          - type: object
-                            properties:
-                              uid:
-                                type: string
-                                description: Nextcloud user id to assign this visible element.
-                                example: johndoe
-                                nullable: true
-                              elementId:
-                                type: integer
-                                minimum: 1
-                                example: 1
-                            required:
-                              - elementId
+                        items:
+                          allOf:
+                            - $ref: '#/components/schemas/signatureElement'
+                            - $ref: '#/components/schemas/elementCoordinate'
+                            - type: object
+                              properties:
+                                uid:
+                                  type: string
+                                  description: Nextcloud user id to assign this visible element.
+                                  example: johndoe
+                                  nullable: true
+                                elementId:
+                                  type: integer
+                                  minimum: 1
+                                  example: 1
+                              required:
+                                - elementId
                       signers:
                         type: array
                         items:
