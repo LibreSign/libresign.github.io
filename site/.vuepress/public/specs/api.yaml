@@ -1227,6 +1227,9 @@ paths:
                       type: string
                     example:
                       - File already signed by you
+                  redirect:
+                    type: string
+                    description: Destination url
                 required:
                   - action
                   - errors
