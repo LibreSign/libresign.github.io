@@ -10,6 +10,11 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v2
 
+      - name: Setup node.js 🔨
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+
       - name: Install and Build 🔧
         run: |
           cd site
