@@ -11,7 +11,7 @@ info:
   version: 2.2.2
 servers:
   - description: local
-    url: 'http://localhost/apps/libresign/api/0.1'
+    url: 'http://localhost/ocsapp/apps/libresign/api/v1'
 tags:
   - name: account
     description: Account
@@ -26,303 +26,6 @@ tags:
   - name: admin
     description: Admin settings
 paths:
-  /webhook/me:
-    get:
-      tags:
-        - account
-      summary: Who am I
-      description: replaced by /account/me
-      operationId: accountDeprecated#me
-      security:
-        - basicAuth: []
-      deprecated: true
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  account:
-                    allOf:
-                      - $ref: '#/components/schemas/basicAccount'
-                      - type: object
-                        properties:
-                          emailAddress:
-                            type: string
-                            format: email
-                            description: Email of the person who owns the account
-                            example: user@test.coop
-                  settings:
-                    $ref: '#/components/schemas/accountSettings'
-                required:
-                  - account
-                  - settings
-        '404':
-          description: Invalid user or password
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    enum:
-                      - Invalid user or password
-                    example: Invalid user or password
-                required:
-                  - message
-  /webhook/register:
-    post:
-      tags:
-        - sign
-      summary: Request signature
-      description: replaced by /account/register
-      operationId: signFileDeprecated#requestSign
-      security:
-        - basicAuth: []
-      deprecated: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: filename
-                  description: The name of file to sign
-                file:
-                  $ref: '#/components/schemas/newFile'
-                users:
-                  type: array
-                  description: Collection of users who must sign the document
-                  items:
-                    type: object
-                    description: Person who will sign
-                    properties:
-                      email:
-                        type: string
-                        format: email
-                        description: Unique email to identify user
-                        example: user@test.coop
-                      displayName:
-                        type: string
-                        description: Persons name
-                        nullable: true
-                        example: John Doe
-                      description:
-                        type: string
-                        description: Description that will be displayed to the person
-                        example: 'As the company''s CEO, you must sign this contract'
-                    required:
-                      - email
-                callback:
-                  type: string
-                  description: URL that will receive a POST after the document is signed
-                  example: 'http://app.test.coop/callback_webhook'
-              required:
-                - name
-                - file
-                - users
-        required: true
-      responses:
-        '200':
-          description: Success!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Success message
-                    example: Success
-                  data:
-                    type: object
-                    properties:
-                      nodeId:
-                        type: integer
-                        description: Node id of a Nextcloud file
-                        example: 2312
-                      uuid:
-                        type: string
-                        format: uuid
-                        description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
-        '422':
-          description: Request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: User 0 needs an email address
-    patch:
-      tags:
-        - sign
-      summary: Updates signatures data
-      description: Is necessary to inform the UUID of the file and a list of people
-      operationId: signFileDeprecated#updateSign
-      security:
-        - basicAuth: []
-      deprecated: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                uuid:
-                  type: string
-                  format: uuid
-                  description: Received from sign request
-                users:
-                  type: array
-                  description: Collection of users who must sign the document
-                  items:
-                    type: object
-                    description: Person who will sign
-                    properties:
-                      email:
-                        type: string
-                        format: email
-                        description: Unique email to identify user
-                        example: user@test.coop
-                      displayName:
-                        type: string
-                        description: Persons name
-                        nullable: true
-                        example: John Doe
-                      description:
-                        type: string
-                        description: Description that will be displayed to the person
-                        example: 'As the company''s CEO, you must sign this contract'
-                    required:
-                      - email
-              required:
-                - uuid
-                - users
-        required: true
-      responses:
-        '200':
-          description: Success!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Success message
-                    example: Success
-                  data:
-                    type: object
-                    properties:
-                      nodeId:
-                        type: integer
-                        description: Node id of a Nextcloud file
-                        example: 2312
-                      uuid:
-                        type: string
-                        format: uuid
-                        description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
-        '422':
-          description: Request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: User 0 needs an email address
-  /webhook/register/signature:
-    delete:
-      tags:
-        - sign
-      summary: Delete sign request
-      description: replaced by /sign/register/signature
-      operationId: signFileDeprecated#removeSign
-      security:
-        - basicAuth: []
-      deprecated: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                uuid:
-                  type: string
-                  format: uuid
-                  description: Received from sign request
-                users:
-                  type: array
-                  description: Collection of persons
-                  items:
-                    type: object
-                    description: Person who will deleted
-                    properties:
-                      email:
-                        type: string
-                        format: email
-                        description: Unique email to identify user
-                        example: user@test.coop
-                    required:
-                      - email
-              required:
-                - uuid
-                - users
-        required: true
-      responses:
-        '200':
-          description: Success!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Success message
-                    example: Success
-        '422':
-          description: Request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: UUID not found
-  /signature/has-root-cert:
-    get:
-      tags:
-        - admin
-      summary: Has root certificate
-      description: Replaced by /setting/has-root-cert
-      operationId: settingDeprecated#hasRootCert
-      security:
-        - basicAuth: []
-      deprecated: true
-      responses:
-        '200':
-          description: Success!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  hasRootCert:
-                    type: boolean
-                    example: true
   /account/me:
     get:
       tags:
@@ -404,10 +107,6 @@ paths:
                       phone: ''
                       message: Settings saved
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
                   data:
                     type: object
                     required:
@@ -434,17 +133,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on update visible element.
                   message:
                     type: string
                     description: Error pessage
                     example: Invalid type
                 required:
-                  - success
                   - message
   '/account/create/{uuid}':
     post:
@@ -494,11 +187,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -524,7 +212,6 @@ paths:
                     description: Description for the person who will sign the document
                     example: 'As the company''s CEO, you must sign this contract'
                 required:
-                  - success
                   - message
                   - action
         '422':
@@ -534,11 +221,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure!
                   action:
                     type: integer
                     description: Numeric code representing what action should be taken with the response
@@ -548,7 +230,6 @@ paths:
                     description: Description of the failure that occurred
                     example: User 0 needs an email address
                 required:
-                  - success
                   - action
                   - message
   /account/files:
@@ -586,18 +267,6 @@ paths:
       responses:
         '200':
           description: Documents have been attached to the account
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
-                required:
-                  - success
         '401':
           description: Request failed
           content:
@@ -605,11 +274,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Oh no!
                   messages:
                     type: array
                     items:
@@ -621,7 +285,6 @@ paths:
                         type:
                           type: string
                           enum:
-                            - success
                             - info
                             - warning
                             - danger
@@ -690,17 +353,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Visible element deleted
                     example: Visible element deleted
                 required:
-                  - success
                   - message
         '401':
           description: Request failed
@@ -709,17 +366,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on delete visible element.
                   message:
                     type: string
                     description: Error pessage
                     example: This isn't your element
                 required:
-                  - success
                   - message
   /account/files/approval/list:
     get:
@@ -794,17 +445,10 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   signature:
                     type: string
                     description: Folder where the pfx file was saved
                     example: /LibreSign
-                required:
-                  - success
         '401':
           description: Request failed
           content:
@@ -816,11 +460,6 @@ paths:
                     type: string
                     description: Password to sign is mandatory
                     example: Password to sign is mandatory
-                  success:
-                    type: boolean
-                    description: Beep! Failure on generate certificate.
-                required:
-                  - success
   /account/signature/elements:
     post:
       tags:
@@ -860,17 +499,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
                     example: Success
                 required:
-                  - success
                   - message
         '401':
           description: Request failed
@@ -879,17 +512,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on generate certificate.
                   message:
                     type: string
                     description: Error pessage
                     example: Invalid file
                 required:
-                  - success
                   - message
     get:
       tags:
@@ -978,17 +605,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Visible element upated
                     example: Visible element upated
                 required:
-                  - success
                   - message
         '401':
           description: Request failed
@@ -997,17 +618,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on update visible element.
                   message:
                     type: string
                     description: Error pessage
                     example: Invalid type
                 required:
-                  - success
                   - message
     delete:
       tags:
@@ -1027,17 +642,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Visible element deleted
                     example: Visible element deleted
                 required:
-                  - success
                   - message
         '401':
           description: Request failed
@@ -1046,19 +655,13 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on delete visible element.
                   message:
                     type: string
                     description: Error pessage
                     example: This isn't your element
                 required:
-                  - success
                   - message
-  /sign/register:
+  /request-signature:
     post:
       tags:
         - sign
@@ -1110,10 +713,164 @@ paths:
                         type: integer
                         description: Node id of a Nextcloud file
                         example: 2312
+                      fileId:
+                        type: integer
+                        description: Node id of a Nextcloud file
+                        example: 2312
+                      file:
+                        type: string
+                        description: URL to download signed file
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      url:
+                        type: string
+                        description: URL to view PDF
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      name:
+                        type: string
+                        example: filename
+                        description: The name of file to sign
                       uuid:
                         type: string
                         format: uuid
                         description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
+                      status:
+                        type: integer
+                        enum:
+                          - 0
+                          - 1
+                          - 2
+                        description: |
+                          Numeric code of status * 0 - no signers * 1 - signed * 2 - pending
+                        example: 1
+                      statusText:
+                        type: string
+                        description: Translated text of status
+                        example: able to sign
+                      request_date:
+                        type: string
+                        format: date-time
+                        pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                        nullable: true
+                        description: Date the file was requested to be signed
+                        example: '2021-12-31 22:45:50'
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - success
+                                - info
+                                - warning
+                                - danger
+                              description: Type of message
+                            message:
+                              type: string
+                              description: Text of message
+                      requested_by:
+                        $ref: '#/components/schemas/basicAccount'
+                      settings:
+                        $ref: '#/components/schemas/signSettings'
+                      signers:
+                        type: array
+                        description: Collection of users who must sign the document
+                        items:
+                          type: object
+                          description: Person who will sign
+                          properties:
+                            email:
+                              type: string
+                              format: email
+                              description: Unique email to identify user
+                              example: user@test.coop
+                            me:
+                              type: boolean
+                              description: It's me?
+                              example: true
+                            sign_uuid:
+                              type: string
+                              format: uuid
+                              description: 'Received from sign request, only returned when me=true'
+                            displayName:
+                              type: string
+                              nullable: true
+                              description: Persons name
+                              example: John Doe
+                            signed:
+                              type: string
+                              description: 'Signing date, when signed'
+                              example: February 28, 2024, 11:17:43 PM
+                              nullable: true
+                            request_sign_date:
+                              type: string
+                              format: date-time
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              description: Date the signature was requested
+                              example: '2021-12-31 22:45:50'
+                            identifyMethods:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  method:
+                                    type: string
+                                    example: account
+                                    description: The identify method name
+                                  value:
+                                    type: string
+                                    example: signer1
+                                    description: The value that identify the signer in the authentication method
+                                  mandatory:
+                                    type: integer
+                                    example: 1
+                                    description: is this sign method mandatory?
+                            visibleElements:
+                              type: array
+                              description: Visible elements on document
+                              items:
+                                allOf:
+                                  - $ref: '#/components/schemas/signatureElement'
+                                  - $ref: '#/components/schemas/elementCoordinate'
+                                  - type: object
+                                    properties:
+                                      signRequestId:
+                                        type: string
+                                        nullable: true
+                                        description: Representative ID of relation between file and user
+                                        example: johndoe
+                                      elementId:
+                                        type: integer
+                                        minimum: 1
+                                        example: 1
+                                    required:
+                                      - elementId
+                            uid:
+                              type: string
+                              nullable: true
+                              description: Nextcloud user id of who requested the file to be signed when the person created account.
+                              example: johndoe
+                            description:
+                              type: string
+                              nullable: true
+                              description: Description that will be displayed to the person
+                              example: 'As the company''s CEO, you must sign this contract'
+                            identify:
+                              type: string
+                              nullable: true
+                              default: nextcloud
+                              example: nextcloud
+                              description: 'When is requested to a person to sign a file, is necessary identify what is the identification method. The identification method is used to define how will be the sign flow.'
+                              enum:
+                                - nextcloud
+                                - email-link
+                                - email-token
+                                - sms-token
+                            signRequestId:
+                              type: integer
+                              description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
+                              example: request_sign_date
         '422':
           description: Request failed
           content:
@@ -1121,10 +878,16 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: User 0 needs an email address
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - User 0 needs an email address
+                  action:
+                    type: integer
+                    description: Numeric code representing what action should be taken with the response.
+                    example: 200
     patch:
       tags:
         - sign
@@ -1189,72 +952,164 @@ paths:
                         type: integer
                         description: Node id of a Nextcloud file
                         example: 2312
+                      fileId:
+                        type: integer
+                        description: Node id of a Nextcloud file
+                        example: 2312
+                      file:
+                        type: string
+                        description: URL to download signed file
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      url:
+                        type: string
+                        description: URL to view PDF
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      name:
+                        type: string
+                        example: filename
+                        description: The name of file to sign
                       uuid:
                         type: string
                         format: uuid
                         description: File identifier. It is necessary to keep it because it must be used to update or delete a signature request and will also be used in the callback request.
-        '422':
-          description: Request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: User 0 needs an email address
-  /sign/register/signature:
-    delete:
-      tags:
-        - sign
-      summary: Delete sign request using a list of users
-      description: Delete the request to sign using a list of users
-      operationId: signFile#deleteSignature
-      security:
-        - basicAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                uuid:
-                  type: string
-                  format: uuid
-                  description: Received from sign request
-                file:
-                  $ref: '#/components/schemas/fileId'
-                users:
-                  type: array
-                  description: Collection of persons
-                  items:
-                    type: object
-                    description: Person who will deleted
-                    properties:
-                      email:
+                      status:
+                        type: integer
+                        enum:
+                          - 0
+                          - 1
+                          - 2
+                        description: |
+                          Numeric code of status * 0 - no signers * 1 - signed * 2 - pending
+                        example: 1
+                      statusText:
                         type: string
-                        format: email
-                        description: Unique email to identify user
-                        example: user@test.coop
-                    required:
-                      - email
-              required:
-                - uuid
-                - users
-        required: true
-      responses:
-        '200':
-          description: Success!
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: Success message
-                    example: Success
+                        description: Translated text of status
+                        example: able to sign
+                      request_date:
+                        type: string
+                        format: date-time
+                        pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                        nullable: true
+                        description: Date the file was requested to be signed
+                        example: '2021-12-31 22:45:50'
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - success
+                                - info
+                                - warning
+                                - danger
+                              description: Type of message
+                            message:
+                              type: string
+                              description: Text of message
+                      requested_by:
+                        $ref: '#/components/schemas/basicAccount'
+                      settings:
+                        $ref: '#/components/schemas/signSettings'
+                      signers:
+                        type: array
+                        description: Collection of users who must sign the document
+                        items:
+                          type: object
+                          description: Person who will sign
+                          properties:
+                            email:
+                              type: string
+                              format: email
+                              description: Unique email to identify user
+                              example: user@test.coop
+                            me:
+                              type: boolean
+                              description: It's me?
+                              example: true
+                            sign_uuid:
+                              type: string
+                              format: uuid
+                              description: 'Received from sign request, only returned when me=true'
+                            displayName:
+                              type: string
+                              nullable: true
+                              description: Persons name
+                              example: John Doe
+                            signed:
+                              type: string
+                              description: 'Signing date, when signed'
+                              example: February 28, 2024, 11:17:43 PM
+                              nullable: true
+                            request_sign_date:
+                              type: string
+                              format: date-time
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              description: Date the signature was requested
+                              example: '2021-12-31 22:45:50'
+                            identifyMethods:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  method:
+                                    type: string
+                                    example: account
+                                    description: The identify method name
+                                  value:
+                                    type: string
+                                    example: signer1
+                                    description: The value that identify the signer in the authentication method
+                                  mandatory:
+                                    type: integer
+                                    example: 1
+                                    description: is this sign method mandatory?
+                            visibleElements:
+                              type: array
+                              description: Visible elements on document
+                              items:
+                                allOf:
+                                  - $ref: '#/components/schemas/signatureElement'
+                                  - $ref: '#/components/schemas/elementCoordinate'
+                                  - type: object
+                                    properties:
+                                      signRequestId:
+                                        type: string
+                                        nullable: true
+                                        description: Representative ID of relation between file and user
+                                        example: johndoe
+                                      elementId:
+                                        type: integer
+                                        minimum: 1
+                                        example: 1
+                                    required:
+                                      - elementId
+                            uid:
+                              type: string
+                              nullable: true
+                              description: Nextcloud user id of who requested the file to be signed when the person created account.
+                              example: johndoe
+                            description:
+                              type: string
+                              nullable: true
+                              description: Description that will be displayed to the person
+                              example: 'As the company''s CEO, you must sign this contract'
+                            identify:
+                              type: string
+                              nullable: true
+                              default: nextcloud
+                              example: nextcloud
+                              description: 'When is requested to a person to sign a file, is necessary identify what is the identification method. The identification method is used to define how will be the sign flow.'
+                              enum:
+                                - nextcloud
+                                - email-link
+                                - email-token
+                                - sms-token
+                            signRequestId:
+                              type: integer
+                              description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
+                              example: request_sign_date
         '422':
           description: Request failed
           content:
@@ -1262,10 +1117,16 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: UUID not found
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - User 0 needs an email address
+                  action:
+                    type: integer
+                    description: Numeric code representing what action should be taken with the response.
+                    example: 200
   '/sign/uuid/{uuid}':
     post:
       tags:
@@ -1283,10 +1144,14 @@ paths:
             schema:
               type: object
               properties:
-                password:
+                method:
                   type: string
                   format: password
                   example: password
+                identifyValue:
+                  type: string
+                  format: password
+                  example: secretPassword
                 elements:
                   type: array
                   description: 'Visible elements. Not mandatory, only needed when the document has visible elements and the user has many visible elements associated to profile and don''t has favorited visible element to use.'
@@ -1304,7 +1169,8 @@ paths:
                       - documentElementId
                       - profileElementId
               required:
-                - password
+                - method
+                - identifyValue
       responses:
         '200':
           description: Success!
@@ -1313,11 +1179,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   file:
                     type: object
                     description: LibreSign file
@@ -1353,7 +1214,6 @@ paths:
                       - File signed
                     example: File signed
                 required:
-                  - success
                   - action
                   - message
         '422':
@@ -1363,11 +1223,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure!
                   action:
                     type: integer
                     description: Numeric code representing what action should be taken with the response
@@ -1378,8 +1233,10 @@ paths:
                       type: string
                     example:
                       - File already signed by you
+                  redirect:
+                    type: string
+                    description: Destination url
                 required:
-                  - success
                   - action
                   - errors
   '/sign/file_id/{fileId}':
@@ -1399,10 +1256,14 @@ paths:
             schema:
               type: object
               properties:
-                password:
+                method:
                   type: string
                   format: password
                   example: password
+                identifyValue:
+                  type: string
+                  format: password
+                  example: secretPassword
                 elements:
                   type: array
                   description: 'Visible elements. Not mandatory, only needed when the document has visible elements and the user has many visible elements associated to profile and don''t has favorited visible element to use.'
@@ -1420,7 +1281,8 @@ paths:
                       - documentElementId
                       - profileElementId
               required:
-                - password
+                - method
+                - identifyValue
       responses:
         '200':
           description: Success!
@@ -1429,11 +1291,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   file:
                     type: object
                     description: LibreSign file
@@ -1450,7 +1307,6 @@ paths:
                     type: string
                     example: File signed
                 required:
-                  - success
                   - action
                   - message
         '422':
@@ -1460,11 +1316,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure!
                   action:
                     type: integer
                     description: Numeric code representing what action should be taken with the response
@@ -1476,7 +1327,6 @@ paths:
                     example:
                       - File already signed by you
                 required:
-                  - success
                   - action
                   - errors
     delete:
@@ -1497,27 +1347,29 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
                     example: Success
-        '401':
+        '422':
           description: Request failed
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
+                  errors:
+                    type: array
                     description: Description of the failure that occurred
-                    example: UUID not found
-  '/sign/file_id/{fileId}/{fileUserId}':
+                    items:
+                      type: string
+                    example:
+                      - UUID not found
+                  action:
+                    type: integer
+                    description: Numeric code representing what action should be taken with the response.
+                    example: 200
+  '/sign/file_id/{fileId}/{signRequestId}':
     delete:
       tags:
         - sign
@@ -1528,7 +1380,7 @@ paths:
         - basicAuth: []
       parameters:
         - $ref: '#/components/parameters/fileIdParam'
-        - name: fileUserId
+        - name: signRequestId
           in: path
           description: ID of relation between file and user.
           required: true
@@ -1543,26 +1395,27 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
                     example: Success
-        '401':
+        '422':
           description: Request failed
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
-                    description: Description of the failure that occurred
-                    example: Signer not associated to this file
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - Signer not associated to this file
+                  action:
+                    type: integer
+                    description: Numeric code representing what action should be taken with the response.
+                    example: 200
   '/sign/uuid/{uuid}/token':
     post:
       tags:
@@ -1582,11 +1435,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -1621,11 +1469,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -1735,7 +1578,7 @@ paths:
                       $ref: '#/components/schemas/libresignFile'
                   pagination:
                     $ref: '#/components/schemas/pagination'
-  '/file/validate/uuid/{uuid}':
+  '/file/validate':
     get:
       tags:
         - sign validate
@@ -1743,7 +1586,37 @@ paths:
       description: Validate a file using file UUID returning file data.
       operationId: File#validateUuid
       parameters:
-        - $ref: '#/components/parameters/uuidParam'
+        - name: uuid
+          in: query
+          description: File UUID
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: UUID user file identifier. The user UUID is what the person receives via email when asked to sign. This is not the file UUID.
+        - name: fileId
+          in: query
+          description: Node id of a Nextcloud file
+          required: true
+          schema:
+            type: string
+            description: Node id of a Nextcloud file.
+            example: '564'
+        - name: path
+          in: query
+          description: path of a Nextcloud file
+          required: true
+          schema:
+            type: string
+            description: path of a Nextcloud file.
+            example: /path/of/file.pdf
+        - name: url
+          in: query
+          description: URL of file
+          schema:
+            type: string
+            description: URL of file
+            example: 'https://github.com/LibreSign/libresign/raw/main/tests/fixtures/small_valid.pdf'
       responses:
         '200':
           description: Success!
@@ -1754,11 +1627,6 @@ paths:
                   - $ref: '#/components/schemas/libresignFileStatus'
                   - type: object
                     properties:
-                      success:
-                        type: boolean
-                        enum:
-                          - true
-                        description: Uhuuu! Need true vale.
                       name:
                         type: string
                         example: filename
@@ -1774,6 +1642,15 @@ paths:
                         type: string
                         format: uuid
                         description: Received from sign request
+                      request_date:
+                        type: string
+                        format: date-time
+                        pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                        nullable: true
+                        description: Date the file was requested to be signed
+                        example: '2021-12-31 22:45:50'
+                      requested_by:
+                        $ref: '#/components/schemas/basicAccount'
                       pages:
                         type: array
                         description: |-
@@ -1781,24 +1658,6 @@ paths:
                           This property only will be returned when the query param format=image
                         items:
                           $ref: '#/components/schemas/pdfPage'
-                      visibleElements:
-                        description: Visible elements on document
-                        allOf:
-                          - $ref: '#/components/schemas/signatureElement'
-                          - $ref: '#/components/schemas/elementCoordinate'
-                          - type: object
-                            properties:
-                              fileUserId:
-                                type: string
-                                nullable: true
-                                description: Representative ID of relation between file and user
-                                example: johndoe
-                              elementId:
-                                type: integer
-                                minimum: 1
-                                example: 1
-                            required:
-                              - elementId
                       signers:
                         type: array
                         items:
@@ -1806,24 +1665,45 @@ paths:
                           properties:
                             signed:
                               type: string
-                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                               description: 'Signing date, when signed'
-                              example: '2021-12-31 22:45:50'
+                              example: February 28, 2024, 11:17:43 PM
                               nullable: true
+                            request_sign_date:
+                              type: string
+                              format: date-time
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              description: Date the signature was requested
+                              example: '2021-12-31 22:45:50'
                             displayName:
                               type: string
                               description: The person display name
                               nullable: true
                               example: John
-                            fullName:
-                              type: string
-                              description: The person full name
-                              example: John Doe
-                              nullable: true
                             me:
                               type: boolean
                               description: It's me?
                               example: true
+                            sign_uuid:
+                              type: string
+                              format: uuid
+                              description: 'Received from sign request, only returned when me=true'
+                            identifyMethods:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  method:
+                                    type: string
+                                    example: account
+                                    description: The identify method name
+                                  value:
+                                    type: string
+                                    example: signer1
+                                    description: The value that identify the signer in the authentication method
+                                  mandatory:
+                                    type: integer
+                                    example: 1
+                                    description: is this sign method mandatory?
                             email:
                               type: string
                               format: email
@@ -1833,15 +1713,19 @@ paths:
                               type: string
                               description: Nextcloud user id of who requested the file to be signed.
                               example: johndoe
-                            fileUserId:
+                            description:
+                              type: string
+                              nullable: true
+                              description: Description that will be displayed to the person
+                              example: 'As the company''s CEO, you must sign this contract'
+                            signRequestId:
                               type: integer
                               description: Relation between file and user
                               example: 1
                           required:
                             - signed
-                            - fullName
                             - me
-                            - fileUserId
+                            - signRequestId
                       settings:
                         $ref: '#/components/schemas/signSettings'
                       messages:
@@ -1861,7 +1745,6 @@ paths:
                               type: string
                               description: Text of message
                 required:
-                  - success
                   - name
                   - file
                   - status
@@ -1873,11 +1756,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure!
                   settings:
                     $ref: '#/components/schemas/signSettings'
                   action:
@@ -1905,7 +1783,208 @@ paths:
                           type: string
                           description: Text of message
                 required:
-                  - success
+                  - settings
+                  - errors
+                  - action
+  '/file/validate/uuid/{uuid}':
+    get:
+      tags:
+        - sign validate
+      summary: Validate a file using UUID
+      description: Validate a file using file UUID returning file data.
+      operationId: File#validateUuid
+      parameters:
+        - $ref: '#/components/parameters/uuidParam'
+      responses:
+        '200':
+          description: Success!
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/libresignFileStatus'
+                  - type: object
+                    properties:
+                      name:
+                        type: string
+                        example: filename
+                      file:
+                        type: string
+                        description: URL to download signed file
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      url:
+                        type: string
+                        description: URL to view PDF
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      nodeId:
+                        type: integer
+                        description: Node id of a Nextcloud file
+                        example: 2312
+                      uuid:
+                        type: string
+                        format: uuid
+                        description: Received from sign request
+                      request_date:
+                        type: string
+                        format: date-time
+                        pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                        nullable: true
+                        description: Date the file was requested to be signed
+                        example: '2021-12-31 22:45:50'
+                      requested_by:
+                        $ref: '#/components/schemas/basicAccount'
+                      pages:
+                        type: array
+                        description: |-
+                          List with all pages on image format.
+                          This property only will be returned when the query param format=image
+                        items:
+                          $ref: '#/components/schemas/pdfPage'
+                      signers:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            signed:
+                              type: string
+                              description: 'Signing date, when signed'
+                              example: February 28, 2024, 11:17:43 PM
+                              nullable: true
+                            request_sign_date:
+                              type: string
+                              format: date-time
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              description: Date the signature was requested
+                              example: '2021-12-31 22:45:50'
+                            displayName:
+                              type: string
+                              description: The person display name
+                              nullable: true
+                              example: John
+                            me:
+                              type: boolean
+                              description: It's me?
+                              example: true
+                            sign_uuid:
+                              type: string
+                              format: uuid
+                              description: 'Received from sign request, only returned when me=true'
+                            identifyMethods:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  method:
+                                    type: string
+                                    example: account
+                                    description: The identify method name
+                                  value:
+                                    type: string
+                                    example: signer1
+                                    description: The value that identify the signer in the authentication method
+                                  mandatory:
+                                    type: integer
+                                    example: 1
+                                    description: is this sign method mandatory?
+                            email:
+                              type: string
+                              format: email
+                              description: Unique email to identify signer. This property will only exist when it is a request made by the person who requested the document to be signed.
+                              example: user@test.coop
+                            uid:
+                              type: string
+                              description: Nextcloud user id of who requested the file to be signed.
+                              example: johndoe
+                            description:
+                              type: string
+                              nullable: true
+                              description: Description that will be displayed to the person
+                              example: 'As the company''s CEO, you must sign this contract'
+                            signRequestId:
+                              type: integer
+                              description: Relation between file and user
+                            visibleElements:
+                              type: array
+                              description: Visible elements on document
+                              items:
+                                allOf:
+                                  - $ref: '#/components/schemas/signatureElement'
+                                  - $ref: '#/components/schemas/elementCoordinate'
+                                  - type: object
+                                    properties:
+                                      signRequestId:
+                                        type: string
+                                        nullable: true
+                                        description: Representative ID of relation between file and user
+                                        example: johndoe
+                                      elementId:
+                                        type: integer
+                                        minimum: 1
+                                        example: 1
+                                    required:
+                                      - elementId
+                              example: 1
+                          required:
+                            - signed
+                            - me
+                            - signRequestId
+                      settings:
+                        $ref: '#/components/schemas/signSettings'
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            type:
+                              type: string
+                              enum:
+                                - success
+                                - info
+                                - warning
+                                - danger
+                              description: Type of message
+                            message:
+                              type: string
+                              description: Text of message
+                required:
+                  - name
+                  - file
+                  - status
+                  - settings
+        '404':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  settings:
+                    $ref: '#/components/schemas/signSettings'
+                  action:
+                    type: integer
+                    description: Numeric code representing what action should be taken with the response
+                    example: 200
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                  messages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                            - success
+                            - info
+                            - warning
+                            - danger
+                          description: Type of message
+                        message:
+                          type: string
+                          description: Text of message
+                required:
                   - settings
                   - errors
                   - action
@@ -1928,17 +2007,16 @@ paths:
                   - $ref: '#/components/schemas/libresignFileStatus'
                   - type: object
                     properties:
-                      success:
-                        type: boolean
-                        enum:
-                          - true
-                        description: Uhuuu! Need true vale.
                       name:
                         type: string
                         example: filename
                       file:
                         type: string
                         description: URL to download signed file
+                        example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
+                      url:
+                        type: string
+                        description: URL to view PDF
                         example: 'http://cloud.test.coop/apps/libresign/pdf/46d30465-ae11-484b-aad5-327249a1e8ef'
                       fileId:
                         type: integer
@@ -1948,6 +2026,13 @@ paths:
                         type: string
                         format: uuid
                         description: Received from sign request
+                      request_date:
+                        type: string
+                        format: date-time
+                        pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                        nullable: true
+                        description: Date the file was requested to be signed
+                        example: '2021-12-31 22:45:50'
                       pages:
                         type: array
                         description: |-
@@ -1955,24 +2040,6 @@ paths:
                           This property only will be returned when the query param format=image
                         items:
                           $ref: '#/components/schemas/pdfPage'
-                      visibleElements:
-                        description: Visible elements on document
-                        allOf:
-                          - $ref: '#/components/schemas/signatureElement'
-                          - $ref: '#/components/schemas/elementCoordinate'
-                          - type: object
-                            properties:
-                              uid:
-                                type: string
-                                description: Nextcloud user id to assign this visible element.
-                                example: johndoe
-                                nullable: true
-                              elementId:
-                                type: integer
-                                minimum: 1
-                                example: 1
-                            required:
-                              - elementId
                       signers:
                         type: array
                         items:
@@ -1980,24 +2047,45 @@ paths:
                           properties:
                             signed:
                               type: string
-                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                               description: 'Signing date, when signed'
-                              example: '2021-12-31 22:45:50'
+                              example: February 28, 2024, 11:17:43 PM
                               nullable: true
+                            request_sign_date:
+                              type: string
+                              format: date-time
+                              pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+                              description: Date the signature was requested
+                              example: '2021-12-31 22:45:50'
                             displayName:
                               type: string
                               description: The person display name
                               nullable: true
                               example: John
-                            fullName:
-                              type: string
-                              description: The person full name
-                              example: John Doe
-                              nullable: true
                             me:
                               type: boolean
                               description: It's me?
                               example: true
+                            sign_uuid:
+                              type: string
+                              format: uuid
+                              description: 'Received from sign request, only returned when me=true'
+                            identifyMethods:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  method:
+                                    type: string
+                                    example: account
+                                    description: The identify method name
+                                  value:
+                                    type: string
+                                    example: signer1
+                                    description: The value that identify the signer in the authentication method
+                                  mandatory:
+                                    type: integer
+                                    example: 1
+                                    description: is this sign method mandatory?
                             email:
                               type: string
                               format: email
@@ -2007,15 +2095,39 @@ paths:
                               type: string
                               description: Nextcloud user id of who requested the file to be signed.
                               example: johndoe
-                            fileUserId:
+                            description:
+                              type: string
+                              nullable: true
+                              description: Description that will be displayed to the person
+                              example: 'As the company''s CEO, you must sign this contract'
+                            signRequestId:
                               type: integer
                               description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
                               example: 1
+                            visibleElements:
+                              type: array
+                              description: Visible elements on document
+                              items:
+                                allOf:
+                                  - $ref: '#/components/schemas/signatureElement'
+                                  - $ref: '#/components/schemas/elementCoordinate'
+                                  - type: object
+                                    properties:
+                                      uid:
+                                        type: string
+                                        description: Nextcloud user id to assign this visible element.
+                                        example: johndoe
+                                        nullable: true
+                                      elementId:
+                                        type: integer
+                                        minimum: 1
+                                        example: 1
+                                    required:
+                                      - elementId
                           required:
                             - signed
-                            - fullName
                             - me
-                            - fileUserId
+                            - signRequestId
                       settings:
                         $ref: '#/components/schemas/signSettings'
                       messages:
@@ -2035,7 +2147,6 @@ paths:
                               type: string
                               description: Text of message
                 required:
-                  - success
                   - name
                   - file
                   - status
@@ -2047,11 +2158,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure!
                   settings:
                     $ref: '#/components/schemas/signSettings'
                   action:
@@ -2079,7 +2185,6 @@ paths:
                           type: string
                           description: Text of message
                 required:
-                  - success
                   - settings
                   - errors
                   - action
@@ -2137,14 +2242,8 @@ paths:
                 properties:
                   fileElementId:
                     type: integer
-                    description: 'Representative ID of relation between file, fileUser and the visible element on pdf'
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
+                    description: 'Representative ID of relation between file, signRequest and the visible element on pdf'
                 required:
-                  - success
                   - fileElementId
         '401':
           description: Request failed
@@ -2153,17 +2252,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on generate certificate.
                   message:
                     type: string
                     description: Error pessage
                     example: Invalid file
                 required:
-                  - success
                   - message
   '/file-element/{uuid}/{elementId}':
     patch:
@@ -2196,14 +2289,8 @@ paths:
                 properties:
                   fileElementId:
                     type: integer
-                    description: 'Representative ID of relation between file, fileUser and the visible element on pdf'
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
+                    description: 'Representative ID of relation between file, signRequest and the visible element on pdf'
                 required:
-                  - success
                   - fileElementId
         '401':
           description: Request failed
@@ -2212,17 +2299,11 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Beep! Failure on update visible element.
                   message:
                     type: string
                     description: Error pessage
                     example: Invalid type
                 required:
-                  - success
                   - message
     delete:
       tags:
@@ -2243,11 +2324,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -2307,11 +2383,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: Uhuuu! Need true vale.
                   message:
                     type: string
                     description: Success message
@@ -2323,11 +2394,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: Oh no!
                   messages:
                     type: array
                     items:
@@ -2444,63 +2510,6 @@ paths:
                         allOf:
                           - $ref: '#/components/schemas/configureCheck'
   /admin/certificate:
-    post:
-      tags:
-        - admin
-      summary: Create root certificate
-      description: Create root certificate and enable execution of CFSSL
-      operationId: admin#generateCertificate
-      security:
-        - basicAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/certificate'
-      responses:
-        '200':
-          description: 'If the response is successful, it is because the settings have been saved and the root certificate has been generated.'
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - true
-                    description: CFSSL server is up?
-                  data:
-                    allOf:
-                      - $ref: '#/components/schemas/certificate'
-                required:
-                  - success
-                  - data
-                example:
-                  success: true
-        '401':
-          description: Request failed
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    enum:
-                      - false
-                    description: CFSSL server is up?
-                  message:
-                    type: array
-                    description: List of failures that occurred
-                required:
-                  - success
-                  - message
-                example:
-                  success: false
-                  message:
-                    - parameter 'cfsslUri' is required!
     get:
       tags:
         - admin
@@ -2515,8 +2524,95 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - $ref: '#/components/schemas/certificate'
+                oneOf:
+                  - $ref: '#/components/schemas/certificate-cfssl'
+                  - $ref: '#/components/schemas/certificate-openssl'
+  /admin/certificate/cfssl:
+    post:
+      tags:
+        - admin
+      summary: Create root certificate
+      description: Create root certificate and enable execution of CFSSL
+      operationId: admin#generateCertificate
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/certificate-cfssl'
+      responses:
+        '200':
+          description: 'If the response is successful, it is because the settings have been saved and the root certificate has been generated.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/certificate-cfssl'
+                required:
+                  - data
+        '401':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    description: List of failures that occurred
+                required:
+                  - message
+                example:
+                  message:
+                    - parameter 'cfsslUri' is required!
+  /admin/certificate/openssl:
+    post:
+      tags:
+        - admin
+      summary: Create root certificate
+      description: Create root certificate and enable execution of OpenSSL
+      operationId: admin#generateCertificate
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/certificate-openssl'
+      responses:
+        '200':
+          description: 'If the response is successful, it is because the settings have been saved and the root certificate has been generated.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    allOf:
+                      - $ref: '#/components/schemas/certificate-openssl'
+                required:
+                  - data
+        '401':
+          description: Request failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: array
+                    description: List of failures that occurred
+                required:
+                  - message
+                example:
+                  message:
+                    - parameter 'cfsslUri' is required!
 components:
   securitySchemes:
     basicAuth:
@@ -2591,6 +2687,17 @@ components:
               type: string
               description: Description that will be displayed to the person
               example: 'As the company''s CEO, you must sign this contract'
+            identify:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: signer1
+                  description: The email of signer
+                account:
+                  type: string
+                  example: signer1
+                  description: The account name of signer
     accountSettings:
       type: object
       properties:
@@ -2669,23 +2776,13 @@ components:
             - 0
             - 1
             - 2
-          description: >
-            Numeric code of status
-            * 0 - no signers
-            * 1 - signed
-            * 2 - pending
+          description: |
+            Numeric code of status * 0 - no signers * 1 - signed * 2 - pending
           example: 1
         status_text:
           type: string
           description: Translated text of status
           example: able to sign
-        status_date:
-          type: string
-          format: date-time
-          pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
-          nullable: true
-          description: Last status date
-          example: '2021-12-31 22:45:50'
         request_date:
           type: string
           format: date-time
@@ -2713,6 +2810,10 @@ components:
               type: integer
               description: Node id of a Nextcloud file
               example: 2312
+            path:
+              type: string
+              description: Path of a Nextcloud file
+              example: /path/here/filename.pdf
           required:
             - type
         signers:
@@ -2734,7 +2835,7 @@ components:
               sign_uuid:
                 type: string
                 format: uuid
-                description: Received from sign request, only returned when me=true
+                description: 'Received from sign request, only returned when me=true'
               displayName:
                 type: string
                 nullable: true
@@ -2750,23 +2851,53 @@ components:
                 nullable: true
                 description: Description that will be displayed to the person
                 example: 'As the company''s CEO, you must sign this contract'
-              sign_date:
+              signed:
                 type: string
                 format: date-time
-                pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                 nullable: true
                 description: Date the file was signed
-                example: '2021-12-31 22:45:50'
+                example: February 28, 2024, 11:17:43 PM
               request_sign_date:
                 type: string
                 format: date-time
                 pattern: '\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
                 description: Date the signature was requested
                 example: '2021-12-31 22:45:50'
-              fileUserId:
+              identify:
+                type: string
+                nullable: true
+                default: nextcloud
+                example: nextcloud
+                description: 'When is requested to a person to sign a file, is necessary identify what is the identification method. The identification method is used to define how will be the sign flow.'
+                enum:
+                  - nextcloud
+                  - email-link
+                  - email-token
+                  - sms-token
+              signRequestId:
                 type: integer
                 description: ID of relation between file and user. Each relation between file and user has an ID that is returned on validation endpoints.
                 example: 1
+              visibleElements:
+                type: array
+                description: Visible elements on document
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/signatureElement'
+                    - $ref: '#/components/schemas/elementCoordinate'
+                    - type: object
+                      properties:
+                        signRequestId:
+                          type: string
+                          nullable: true
+                          description: Representative ID of relation between file and user
+                          example: johndoe
+                        elementId:
+                          type: integer
+                          minimum: 1
+                          example: 1
+                      required:
+                        - elementId
             required:
               - email
               - request_sign_date
@@ -2987,7 +3118,7 @@ components:
             ury: 0
             llx: 0
             lly: 0
-          fileUserId: 123
+          signRequestId: 123
       not:
         required:
           - coordinates
@@ -3006,12 +3137,12 @@ components:
                 - datetime
                 - text
               example: signature
-            fileUserId:
+            signRequestId:
               type: integer
-              description: 'Representative ID of relation between file, fileUser and the visible element on pdf'
+              description: 'Representative ID of relation between file, signRequest and the visible element on pdf'
               example: 123
           required:
-            - fileUserId
+            - signRequestId
     pdfPage:
       type: object
       description: Metadata of PDF page on image format
@@ -3085,7 +3216,7 @@ components:
           type: string
           description: Returned when the status is error. Is a tip to solve the problem.
           example: install java
-    certificate:
+    certificate-cfssl:
       type: object
       properties:
         rootCert:
@@ -3124,4 +3255,39 @@ components:
       required:
         - rootCert
         - cfsslUri
+        - configPath
+    certificate-openssl:
+      type: object
+      properties:
+        rootCert:
+          type: object
+          description: Data to generate root certificate
+          properties:
+            commonName:
+              type: string
+              description: Common name
+              example: CommonName
+            names:
+              type: array
+              description: Custom cert name options
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Short identifier
+                    example: C
+                  value:
+                    type: string
+                    description: Value of ID
+                    example: BR
+        configPath:
+          type: string
+          description: The path that Nextcloud should save the OpenSSL root certificate.
+          example: /openssl/
+        generated:
+          type: boolean
+          description: Is OpenSSL certificate generated?
+      required:
+        - rootCert
         - configPath
