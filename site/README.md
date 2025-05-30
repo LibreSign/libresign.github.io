@@ -1,5 +1,7 @@
 ---
 home: true
+layout: Redirect
+redirect: https://docs.libresign.coop/developer_manual/
 actionText: To be libre →
 actionLink: /Getting-started
 features:
