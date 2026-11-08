@@ -1,28 +1,39 @@
-name: Build and deploy
+name: Deploy legacy documentation redirects
+
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: legacy-pages
+  cancel-in-progress: false
+
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup node.js 🔨
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 22
 
-      - name: Install and Build 🔧
-        run: |
-          cd site
-          yarn
-          ./node_modules/.bin/vuepress build
+      - name: Validate legacy redirect mappings
+        run: node --test scripts/test-redirects.mjs
 
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.0.0
+      - name: Generate static redirect pages
+        run: node scripts/build-redirects.mjs dist
+
+      - name: Publish GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: site/.vuepress/dist
+          folder: dist
+          clean: true
