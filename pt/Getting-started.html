@@ -1,36 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Pré-requisitos | LibreSign</title>
-    <meta name="generator" content="VuePress 1.9.10">
-    
-    <meta name="description" content="App de assinatura digital livre para Nextcloud.">
-    
-    <link rel="preload" href="/assets/css/2.styles.e6536e8a.css" as="style"><link rel="preload" href="/assets/js/app.a2801315.js" as="script"><link rel="preload" href="/assets/js/4.f5b6bc8b.js" as="script"><link rel="preload" href="/assets/js/8.0b618a92.js" as="script"><link rel="prefetch" href="/assets/js/0.5ada3c06.js"><link rel="prefetch" href="/assets/js/10.735434b1.js"><link rel="prefetch" href="/assets/js/11.b44156a8.js"><link rel="prefetch" href="/assets/js/3.b6de2e86.js"><link rel="prefetch" href="/assets/js/5.465e120f.js"><link rel="prefetch" href="/assets/js/6.420bd02e.js"><link rel="prefetch" href="/assets/js/7.7b937bdd.js"><link rel="prefetch" href="/assets/js/9.0c916a3f.js">
-    <link rel="stylesheet" href="/assets/css/2.styles.e6536e8a.css">
-  </head>
-  <body>
-    <div id="app" data-server-rendered="true"><div class="content__default"><h1 id="pre-requisitos"><a href="#pre-requisitos" class="header-anchor">#</a> Pré-requisitos</h1> <ul><li>Todas as requisições precisam ter <code>Content-Type</code> com <code>application/json</code>.</li> <li>A API é acesívem em https://nextcloud.local/index.php/apps/libresign/api/v1.0</li> <li>Todos os parâmetros são necesários exceto se for especificado que não são.</li></ul> <h1 id="cabecalhos"><a href="#cabecalhos" class="header-anchor">#</a> Cabeçalhos</h1> <p>Leia https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization</p> <p>Exemplo:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token punctuation">\</span>
-  http://localhost/index.php/apps/libresign/api/v1/webhook/register <span class="token punctuation">\</span>
-  <span class="token parameter variable">-H</span> <span class="token string">'Accept: application/json'</span> <span class="token punctuation">\</span>
-  <span class="token parameter variable">-H</span> <span class="token string">'Authorization: Basic YWRtaW46YWRtaW4='</span> <span class="token punctuation">\</span>
-  <span class="token parameter variable">-H</span> <span class="token string">'Content-Type: application/json'</span>
-  <span class="token parameter variable">-d</span> <span class="token string">'{
-	&quot;file&quot;: {
-		&quot;url&quot;: &quot;https://test.coop/test.pdf&quot;
-	},
-	&quot;name&quot;: &quot;test&quot;,
-	&quot;users&quot;: [
-		{
-			&quot;display_name&quot;: &quot;Jhon Doe&quot;,
-			&quot;email&quot;: &quot;jhondoe@test.coop&quot;,
-			&quot;description&quot;: &quot;Lorem ipsum&quot;
-		}
-	]
-}'</span>
-</code></pre></div><h1 id="endpoints"><a href="#endpoints" class="header-anchor">#</a> Endpoints</h1> <p><a href="api">Documetnação da Api</a></p></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.a2801315.js" defer></script><script src="/assets/js/4.f5b6bc8b.js" defer></script><script src="/assets/js/8.0b618a92.js" defer></script>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <meta http-equiv="refresh" content="0; url=https://docs.libresign.coop/developer_manual/api/guide-api.html">
+  <link rel="canonical" href="https://docs.libresign.coop/developer_manual/api/guide-api.html">
+  <title>LibreSign documentation has moved</title>
+</head>
+<body>
+  <p>The LibreSign documentation has moved. <a href="https://docs.libresign.coop/developer_manual/api/guide-api.html">Open the current documentation</a>.</p>
+</body>
 </html>
